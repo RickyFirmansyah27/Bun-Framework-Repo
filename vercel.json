@@ -1,15 +1,35 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "src/index.ts",
-        "use": "@vercel/node"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "src/index.ts"
-      }
-    ]
-  }
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/index.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/express/(.*)",
+      "dest": "src/framework/express.ts"
+    },
+    {
+      "src": "/koa/(.*)",
+      "dest": "src/framework/koa.ts"
+    },
+    {
+      "src": "/fastify/(.*)",
+      "dest": "src/framework/fastify.ts"
+    },
+    {
+      "src": "/hono/(.*)",
+      "dest": "src/framework/hono.ts"
+    },
+    {
+      "src": "/elysia/(.*)",
+      "dest": "src/framework/elysia.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "src/index.ts"
+    }
+  ]
+}
