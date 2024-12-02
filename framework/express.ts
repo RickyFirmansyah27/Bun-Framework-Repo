@@ -4,7 +4,7 @@ const app: Express = express();
 const port = 8001;
 
 // Middleware
-app.get('/hello', (request, reply) => {
+app.get('/', (request, reply) => {
     reply.send({ 
       message: 'Selamat datang di Express API', 
       status: 'online' 

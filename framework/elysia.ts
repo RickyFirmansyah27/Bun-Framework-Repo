@@ -6,7 +6,7 @@ const app = new Elysia();
 const port = 8003
 
 // Definisikan rute
-app.get('/hello', (req) => {
+app.get('/', (req) => {
   return 'Selamat datang di Elysia API';
 });
 

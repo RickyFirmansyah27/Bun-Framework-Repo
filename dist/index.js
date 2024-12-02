@@ -1,4 +1,4 @@
-import { createRequire } from "node:module";
+// @bun
 var __create = Object.create;
 var __getProtoOf = Object.getPrototypeOf;
 var __defProp = Object.defineProperty;
@@ -25,7 +25,6 @@ var __export = (target, all) => {
       set: (newValue) => all[name] = () => newValue
     });
 };
-var __require = /* @__PURE__ */ createRequire(import.meta.url);
 
 // node_modules/bytes/index.js
 var require_bytes = __commonJS((exports, module) => {
@@ -523,7 +522,7 @@ var require_depd = __commonJS((exports, module) => {
    * Copyright(c) 2014-2018 Douglas Christopher Wilson
    * MIT Licensed
    */
-  var relative = __require("path").relative;
+  var relative = import.meta.require("path").relative;
   module.exports = depd;
   var basePath = process.cwd();
 });
@@ -721,7 +720,7 @@ var require_inherits_browser = __commonJS((exports, module) => {
 // node_modules/inherits/inherits.js
 var require_inherits = __commonJS((exports, module) => {
   try {
-    util = __require("util");
+    util = import.meta.require("util");
     if (typeof util.inherits !== "function")
       throw "";
     module.exports = util.inherits;
@@ -1240,13 +1239,13 @@ var require_node = __commonJS((exports, module) => {
         }
         break;
       case "FILE":
-        var fs = __require("fs");
+        var fs = import.meta.require("fs");
         stream2 = new fs.SyncWriteStream(fd2, { autoClose: false });
         stream2._type = "fs";
         break;
       case "PIPE":
       case "TCP":
-        var net = __require("net");
+        var net = import.meta.require("net");
         stream2 = new net.Socket({
           fd: fd2,
           readable: false,
@@ -1273,8 +1272,8 @@ var require_node = __commonJS((exports, module) => {
       debug.inspectOpts[keys[i]] = exports.inspectOpts[keys[i]];
     }
   }
-  var tty = __require("tty");
-  var util = __require("util");
+  var tty = import.meta.require("tty");
+  var util = import.meta.require("util");
   exports = module.exports = require_debug();
   exports.init = init;
   exports.log = log;
@@ -1412,16 +1411,16 @@ var require_destroy = __commonJS((exports, module) => {
    * Copyright(c) 2015-2022 Douglas Christopher Wilson
    * MIT Licensed
    */
-  var EventEmitter = __require("events").EventEmitter;
-  var ReadStream = __require("fs").ReadStream;
-  var Stream = __require("stream");
-  var Zlib = __require("zlib");
+  var EventEmitter = import.meta.require("events").EventEmitter;
+  var ReadStream = import.meta.require("fs").ReadStream;
+  var Stream = import.meta.require("stream");
+  var Zlib = import.meta.require("zlib");
   module.exports = destroy;
 });
 
 // node_modules/safer-buffer/safer.js
 var require_safer = __commonJS((exports, module) => {
-  var buffer = __require("buffer");
+  var buffer = import.meta.require("buffer");
   var Buffer2 = buffer.Buffer;
   var safer = {};
   var key;
@@ -1576,7 +1575,7 @@ var require_internal = __commonJS((exports, module) => {
   };
   InternalCodec.prototype.encoder = InternalEncoder;
   InternalCodec.prototype.decoder = InternalDecoder;
-  var StringDecoder = __require("string_decoder").StringDecoder;
+  var StringDecoder = import.meta.require("string_decoder").StringDecoder;
   if (!StringDecoder.prototype.end)
     StringDecoder.prototype.end = function() {
     };
@@ -4388,8 +4387,8 @@ var require_streams = __commonJS((exports, module) => {
     options.encoding = this.encoding = "utf8";
     Transform.call(this, options);
   }
-  var Buffer2 = __require("buffer").Buffer;
-  var Transform = __require("stream").Transform;
+  var Buffer2 = import.meta.require("buffer").Buffer;
+  var Transform = import.meta.require("stream").Transform;
   module.exports = function(iconv) {
     iconv.encodeStream = function encodeStream(encoding, options) {
       return new IconvLiteEncoderStream(iconv.getEncoder(encoding, options), options);
@@ -4478,7 +4477,7 @@ var require_streams = __commonJS((exports, module) => {
 
 // node_modules/iconv-lite/lib/extend-node.js
 var require_extend_node = __commonJS((exports, module) => {
-  var Buffer2 = __require("buffer").Buffer;
+  var Buffer2 = import.meta.require("buffer").Buffer;
   module.exports = function(iconv) {
     var original = undefined;
     iconv.supportsNodeEncodingsExtension = !(Buffer2.from || new Buffer2(0) instanceof Uint8Array);
@@ -4506,7 +4505,7 @@ var require_extend_node = __commonJS((exports, module) => {
       Buffer2.isNativeEncoding = function(enc) {
         return enc && nodeNativeEncodings[enc.toLowerCase()];
       };
-      var SlowBuffer = __require("buffer").SlowBuffer;
+      var SlowBuffer = import.meta.require("buffer").SlowBuffer;
       original.SlowBufferToString = SlowBuffer.prototype.toString;
       SlowBuffer.prototype.toString = function(encoding, start, end) {
         encoding = String(encoding || "utf8").toLowerCase();
@@ -4610,7 +4609,7 @@ var require_extend_node = __commonJS((exports, module) => {
         return length;
       };
       if (iconv.supportsStreams) {
-        var Readable = __require("stream").Readable;
+        var Readable = import.meta.require("stream").Readable;
         original.ReadableSetEncoding = Readable.prototype.setEncoding;
         Readable.prototype.setEncoding = function setEncoding(enc, options) {
           this._readableState.decoder = iconv.getDecoder(enc, options);
@@ -4625,7 +4624,7 @@ var require_extend_node = __commonJS((exports, module) => {
       if (!original)
         throw new Error("require('iconv-lite').undoExtendNodeEncodings(): Nothing to undo; extendNodeEncodings() is not called.");
       delete Buffer2.isNativeEncoding;
-      var SlowBuffer = __require("buffer").SlowBuffer;
+      var SlowBuffer = import.meta.require("buffer").SlowBuffer;
       SlowBuffer.prototype.toString = original.SlowBufferToString;
       SlowBuffer.prototype.write = original.SlowBufferWrite;
       Buffer2.isEncoding = original.BufferIsEncoding;
@@ -4633,7 +4632,7 @@ var require_extend_node = __commonJS((exports, module) => {
       Buffer2.prototype.toString = original.BufferToString;
       Buffer2.prototype.write = original.BufferWrite;
       if (iconv.supportsStreams) {
-        var Readable = __require("stream").Readable;
+        var Readable = import.meta.require("stream").Readable;
         Readable.prototype.setEncoding = original.ReadableSetEncoding;
         delete Readable.prototype.collect;
       }
@@ -4950,7 +4949,7 @@ var require_raw_body = __commonJS((exports, module) => {
   }
   function tryRequireAsyncHooks() {
     try {
-      return __require("async_hooks");
+      return import.meta.require("async_hooks");
     } catch (e) {
       return {};
     }
@@ -5120,7 +5119,7 @@ var require_on_finished = __commonJS((exports, module) => {
   }
   function tryRequireAsyncHooks() {
     try {
-      return __require("async_hooks");
+      return import.meta.require("async_hooks");
     } catch (e) {
       return {};
     }
@@ -5275,7 +5274,7 @@ var require_read = __commonJS((exports, module) => {
   var iconv = require_lib();
   var onFinished = require_on_finished();
   var unpipe = require_unpipe();
-  var zlib = __require("zlib");
+  var zlib = import.meta.require("zlib");
   module.exports = read;
 });
 
@@ -14021,7 +14020,7 @@ var require_mime_types = __commonJS((exports) => {
    * MIT Licensed
    */
   var db = require_mime_db();
-  var extname = __require("path").extname;
+  var extname = import.meta.require("path").extname;
   var EXTRACT_TYPE_REGEXP = /^\s*([^;\s]*)(?:;|\s|$)/;
   var TEXT_TYPE_REGEXP = /^text\//i;
   exports.charset = charset;
@@ -15087,7 +15086,7 @@ var require_callBound = __commonJS((exports, module) => {
 
 // node_modules/object-inspect/util.inspect.js
 var require_util_inspect = __commonJS((exports, module) => {
-  module.exports = __require("util").inspect;
+  module.exports = import.meta.require("util").inspect;
 });
 
 // node_modules/object-inspect/index.js
@@ -16549,7 +16548,7 @@ var require_urlencoded = __commonJS((exports, module) => {
         mod = require_lib2();
         break;
       case "querystring":
-        mod = __require("querystring");
+        mod = import.meta.require("querystring");
         break;
     }
     parsers[name] = mod;
@@ -16847,7 +16846,7 @@ var require_parseurl = __commonJS((exports, module) => {
    * Copyright(c) 2014-2017 Douglas Christopher Wilson
    * MIT Licensed
    */
-  var url = __require("url");
+  var url = import.meta.require("url");
   var parse = url.parse;
   var Url = url.Url;
   module.exports = parseurl;
@@ -17275,7 +17274,7 @@ var require_methods = __commonJS((exports, module) => {
    * Copyright(c) 2015-2016 Douglas Christopher Wilson
    * MIT Licensed
    */
-  var http = __require("http");
+  var http = import.meta.require("http");
   module.exports = getCurrentNodeMethods() || getBasicNodeMethods();
 });
 
@@ -17873,7 +17872,7 @@ var require_view = __commonJS((exports, module) => {
     if (!opts.engines[this.ext]) {
       var mod = this.ext.slice(1);
       debug('require "%s"', mod);
-      var fn2 = __require(mod).__express;
+      var fn2 = import.meta.require(mod).__express;
       if (typeof fn2 !== "function") {
         throw new Error('Module "' + mod + '" does not provide a view engine.');
       }
@@ -17898,8 +17897,8 @@ var require_view = __commonJS((exports, module) => {
    * MIT Licensed
    */
   var debug = require_src()("express:view");
-  var path = __require("path");
-  var fs = __require("fs");
+  var path = import.meta.require("path");
+  var fs = import.meta.require("fs");
   var dirname = path.dirname;
   var basename = path.basename;
   var extname = path.extname;
@@ -17949,7 +17948,7 @@ var require_safe_buffer = __commonJS((exports, module) => {
     return Buffer2(arg, encodingOrOffset, length);
   }
   /*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
-  var buffer = __require("buffer");
+  var buffer = import.meta.require("buffer");
   var Buffer2 = buffer.Buffer;
   if (Buffer2.from && Buffer2.alloc && Buffer2.allocUnsafe && Buffer2.allocUnsafeSlow) {
     module.exports = buffer;
@@ -18145,7 +18144,7 @@ var require_content_disposition = __commonJS((exports, module) => {
    */
   module.exports = contentDisposition;
   module.exports.parse = parse;
-  var basename = __require("path").basename;
+  var basename = import.meta.require("path").basename;
   var Buffer2 = require_safe_buffer().Buffer;
   var ENCODE_URL_ATTR_CHAR_REGEXP = /[\x00-\x20"'()*,/:;<=>?@[\\\]{}\x7f]/g;
   var HEX_ESCAPE_REGEXP = /%[0-9A-Fa-f]{2}/;
@@ -18215,8 +18214,8 @@ var require_etag = __commonJS((exports, module) => {
    * MIT Licensed
    */
   module.exports = etag;
-  var crypto2 = __require("crypto");
-  var Stats = __require("fs").Stats;
+  var crypto2 = import.meta.require("crypto");
+  var Stats = import.meta.require("fs").Stats;
   var toString = Object.prototype.toString;
 });
 
@@ -18307,8 +18306,8 @@ var require_mime = __commonJS((exports, module) => {
     this.types = Object.create(null);
     this.extensions = Object.create(null);
   }
-  var path = __require("path");
-  var fs = __require("fs");
+  var path = import.meta.require("path");
+  var fs = import.meta.require("fs");
   Mime.prototype.define = function(map) {
     for (var type in map) {
       var exts = map[type];
@@ -18697,15 +18696,15 @@ var require_send = __commonJS((exports, module) => {
   var escapeHtml = require_escape_html();
   var etag = require_etag();
   var fresh = require_fresh();
-  var fs = __require("fs");
+  var fs = import.meta.require("fs");
   var mime = require_mime();
   var ms = require_ms2();
   var onFinished = require_on_finished();
   var parseRange = require_range_parser();
-  var path = __require("path");
+  var path = import.meta.require("path");
   var statuses = require_statuses();
-  var Stream = __require("stream");
-  var util = __require("util");
+  var Stream = import.meta.require("stream");
+  var util = import.meta.require("util");
   var extname = path.extname;
   var join = path.join;
   var normalize = path.normalize;
@@ -19975,7 +19974,7 @@ var require_utils2 = __commonJS((exports) => {
   var etag = require_etag();
   var proxyaddr = require_proxy_addr();
   var qs = require_lib2();
-  var querystring = __require("querystring");
+  var querystring = import.meta.require("querystring");
   exports.etag = createETagGenerator({ weak: false });
   exports.wetag = createETagGenerator({ weak: true });
   exports.isAbsolute = function(path) {
@@ -20096,14 +20095,14 @@ var require_application = __commonJS((exports, module) => {
   var query = require_query();
   var debug = require_src()("express:application");
   var View = require_view();
-  var http = __require("http");
+  var http = import.meta.require("http");
   var compileETag = require_utils2().compileETag;
   var compileQueryParser = require_utils2().compileQueryParser;
   var compileTrust = require_utils2().compileTrust;
   var deprecate2 = require_depd()("express");
   var flatten = require_array_flatten();
   var merge = require_utils_merge();
-  var resolve = __require("path").resolve;
+  var resolve = import.meta.require("path").resolve;
   var setPrototypeOf = require_setprototypeof();
   var hasOwnProperty = Object.prototype.hasOwnProperty;
   var slice = Array.prototype.slice;
@@ -20948,9 +20947,9 @@ var require_request = __commonJS((exports, module) => {
    */
   var accepts = require_accepts();
   var deprecate2 = require_depd()("express");
-  var isIP = __require("net").isIP;
+  var isIP = import.meta.require("net").isIP;
   var typeis = require_type_is();
-  var http = __require("http");
+  var http = import.meta.require("http");
   var fresh = require_fresh();
   var parseRange = require_range_parser();
   var parse = require_parseurl();
@@ -21101,7 +21100,7 @@ var require_cookie_signature = __commonJS((exports) => {
   function sha1(str) {
     return crypto2.createHash("sha1").update(str).digest("hex");
   }
-  var crypto2 = __require("crypto");
+  var crypto2 = import.meta.require("crypto");
   exports.sign = function(val, secret) {
     if (typeof val != "string")
       throw new TypeError("Cookie value must be provided as a string.");
@@ -21472,10 +21471,10 @@ var require_response = __commonJS((exports, module) => {
   var deprecate2 = require_depd()("express");
   var encodeUrl = require_encodeurl();
   var escapeHtml = require_escape_html();
-  var http = __require("http");
+  var http = import.meta.require("http");
   var isAbsolute = require_utils2().isAbsolute;
   var onFinished = require_on_finished();
-  var path = __require("path");
+  var path = import.meta.require("path");
   var statuses = require_statuses();
   var merge = require_utils_merge();
   var sign = require_cookie_signature().sign;
@@ -22025,9 +22024,9 @@ var require_serve_static = __commonJS((exports, module) => {
   var encodeUrl = require_encodeurl();
   var escapeHtml = require_escape_html();
   var parseUrl = require_parseurl();
-  var resolve = __require("path").resolve;
+  var resolve = import.meta.require("path").resolve;
   var send = require_send();
-  var url = __require("url");
+  var url = import.meta.require("url");
   module.exports = serveStatic;
   module.exports.mime = send.mime;
 });
@@ -22057,7 +22056,7 @@ var require_express = __commonJS((exports, module) => {
    * MIT Licensed
    */
   var bodyParser = require_body_parser();
-  var EventEmitter = __require("events").EventEmitter;
+  var EventEmitter = import.meta.require("events").EventEmitter;
   var mixin = require_merge_descriptors();
   var proto = require_application();
   var Route = require_route();
@@ -22118,7 +22117,7 @@ var require_express2 = __commonJS((exports, module) => {
 });
 
 // node_modules/cookie/dist/index.js
-var require_dist = __commonJS((exports) => {
+var require_dist2 = __commonJS((exports) => {
   function parse3(str, options) {
     const obj = new NullObject;
     const len = str.length;
@@ -22273,453 +22272,6 @@ var require_dist = __commonJS((exports) => {
   })();
 });
 
-// node_modules/fast-decode-uri-component/index.js
-var require_fast_decode_uri_component = __commonJS((exports, module) => {
-  function decodeURIComponent2(uri) {
-    var percentPosition = uri.indexOf("%");
-    if (percentPosition === -1)
-      return uri;
-    var length = uri.length;
-    var decoded = "";
-    var last = 0;
-    var codepoint = 0;
-    var startOfOctets = percentPosition;
-    var state = UTF8_ACCEPT;
-    while (percentPosition > -1 && percentPosition < length) {
-      var high = hexCodeToInt(uri[percentPosition + 1], 4);
-      var low = hexCodeToInt(uri[percentPosition + 2], 0);
-      var byte = high | low;
-      var type3 = UTF8_DATA[byte];
-      state = UTF8_DATA[256 + state + type3];
-      codepoint = codepoint << 6 | byte & UTF8_DATA[364 + type3];
-      if (state === UTF8_ACCEPT) {
-        decoded += uri.slice(last, startOfOctets);
-        decoded += codepoint <= 65535 ? String.fromCharCode(codepoint) : String.fromCharCode(55232 + (codepoint >> 10), 56320 + (codepoint & 1023));
-        codepoint = 0;
-        last = percentPosition + 3;
-        percentPosition = startOfOctets = uri.indexOf("%", last);
-      } else if (state === UTF8_REJECT) {
-        return null;
-      } else {
-        percentPosition += 3;
-        if (percentPosition < length && uri.charCodeAt(percentPosition) === 37)
-          continue;
-        return null;
-      }
-    }
-    return decoded + uri.slice(last);
-  }
-  function hexCodeToInt(c, shift) {
-    var i = HEX[c];
-    return i === undefined ? 255 : i << shift;
-  }
-  var UTF8_ACCEPT = 12;
-  var UTF8_REJECT = 0;
-  var UTF8_DATA = [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    2,
-    2,
-    2,
-    2,
-    2,
-    2,
-    2,
-    2,
-    2,
-    2,
-    2,
-    2,
-    2,
-    2,
-    2,
-    2,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-    4,
-    4,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    5,
-    6,
-    7,
-    7,
-    7,
-    7,
-    7,
-    7,
-    7,
-    7,
-    7,
-    7,
-    7,
-    7,
-    8,
-    7,
-    7,
-    10,
-    9,
-    9,
-    9,
-    11,
-    4,
-    4,
-    4,
-    4,
-    4,
-    4,
-    4,
-    4,
-    4,
-    4,
-    4,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    12,
-    0,
-    0,
-    0,
-    0,
-    24,
-    36,
-    48,
-    60,
-    72,
-    84,
-    96,
-    0,
-    12,
-    12,
-    12,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    24,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    24,
-    24,
-    24,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    24,
-    24,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    48,
-    48,
-    48,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    48,
-    48,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    48,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    127,
-    63,
-    63,
-    63,
-    0,
-    31,
-    15,
-    15,
-    15,
-    7,
-    7,
-    7
-  ];
-  var HEX = {
-    "0": 0,
-    "1": 1,
-    "2": 2,
-    "3": 3,
-    "4": 4,
-    "5": 5,
-    "6": 6,
-    "7": 7,
-    "8": 8,
-    "9": 9,
-    a: 10,
-    A: 10,
-    b: 11,
-    B: 11,
-    c: 12,
-    C: 12,
-    d: 13,
-    D: 13,
-    e: 14,
-    E: 14,
-    f: 15,
-    F: 15
-  };
-  module.exports = decodeURIComponent2;
-});
-
 // node_modules/process-warning/index.js
 var require_process_warning = __commonJS((exports, module) => {
   function createDeprecation(params) {
@@ -22772,7 +22324,7 @@ var require_process_warning = __commonJS((exports, module) => {
     };
     return warning;
   }
-  var { format } = __require("node:util");
+  var { format } = import.meta.require("util");
   var out = { createWarning, createDeprecation };
   module.exports = out;
   module.exports.default = out;
@@ -22781,7 +22333,7 @@ var require_process_warning = __commonJS((exports, module) => {
 
 // node_modules/light-my-request/lib/parse-url.js
 var require_parse_url = __commonJS((exports, module) => {
-  var { URL: URL2 } = __require("node:url");
+  var { URL: URL2 } = import.meta.require("url");
   var BASE_URL = "http://localhost";
   module.exports = function parseURL(url, query) {
     if ((typeof url === "string" || Object.prototype.toString.call(url) === "[object String]") && url.startsWith("//")) {
@@ -22853,8 +22405,8 @@ var require_form_data = __commonJS((exports, module) => {
       contentType: `multipart/form-data; boundary=${boundary}`
     };
   }
-  var { randomUUID } = __require("node:crypto");
-  var { Readable } = __require("node:stream");
+  var { randomUUID } = import.meta.require("crypto");
+  var { Readable } = import.meta.require("stream");
   var textEncoder;
   exports.isFormDataLike = isFormDataLike;
   exports.formDataToStream = formDataToStream;
@@ -22957,14 +22509,14 @@ var require_request2 = __commonJS((exports, module) => {
     }
     return this;
   }
-  var { Readable, addAbortSignal } = __require("node:stream");
-  var util = __require("node:util");
-  var cookie = require_dist();
-  var assert = __require("node:assert");
+  var { Readable, addAbortSignal } = import.meta.require("stream");
+  var util = import.meta.require("util");
+  var cookie = require_dist2();
+  var assert = import.meta.require("assert");
   var { createDeprecation } = require_process_warning();
   var parseURL = require_parse_url();
   var { isFormDataLike, formDataToStream } = require_form_data();
-  var { EventEmitter } = __require("node:events");
+  var { EventEmitter } = import.meta.require("events");
   var FST_LIGHTMYREQUEST_DEP01 = createDeprecation({
     name: "FastifyDeprecationLightMyRequest",
     code: "FST_LIGHTMYREQUEST_DEP01",
@@ -23092,7 +22644,7 @@ var require_set_cookie = __commonJS((exports, module) => {
     }
     return { name, value: value2 };
   }
-  function parse4(input, options) {
+  function parse3(input, options) {
     options = options ? Object.assign({}, defaultParseOptions, options) : defaultParseOptions;
     if (!input) {
       if (!options.map) {
@@ -23192,8 +22744,8 @@ var require_set_cookie = __commonJS((exports, module) => {
     map: false,
     silent: false
   };
-  module.exports = parse4;
-  module.exports.parse = parse4;
+  module.exports = parse3;
+  module.exports.parse = parse3;
   module.exports.parseString = parseString;
   module.exports.splitCookiesString = splitCookiesString;
 });
@@ -23325,9 +22877,9 @@ var require_response2 = __commonJS((exports, module) => {
       }
     });
   }
-  var http = __require("node:http");
-  var { Writable, Readable, addAbortSignal } = __require("node:stream");
-  var util = __require("node:util");
+  var http = import.meta.require("http");
+  var { Writable, Readable, addAbortSignal } = import.meta.require("stream");
+  var util = import.meta.require("util");
   var setCookie = require_set_cookie();
   util.inherits(Response2, http.ServerResponse);
   Response2.prototype.setTimeout = function(msecs, callback) {
@@ -24275,7 +23827,7 @@ var require_light_my_request = __commonJS((exports, module) => {
   function isInjection(obj) {
     return obj instanceof Request2 || obj instanceof Response2 || obj && obj.constructor && obj.constructor.name === "_CustomLMRRequest";
   }
-  var assert = __require("node:assert");
+  var assert = import.meta.require("assert");
   var Request2 = require_request2();
   var Response2 = require_response2();
   var errorMessage = "The dispatch function has already been invoked";
@@ -24672,7 +24224,7 @@ var require_error = __commonJS((exports, module) => {
     FastifyError.prototype.toString = toString;
     return FastifyError;
   }
-  var { format } = __require("node:util");
+  var { format } = import.meta.require("util");
   module.exports = createError;
   module.exports.default = createError;
   module.exports.createError = createError;
@@ -24832,7 +24384,7 @@ var require_time_tree = __commonJS((exports, module) => {
 
 // node_modules/avvio/lib/debug.js
 var require_debug2 = __commonJS((exports, module) => {
-  var { debuglog } = __require("node:util");
+  var { debuglog } = import.meta.require("util");
   var debug = debuglog("avvio");
   module.exports = {
     debug
@@ -24907,8 +24459,8 @@ var require_plugin = __commonJS((exports, module) => {
   }
   function noop() {
   }
-  var { EventEmitter } = __require("node:events");
-  var { inherits } = __require("node:util");
+  var { EventEmitter } = import.meta.require("events");
+  var { inherits } = import.meta.require("util");
   var { debug } = require_debug2();
   var { createPromise } = require_create_promise();
   var { AVV_ERR_PLUGIN_EXEC_TIMEOUT } = require_errors();
@@ -25341,8 +24893,8 @@ var require_boot = __commonJS((exports, module) => {
     }
   }
   var fastq = require_queue();
-  var EE = __require("node:events").EventEmitter;
-  var inherits = __require("node:util").inherits;
+  var EE = import.meta.require("events").EventEmitter;
+  var inherits = import.meta.require("util").inherits;
   var {
     AVV_ERR_EXPOSE_ALREADY_DEFINED,
     AVV_ERR_CALLBACK_NOT_FN,
@@ -26383,7 +25935,7 @@ var require_server = __commonJS((exports, module) => {
   }
   function http2() {
     try {
-      return __require("node:http2");
+      return import.meta.require("http2");
     } catch (err) {
       throw new FST_ERR_HTTP2_INVALID_VERSION;
     }
@@ -26396,10 +25948,10 @@ var require_server = __commonJS((exports, module) => {
   function close() {
     this.close();
   }
-  var http = __require("node:http");
-  var https = __require("node:https");
-  var dns = __require("node:dns");
-  var os = __require("node:os");
+  var http = import.meta.require("http");
+  var https = import.meta.require("https");
+  var dns = import.meta.require("dns");
+  var os = import.meta.require("os");
   var { kState, kOptions, kServerBindings } = require_symbols2();
   var { onListenHookRunner } = require_hooks();
   var {
@@ -26713,7 +26265,7 @@ var require_wrapThenable = __commonJS((exports, module) => {
     kReplyIsError,
     kReplyHijacked
   } = require_symbols2();
-  var diagnostics = __require("node:diagnostics_channel");
+  var diagnostics = import.meta.require("diagnostics_channel");
   var channels = diagnostics.tracingChannel("fastify.request.handler");
   module.exports = wrapThenable;
 });
@@ -26853,7 +26405,7 @@ var require_handleRequest = __commonJS((exports, module) => {
         channels.end.publish(store);
     }
   }
-  var diagnostics = __require("node:diagnostics_channel");
+  var diagnostics = import.meta.require("diagnostics_channel");
   var { validate: validateSchema } = require_validation();
   var { preValidationHookRunner, preHandlerHookRunner } = require_hooks();
   var wrapThenable = require_wrapThenable();
@@ -27246,7 +26798,7 @@ var require_pino_std_serializers = __commonJS((exports, module) => {
 
 // node_modules/pino/lib/caller.js
 var require_caller = __commonJS((exports, module) => {
-  function noOpPrepareStackTrace(_, stack2) {
+  function noOpPrepareStackTrace(_2, stack2) {
     return stack2;
   }
   module.exports = function getCallers() {
@@ -27282,7 +26834,7 @@ var require_validator = __commonJS((exports, module) => {
           throw Error(ERR_PATHS_MUST_BE_STRINGS());
         }
         try {
-          if (/〇/.test(s))
+          if (/\u3007/.test(s))
             throw Error();
           const expr = (s[0] === "[" ? "" : ".") + s.replace(/^\*/, "\u3007").replace(/\.\*/g, ".\u3007").replace(/\[\*\]/g, "[\u3007]");
           if (/\n|\r|;/.test(expr))
@@ -27311,7 +26863,7 @@ var require_rx = __commonJS((exports, module) => {
 
 // node_modules/fast-redact/lib/parse.js
 var require_parse2 = __commonJS((exports, module) => {
-  function parse4({ paths }) {
+  function parse3({ paths }) {
     const wildcards = [];
     var wcLen = 0;
     const secret = paths.reduce(function(o, strPath, ix) {
@@ -27351,15 +26903,15 @@ var require_parse2 = __commonJS((exports, module) => {
     return { wildcards, wcLen, secret };
   }
   var rx = require_rx();
-  module.exports = parse4;
+  module.exports = parse3;
 });
 
 // node_modules/fast-redact/lib/redactor.js
 var require_redactor = __commonJS((exports, module) => {
-  function redactor({ secret, serialize: serialize3, wcLen, strict: strict3, isCensorFct, censorFctTakesPath }, state) {
+  function redactor({ secret, serialize: serialize2, wcLen, strict: strict3, isCensorFct, censorFctTakesPath }, state) {
     const redact = Function("o", `
     if (typeof o !== 'object' || o == null) {
-      ${strictImpl(strict3, serialize3)}
+      ${strictImpl(strict3, serialize2)}
     }
     const { censor, secret } = this
     const originalSecret = {}
@@ -27372,10 +26924,10 @@ var require_redactor = __commonJS((exports, module) => {
     this.compileRestore()
     ${dynamicRedactTmpl(wcLen > 0, isCensorFct, censorFctTakesPath)}
     this.secret = originalSecret
-    ${resultTmpl(serialize3)}
+    ${resultTmpl(serialize2)}
   `).bind(state);
     redact.state = state;
-    if (serialize3 === false) {
+    if (serialize2 === false) {
       redact.restore = (o) => state.restore(o);
     }
     return redact;
@@ -27436,15 +26988,15 @@ var require_redactor = __commonJS((exports, module) => {
     }
   ` : "";
   }
-  function resultTmpl(serialize3) {
-    return serialize3 === false ? `return o` : `
+  function resultTmpl(serialize2) {
+    return serialize2 === false ? `return o` : `
     var s = this.serialize(o)
     this.restore(o)
     return s
   `;
   }
-  function strictImpl(strict3, serialize3) {
-    return strict3 === true ? `throw Error('fast-redact: primitives cannot be redacted')` : serialize3 === false ? `return o` : `return this.serialize(o)`;
+  function strictImpl(strict3, serialize2) {
+    return strict3 === true ? `throw Error('fast-redact: primitives cannot be redacted')` : serialize2 === false ? `return o` : `return this.serialize(o)`;
   }
   var rx = require_rx();
   module.exports = redactor;
@@ -27735,15 +27287,15 @@ var require_state = __commonJS((exports, module) => {
       secret,
       censor,
       compileRestore,
-      serialize: serialize3,
+      serialize: serialize2,
       groupRedact,
       nestedRedact,
       wildcards,
       wcLen
     } = o;
     const builder = [{ secret, censor, compileRestore }];
-    if (serialize3 !== false)
-      builder.push({ serialize: serialize3 });
+    if (serialize2 !== false)
+      builder.push({ serialize: serialize2 });
     if (wcLen > 0)
       builder.push({ groupRedact, nestedRedact, wildcards, wcLen });
     return Object.assign(...builder);
@@ -27755,25 +27307,25 @@ var require_state = __commonJS((exports, module) => {
 var require_fast_redact = __commonJS((exports, module) => {
   function fastRedact(opts = {}) {
     const paths = Array.from(new Set(opts.paths || []));
-    const serialize3 = "serialize" in opts ? opts.serialize === false ? opts.serialize : typeof opts.serialize === "function" ? opts.serialize : JSON.stringify : JSON.stringify;
+    const serialize2 = "serialize" in opts ? opts.serialize === false ? opts.serialize : typeof opts.serialize === "function" ? opts.serialize : JSON.stringify : JSON.stringify;
     const remove = opts.remove;
-    if (remove === true && serialize3 !== JSON.stringify) {
+    if (remove === true && serialize2 !== JSON.stringify) {
       throw Error("fast-redact \u2013 remove option may only be set when serializer is JSON.stringify");
     }
     const censor = remove === true ? undefined : ("censor" in opts) ? opts.censor : DEFAULT_CENSOR;
     const isCensorFct = typeof censor === "function";
     const censorFctTakesPath = isCensorFct && censor.length > 1;
     if (paths.length === 0)
-      return serialize3 || noop;
-    validate({ paths, serialize: serialize3, censor });
-    const { wildcards, wcLen, secret } = parse4({ paths, censor });
+      return serialize2 || noop;
+    validate({ paths, serialize: serialize2, censor });
+    const { wildcards, wcLen, secret } = parse3({ paths, censor });
     const compileRestore = restorer();
     const strict3 = "strict" in opts ? opts.strict : true;
-    return redactor({ secret, wcLen, serialize: serialize3, strict: strict3, isCensorFct, censorFctTakesPath }, state({
+    return redactor({ secret, wcLen, serialize: serialize2, strict: strict3, isCensorFct, censorFctTakesPath }, state({
       secret,
       censor,
       compileRestore,
-      serialize: serialize3,
+      serialize: serialize2,
       groupRedact,
       nestedRedact,
       wildcards,
@@ -27781,7 +27333,7 @@ var require_fast_redact = __commonJS((exports, module) => {
     }));
   }
   var validator = require_validator();
-  var parse4 = require_parse2();
+  var parse3 = require_parse2();
   var redactor = require_redactor();
   var restorer = require_restorer();
   var { groupRedact, nestedRedact } = require_modifiers();
@@ -27866,7 +27418,7 @@ var require_symbols3 = __commonJS((exports, module) => {
 
 // node_modules/pino/lib/redaction.js
 var require_redaction = __commonJS((exports, module) => {
-  function redaction(opts, serialize3) {
+  function redaction(opts, serialize2) {
     const { paths, censor } = handle(opts);
     const shape = paths.reduce((o, str) => {
       rx.lastIndex = 0;
@@ -27900,10 +27452,10 @@ var require_redaction = __commonJS((exports, module) => {
       return o;
     }, {});
     const result = {
-      [redactFmtSym]: fastRedact({ paths, censor, serialize: serialize3, strict: strict3 })
+      [redactFmtSym]: fastRedact({ paths, censor, serialize: serialize2, strict: strict3 })
     };
     const topCensor = (...args2) => {
-      return typeof censor === "function" ? serialize3(censor(...args2)) : serialize3(censor);
+      return typeof censor === "function" ? serialize2(censor(...args2)) : serialize2(censor);
     };
     return [...Object.keys(shape), ...Object.getOwnPropertySymbols(shape)].reduce((o, k) => {
       if (shape[k] === null) {
@@ -27915,7 +27467,7 @@ var require_redaction = __commonJS((exports, module) => {
         o[k] = fastRedact({
           paths: shape[k],
           censor: wrappedCensor,
-          serialize: serialize3,
+          serialize: serialize2,
           strict: strict3
         });
       }
@@ -28600,12 +28152,12 @@ var require_sonic_boom = __commonJS((exports, module) => {
       sonic.emit("close");
     }
   }
-  var fs = __require("fs");
-  var EventEmitter = __require("events");
-  var inherits = __require("util").inherits;
-  var path = __require("path");
+  var fs = import.meta.require("fs");
+  var EventEmitter = import.meta.require("events");
+  var inherits = import.meta.require("util").inherits;
+  var path = import.meta.require("path");
   var sleep = require_atomic_sleep();
-  var assert = __require("assert");
+  var assert = import.meta.require("assert");
   var BUSY_WRITE_TIMEOUT = 100;
   var kEmptyBuffer = Buffer.allocUnsafe(0);
   var MAX_WRITE = 16 * 1024;
@@ -29154,17 +28706,17 @@ var require_thread_stream = __commonJS((exports, module) => {
   }
   var __dirname = "C:\\My File\\Program\\MyCode\\NodeJs\\Bun-Vercel-Repo\\node_modules\\thread-stream";
   var { version: version2 } = require_package();
-  var { EventEmitter } = __require("events");
-  var { Worker } = __require("worker_threads");
-  var { join } = __require("path");
-  var { pathToFileURL } = __require("url");
+  var { EventEmitter } = import.meta.require("events");
+  var { Worker } = import.meta.require("worker_threads");
+  var { join } = import.meta.require("path");
+  var { pathToFileURL } = import.meta.require("url");
   var { wait } = require_wait();
   var {
     WRITE_INDEX,
     READ_INDEX
   } = require_indexes();
-  var buffer = __require("buffer");
-  var assert = __require("assert");
+  var buffer = import.meta.require("buffer");
+  var assert = import.meta.require("assert");
   var kImpl = Symbol("kImpl");
   var MAX_STRING = buffer.constants.MAX_STRING_LENGTH;
 
@@ -29432,7 +28984,7 @@ var require_transport = __commonJS((exports, module) => {
       for (const filePath of callers) {
         try {
           const context = filePath === "node:repl" ? process.cwd() + sep : filePath;
-          fixTarget2 = createRequire2(context).resolve(origin);
+          fixTarget2 = createRequire(context).resolve(origin);
           break;
         } catch (err) {
           continue;
@@ -29445,9 +28997,9 @@ var require_transport = __commonJS((exports, module) => {
     }
   }
   var __dirname = "C:\\My File\\Program\\MyCode\\NodeJs\\Bun-Vercel-Repo\\node_modules\\pino\\lib";
-  var { createRequire: createRequire2 } = __require("module");
+  var { createRequire } = import.meta.require("module");
   var getCallers = require_caller();
-  var { join, isAbsolute, sep } = __require("node:path");
+  var { join, isAbsolute, sep } = import.meta.require("path");
   var sleep = require_atomic_sleep();
   var onExit = require_on_exit_leak_free();
   var ThreadStream = require_thread_stream();
@@ -29711,11 +29263,11 @@ var require_tools = __commonJS((exports, module) => {
   function stringify(obj, stringifySafeFn) {
     try {
       return JSON.stringify(obj);
-    } catch (_) {
+    } catch (_2) {
       try {
         const stringify2 = stringifySafeFn || this[stringifySafeSym];
         return stringify2(obj);
-      } catch (_2) {
+      } catch (_3) {
         return '"[unable to serialize, circular reference is too complex to analyze]"';
       }
     }
@@ -29759,7 +29311,7 @@ var require_tools = __commonJS((exports, module) => {
     nestedKeyStrSym,
     msgPrefixSym
   } = require_symbols3();
-  var { isMainThread } = __require("worker_threads");
+  var { isMainThread } = import.meta.require("worker_threads");
   var transport = require_transport();
   var hasNodeCodeCoverage = process.env.NODE_V8_COVERAGE || process.env.V8_COVERAGE;
   module.exports = {
@@ -30089,7 +29641,7 @@ var require_proto = __commonJS((exports, module) => {
     } else if (cb)
       cb();
   }
-  var { EventEmitter } = __require("node:events");
+  var { EventEmitter } = import.meta.require("events");
   var {
     lsCacheSym,
     levelValSym,
@@ -30991,7 +30543,7 @@ var require_pino = __commonJS((exports, module) => {
     instance[setLevelSym](level);
     return instance;
   }
-  var os = __require("node:os");
+  var os = import.meta.require("os");
   var stdSerializers = require_pino_std_serializers();
   var caller = require_caller();
   var redaction = require_redaction();
@@ -31906,7 +31458,7 @@ var require_error_handler = __commonJS((exports, module) => {
     }
     res.statusCode = statusCode;
   }
-  var statusCodes = __require("node:http").STATUS_CODES;
+  var statusCodes = import.meta.require("http").STATUS_CODES;
   var wrapThenable = require_wrapThenable();
   var {
     kReplyHeaders,
@@ -31967,7 +31519,7 @@ var require_reply = __commonJS((exports, module) => {
       } else if (reply[kRouteContext] && reply[kRouteContext][kReplySerializerDefault]) {
         payload = reply[kRouteContext][kReplySerializerDefault](payload, reply.raw.statusCode);
       } else {
-        payload = serialize3(reply[kRouteContext], payload, reply.raw.statusCode, reply[kReplyHeaders]["content-type"]);
+        payload = serialize2(reply[kRouteContext], payload, reply.raw.statusCode, reply[kReplyHeaders]["content-type"]);
       }
     } catch (e) {
       wrapSerializationError(e, reply);
@@ -32255,7 +31807,7 @@ var require_reply = __commonJS((exports, module) => {
       internals.preHandlerCallback(null, reply.request, reply);
     }
   }
-  function serialize3(context, data, statusCode, contentType) {
+  function serialize2(context, data, statusCode, contentType) {
     const fnSerialize = getSchemaSerializer(context, statusCode, contentType);
     if (fnSerialize) {
       return fnSerialize(data);
@@ -32264,8 +31816,8 @@ var require_reply = __commonJS((exports, module) => {
   }
   function noop() {
   }
-  var eos = __require("node:stream").finished;
-  var Readable = __require("node:stream").Readable;
+  var eos = import.meta.require("stream").finished;
+  var Readable = import.meta.require("stream").Readable;
   var {
     kFourOhFourContext,
     kReplyErrorHandlerCalled,
@@ -32523,17 +32075,17 @@ var require_reply = __commonJS((exports, module) => {
   };
   Reply.prototype.status = Reply.prototype.code;
   Reply.prototype.getSerializationFunction = function(schemaOrStatus, contentType) {
-    let serialize4;
+    let serialize3;
     if (typeof schemaOrStatus === "string" || typeof schemaOrStatus === "number") {
       if (typeof contentType === "string") {
-        serialize4 = this[kRouteContext][kSchemaResponse]?.[schemaOrStatus]?.[contentType];
+        serialize3 = this[kRouteContext][kSchemaResponse]?.[schemaOrStatus]?.[contentType];
       } else {
-        serialize4 = this[kRouteContext][kSchemaResponse]?.[schemaOrStatus];
+        serialize3 = this[kRouteContext][kSchemaResponse]?.[schemaOrStatus];
       }
     } else if (typeof schemaOrStatus === "object") {
-      serialize4 = this[kRouteContext][kReplyCacheSerializeFns]?.get(schemaOrStatus);
+      serialize3 = this[kRouteContext][kReplyCacheSerializeFns]?.get(schemaOrStatus);
     }
-    return serialize4;
+    return serialize3;
   };
   Reply.prototype.compileSerializationSchema = function(schema3, httpStatus = null, contentType = null) {
     const { request } = this;
@@ -32557,28 +32109,28 @@ var require_reply = __commonJS((exports, module) => {
   };
   Reply.prototype.serializeInput = function(input, schema3, httpStatus, contentType) {
     const possibleContentType = httpStatus;
-    let serialize4;
+    let serialize3;
     httpStatus = typeof schema3 === "string" || typeof schema3 === "number" ? schema3 : httpStatus;
     contentType = httpStatus && possibleContentType !== httpStatus ? possibleContentType : contentType;
     if (httpStatus != null) {
       if (contentType != null) {
-        serialize4 = this[kRouteContext][kSchemaResponse]?.[httpStatus]?.[contentType];
+        serialize3 = this[kRouteContext][kSchemaResponse]?.[httpStatus]?.[contentType];
       } else {
-        serialize4 = this[kRouteContext][kSchemaResponse]?.[httpStatus];
+        serialize3 = this[kRouteContext][kSchemaResponse]?.[httpStatus];
       }
-      if (serialize4 == null) {
+      if (serialize3 == null) {
         if (contentType)
           throw new FST_ERR_MISSING_CONTENTTYPE_SERIALIZATION_FN(httpStatus, contentType);
         throw new FST_ERR_MISSING_SERIALIZATION_FN(httpStatus);
       }
     } else {
       if (this[kRouteContext][kReplyCacheSerializeFns]?.has(schema3)) {
-        serialize4 = this[kRouteContext][kReplyCacheSerializeFns].get(schema3);
+        serialize3 = this[kRouteContext][kReplyCacheSerializeFns].get(schema3);
       } else {
-        serialize4 = this.compileSerializationSchema(schema3, httpStatus, contentType);
+        serialize3 = this.compileSerializationSchema(schema3, httpStatus, contentType);
       }
     }
-    return serialize4(input);
+    return serialize3(input);
   };
   Reply.prototype.serialize = function(payload) {
     if (this[kReplySerializer] !== null) {
@@ -32587,7 +32139,7 @@ var require_reply = __commonJS((exports, module) => {
       if (this[kRouteContext] && this[kRouteContext][kReplySerializerDefault]) {
         return this[kRouteContext][kReplySerializerDefault](payload, this.raw.statusCode);
       } else {
-        return serialize3(this[kRouteContext], payload, this.raw.statusCode);
+        return serialize2(this[kRouteContext], payload, this.raw.statusCode);
       }
     }
   };
@@ -33886,7 +33438,7 @@ var require_secure_json_parse = __commonJS((exports, module) => {
     }
     return obj;
   }
-  function parse4(text, reviver, options) {
+  function parse3(text, reviver, options) {
     const stackTraceLimit = Error.stackTraceLimit;
     Error.stackTraceLimit = 0;
     try {
@@ -33909,9 +33461,9 @@ var require_secure_json_parse = __commonJS((exports, module) => {
   var hasBuffer = typeof Buffer !== "undefined";
   var suspectProtoRx = /"(?:_|\\u005[Ff])(?:_|\\u005[Ff])(?:p|\\u0070)(?:r|\\u0072)(?:o|\\u006[Ff])(?:t|\\u0074)(?:o|\\u006[Ff])(?:_|\\u005[Ff])(?:_|\\u005[Ff])"\s*:/;
   var suspectConstructorRx = /"(?:c|\\u0063)(?:o|\\u006[Ff])(?:n|\\u006[Ee])(?:s|\\u0073)(?:t|\\u0074)(?:r|\\u0072)(?:u|\\u0075)(?:c|\\u0063)(?:t|\\u0074)(?:o|\\u006[Ff])(?:r|\\u0072)"\s*:/;
-  module.exports = parse4;
-  module.exports.default = parse4;
-  module.exports.parse = parse4;
+  module.exports = parse3;
+  module.exports.default = parse3;
+  module.exports.parse = parse3;
   module.exports.safeParse = safeParse;
   module.exports.scan = filter;
 });
@@ -34069,7 +33621,7 @@ var require_contentTypeParser = __commonJS((exports, module) => {
       FSTSEC001(regexp3.source);
     }
   }
-  var { AsyncResource } = __require("node:async_hooks");
+  var { AsyncResource } = import.meta.require("async_hooks");
   var { FifoMap: Fifo } = require_toad_cache();
   var secureJson = require_secure_json_parse();
   var {
@@ -34247,7 +33799,7 @@ var require_contentTypeParser = __commonJS((exports, module) => {
 
 // node_modules/ajv/dist/compile/codegen/code.js
 var require_code = __commonJS((exports) => {
-  function _(strs, ...args2) {
+  function _2(strs, ...args2) {
     const code = [strs[0]];
     let i = 0;
     while (i < args2.length) {
@@ -34320,7 +33872,7 @@ var require_code = __commonJS((exports) => {
     return JSON.stringify(x).replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029");
   }
   function getProperty(key) {
-    return typeof key == "string" && exports.IDENTIFIER.test(key) ? new _Code(`.${key}`) : _`[${key}]`;
+    return typeof key == "string" && exports.IDENTIFIER.test(key) ? new _Code(`.${key}`) : _2`[${key}]`;
   }
   function getEsmExportName(key) {
     if (typeof key == "string" && exports.IDENTIFIER.test(key)) {
@@ -34387,7 +33939,7 @@ var require_code = __commonJS((exports) => {
   }
   exports._Code = _Code;
   exports.nil = new _Code("");
-  exports._ = _;
+  exports._ = _2;
   var plus = new _Code("+");
   exports.str = str;
   exports.addCodeArg = addCodeArg;
@@ -36388,7 +35940,7 @@ var require_resolve = __commonJS((exports) => {
     const pathPrefix = getFullPath(uriResolver, schId, false);
     const localRefs = {};
     const schemaRefs = new Set;
-    traverse(schema3, { allKeys: true }, (sch, jsonPtr, _, parentJsonPtr) => {
+    traverse(schema3, { allKeys: true }, (sch, jsonPtr, _2, parentJsonPtr) => {
       if (parentJsonPtr === undefined)
         return;
       const fullPath = pathPrefix + jsonPtr;
@@ -37020,9 +36572,9 @@ var require_compile = __commonJS((exports) => {
     const { es5, lines } = this.opts.code;
     const { ownProperties } = this.opts;
     const gen = new codegen_1.CodeGen(this.scope, { es5, lines, ownProperties });
-    let _ValidationError2;
+    let _ValidationError;
     if (sch.$async) {
-      _ValidationError2 = gen.scopeValue("Error", {
+      _ValidationError = gen.scopeValue("Error", {
         ref: validation_error_1.default,
         code: (0, codegen_1._)`require("ajv/dist/runtime/validation_error").default`
       });
@@ -37042,7 +36594,7 @@ var require_compile = __commonJS((exports) => {
       definedProperties: new Set,
       topSchemaRef: gen.scopeValue("schema", this.opts.code.source === true ? { ref: sch.schema, code: (0, codegen_1.stringify)(sch.schema) } : { ref: sch.schema }),
       validateName,
-      ValidationError: _ValidationError2,
+      ValidationError: _ValidationError,
       schema: sch.schema,
       schemaEnv: sch,
       rootId,
@@ -37658,22 +37210,22 @@ var require_schemes = __commonJS((exports, module) => {
 var require_fast_uri = __commonJS((exports, module) => {
   function normalize(uri2, options) {
     if (typeof uri2 === "string") {
-      uri2 = serialize3(parse4(uri2, options), options);
+      uri2 = serialize2(parse3(uri2, options), options);
     } else if (typeof uri2 === "object") {
-      uri2 = parse4(serialize3(uri2, options), options);
+      uri2 = parse3(serialize2(uri2, options), options);
     }
     return uri2;
   }
   function resolve(baseURI, relativeURI, options) {
     const schemelessOptions = Object.assign({ scheme: "null" }, options);
-    const resolved = resolveComponents(parse4(baseURI, schemelessOptions), parse4(relativeURI, schemelessOptions), schemelessOptions, true);
-    return serialize3(resolved, { ...schemelessOptions, skipEscape: true });
+    const resolved = resolveComponents(parse3(baseURI, schemelessOptions), parse3(relativeURI, schemelessOptions), schemelessOptions, true);
+    return serialize2(resolved, { ...schemelessOptions, skipEscape: true });
   }
   function resolveComponents(base, relative, options, skipNormalization) {
     const target = {};
     if (!skipNormalization) {
-      base = parse4(serialize3(base, options), options);
-      relative = parse4(serialize3(relative, options), options);
+      base = parse3(serialize2(base, options), options);
+      relative = parse3(serialize2(relative, options), options);
     }
     options = options || {};
     if (!options.tolerant && relative.scheme) {
@@ -37725,19 +37277,19 @@ var require_fast_uri = __commonJS((exports, module) => {
   function equal3(uriA, uriB, options) {
     if (typeof uriA === "string") {
       uriA = unescape(uriA);
-      uriA = serialize3(normalizeComponentEncoding(parse4(uriA, options), true), { ...options, skipEscape: true });
+      uriA = serialize2(normalizeComponentEncoding(parse3(uriA, options), true), { ...options, skipEscape: true });
     } else if (typeof uriA === "object") {
-      uriA = serialize3(normalizeComponentEncoding(uriA, true), { ...options, skipEscape: true });
+      uriA = serialize2(normalizeComponentEncoding(uriA, true), { ...options, skipEscape: true });
     }
     if (typeof uriB === "string") {
       uriB = unescape(uriB);
-      uriB = serialize3(normalizeComponentEncoding(parse4(uriB, options), true), { ...options, skipEscape: true });
+      uriB = serialize2(normalizeComponentEncoding(parse3(uriB, options), true), { ...options, skipEscape: true });
     } else if (typeof uriB === "object") {
-      uriB = serialize3(normalizeComponentEncoding(uriB, true), { ...options, skipEscape: true });
+      uriB = serialize2(normalizeComponentEncoding(uriB, true), { ...options, skipEscape: true });
     }
     return uriA.toLowerCase() === uriB.toLowerCase();
   }
-  function serialize3(cmpts, opts) {
+  function serialize2(cmpts, opts) {
     const components = {
       host: cmpts.host,
       scheme: cmpts.scheme,
@@ -37810,7 +37362,7 @@ var require_fast_uri = __commonJS((exports, module) => {
     }
     return false;
   }
-  function parse4(uri2, opts) {
+  function parse3(uri2, opts) {
     const options = Object.assign({}, opts);
     const parsed = {
       scheme: undefined,
@@ -37902,8 +37454,8 @@ var require_fast_uri = __commonJS((exports, module) => {
     resolve,
     resolveComponents,
     equal: equal3,
-    serialize: serialize3,
-    parse: parse4
+    serialize: serialize2,
+    parse: parse3
   };
   module.exports = fastUri;
   module.exports.default = fastUri;
@@ -40817,22 +40369,22 @@ var require_schemes2 = __commonJS((exports, module) => {
 var require_fast_uri2 = __commonJS((exports, module) => {
   function normalize(uri2, options) {
     if (typeof uri2 === "string") {
-      uri2 = serialize3(parse4(uri2, options), options);
+      uri2 = serialize2(parse3(uri2, options), options);
     } else if (typeof uri2 === "object") {
-      uri2 = parse4(serialize3(uri2, options), options);
+      uri2 = parse3(serialize2(uri2, options), options);
     }
     return uri2;
   }
   function resolve(baseURI, relativeURI, options) {
     const schemelessOptions = Object.assign({ scheme: "null" }, options);
-    const resolved = resolveComponents(parse4(baseURI, schemelessOptions), parse4(relativeURI, schemelessOptions), schemelessOptions, true);
-    return serialize3(resolved, { ...schemelessOptions, skipEscape: true });
+    const resolved = resolveComponents(parse3(baseURI, schemelessOptions), parse3(relativeURI, schemelessOptions), schemelessOptions, true);
+    return serialize2(resolved, { ...schemelessOptions, skipEscape: true });
   }
   function resolveComponents(base, relative, options, skipNormalization) {
     const target = {};
     if (!skipNormalization) {
-      base = parse4(serialize3(base, options), options);
-      relative = parse4(serialize3(relative, options), options);
+      base = parse3(serialize2(base, options), options);
+      relative = parse3(serialize2(relative, options), options);
     }
     options = options || {};
     if (!options.tolerant && relative.scheme) {
@@ -40884,19 +40436,19 @@ var require_fast_uri2 = __commonJS((exports, module) => {
   function equal3(uriA, uriB, options) {
     if (typeof uriA === "string") {
       uriA = unescape(uriA);
-      uriA = serialize3(normalizeComponentEncoding(parse4(uriA, options), true), { ...options, skipEscape: true });
+      uriA = serialize2(normalizeComponentEncoding(parse3(uriA, options), true), { ...options, skipEscape: true });
     } else if (typeof uriA === "object") {
-      uriA = serialize3(normalizeComponentEncoding(uriA, true), { ...options, skipEscape: true });
+      uriA = serialize2(normalizeComponentEncoding(uriA, true), { ...options, skipEscape: true });
     }
     if (typeof uriB === "string") {
       uriB = unescape(uriB);
-      uriB = serialize3(normalizeComponentEncoding(parse4(uriB, options), true), { ...options, skipEscape: true });
+      uriB = serialize2(normalizeComponentEncoding(parse3(uriB, options), true), { ...options, skipEscape: true });
     } else if (typeof uriB === "object") {
-      uriB = serialize3(normalizeComponentEncoding(uriB, true), { ...options, skipEscape: true });
+      uriB = serialize2(normalizeComponentEncoding(uriB, true), { ...options, skipEscape: true });
     }
     return uriA.toLowerCase() === uriB.toLowerCase();
   }
-  function serialize3(cmpts, opts) {
+  function serialize2(cmpts, opts) {
     const components = {
       host: cmpts.host,
       scheme: cmpts.scheme,
@@ -40972,7 +40524,7 @@ var require_fast_uri2 = __commonJS((exports, module) => {
     }
     return false;
   }
-  function parse4(uri2, opts) {
+  function parse3(uri2, opts) {
     const options = Object.assign({}, opts);
     const parsed = {
       scheme: undefined,
@@ -41062,8 +40614,8 @@ var require_fast_uri2 = __commonJS((exports, module) => {
     resolve,
     resolveComponents,
     equal: equal3,
-    serialize: serialize3,
-    parse: parse4
+    serialize: serialize2,
+    parse: parse3
   };
   module.exports = fastUri;
   module.exports.default = fastUri;
@@ -41317,7 +40869,7 @@ var require_limit = __commonJS((exports) => {
 });
 
 // node_modules/ajv-formats/dist/index.js
-var require_dist2 = __commonJS((exports, module) => {
+var require_dist3 = __commonJS((exports, module) => {
   function addFormats(ajv, list, fs, exportName) {
     var _a;
     var _b;
@@ -41359,7 +40911,7 @@ var require_dist2 = __commonJS((exports, module) => {
 var require_validator2 = __commonJS((exports, module) => {
   var Ajv = require_ajv();
   var fastUri = require_fast_uri2();
-  var ajvFormats = require_dist2();
+  var ajvFormats = require_dist3();
   var clone4 = require_rfdc()({ proto: true });
 
   class Validator {
@@ -44944,9 +44496,9 @@ var require_serialize = __commonJS((exports) => {
       const serializeFuncCode = gen.toString();
       sourceCode = `${gen.scopeRefs(names_1.default.scope)}return ${serializeFuncCode}`;
       const makeSerialize = new Function(`${names_1.default.scope}`, sourceCode);
-      const serialize3 = makeSerialize(this.scope.get());
-      this.scope.value(serializeName, { ref: serialize3 });
-      sch.serialize = serialize3;
+      const serialize2 = makeSerialize(this.scope.get());
+      this.scope.value(serializeName, { ref: serialize2 });
+      sch.serialize = serialize2;
     } catch (e) {
       if (sourceCode)
         this.logger.error("Error compiling serializer, function code:", sourceCode);
@@ -45342,9 +44894,9 @@ var require_parse3 = __commonJS((exports) => {
       const parseFuncCode = gen.toString();
       sourceCode = `${gen.scopeRefs(names_1.default.scope)}return ${parseFuncCode}`;
       const makeParse = new Function(`${names_1.default.scope}`, sourceCode);
-      const parse4 = makeParse(this.scope.get());
-      this.scope.value(parseName, { ref: parse4 });
-      sch.parse = parse4;
+      const parse3 = makeParse(this.scope.get());
+      this.scope.value(parseName, { ref: parse3 });
+      sch.parse = parse3;
     } catch (e) {
       if (sourceCode)
         this.logger.error("Error compiling parser, function code:", sourceCode);
@@ -45783,7 +45335,7 @@ var require_validator_compiler = __commonJS((exports, module) => {
         }
       }
       if (addFormatPlugin) {
-        require_dist2()(this.ajv);
+        require_dist3()(this.ajv);
       }
       options.onCreate?.(this.ajv);
       const sourceSchemas = Object.values(externalSchemas);
@@ -46475,7 +46027,7 @@ var require_semver = __commonJS((exports, module) => {
 // node_modules/semver/functions/parse.js
 var require_parse4 = __commonJS((exports, module) => {
   var SemVer = require_semver();
-  var parse4 = (version2, options, throwErrors = false) => {
+  var parse3 = (version2, options, throwErrors = false) => {
     if (version2 instanceof SemVer) {
       return version2;
     }
@@ -46488,14 +46040,14 @@ var require_parse4 = __commonJS((exports, module) => {
       throw er;
     }
   };
-  module.exports = parse4;
+  module.exports = parse3;
 });
 
 // node_modules/semver/functions/valid.js
 var require_valid = __commonJS((exports, module) => {
-  var parse4 = require_parse4();
+  var parse3 = require_parse4();
   var valid = (version2, options) => {
-    const v = parse4(version2, options);
+    const v = parse3(version2, options);
     return v ? v.version : null;
   };
   module.exports = valid;
@@ -46503,9 +46055,9 @@ var require_valid = __commonJS((exports, module) => {
 
 // node_modules/semver/functions/clean.js
 var require_clean = __commonJS((exports, module) => {
-  var parse4 = require_parse4();
+  var parse3 = require_parse4();
   var clean3 = (version2, options) => {
-    const s = parse4(version2.trim().replace(/^[=v]+/, ""), options);
+    const s = parse3(version2.trim().replace(/^[=v]+/, ""), options);
     return s ? s.version : null;
   };
   module.exports = clean3;
@@ -46531,10 +46083,10 @@ var require_inc = __commonJS((exports, module) => {
 
 // node_modules/semver/functions/diff.js
 var require_diff = __commonJS((exports, module) => {
-  var parse4 = require_parse4();
+  var parse3 = require_parse4();
   var diff = (version1, version2) => {
-    const v1 = parse4(version1, null, true);
-    const v2 = parse4(version2, null, true);
+    const v1 = parse3(version1, null, true);
+    const v2 = parse3(version2, null, true);
     const comparison = v1.compare(v2);
     if (comparison === 0) {
       return null;
@@ -46594,9 +46146,9 @@ var require_patch = __commonJS((exports, module) => {
 
 // node_modules/semver/functions/prerelease.js
 var require_prerelease = __commonJS((exports, module) => {
-  var parse4 = require_parse4();
+  var parse3 = require_parse4();
   var prerelease = (version2, options) => {
-    const parsed = parse4(version2, options);
+    const parsed = parse3(version2, options);
     return parsed && parsed.prerelease.length ? parsed.prerelease : null;
   };
   module.exports = prerelease;
@@ -46740,7 +46292,7 @@ var require_cmp = __commonJS((exports, module) => {
 // node_modules/semver/functions/coerce.js
 var require_coerce = __commonJS((exports, module) => {
   var SemVer = require_semver();
-  var parse4 = require_parse4();
+  var parse3 = require_parse4();
   var { safeRe: re, t: t2 } = require_re();
   var coerce = (version2, options) => {
     if (version2 instanceof SemVer) {
@@ -46775,7 +46327,7 @@ var require_coerce = __commonJS((exports, module) => {
     const patch = match[4] || "0";
     const prerelease = options.includePrerelease && match[5] ? `-${match[5]}` : "";
     const build = options.includePrerelease && match[6] ? `+${match[6]}` : "";
-    return parse4(`${major}.${minor}.${patch}${prerelease}${build}`, options);
+    return parse3(`${major}.${minor}.${patch}${prerelease}${build}`, options);
   };
   module.exports = coerce;
 });
@@ -47003,8 +46555,8 @@ var require_range2 = __commonJS((exports, module) => {
   };
   var replaceTilde = (comp, options) => {
     const r = options.loose ? re[t2.TILDELOOSE] : re[t2.TILDE];
-    return comp.replace(r, (_, M, m, p, pr) => {
-      debug("tilde", comp, _, M, m, p, pr);
+    return comp.replace(r, (_2, M, m, p, pr) => {
+      debug("tilde", comp, _2, M, m, p, pr);
       let ret;
       if (isX(M)) {
         ret = "";
@@ -47029,8 +46581,8 @@ var require_range2 = __commonJS((exports, module) => {
     debug("caret", comp, options);
     const r = options.loose ? re[t2.CARETLOOSE] : re[t2.CARET];
     const z = options.includePrerelease ? "-0" : "";
-    return comp.replace(r, (_, M, m, p, pr) => {
-      debug("caret", comp, _, M, m, p, pr);
+    return comp.replace(r, (_2, M, m, p, pr) => {
+      debug("caret", comp, _2, M, m, p, pr);
       let ret;
       if (isX(M)) {
         ret = "";
@@ -47743,7 +47295,7 @@ var require_semver2 = __commonJS((exports, module) => {
   var constants = require_constants2();
   var SemVer = require_semver();
   var identifiers = require_identifiers();
-  var parse4 = require_parse4();
+  var parse3 = require_parse4();
   var valid = require_valid();
   var clean3 = require_clean();
   var inc = require_inc();
@@ -47781,7 +47333,7 @@ var require_semver2 = __commonJS((exports, module) => {
   var simplifyRange = require_simplify();
   var subset = require_subset();
   module.exports = {
-    parse: parse4,
+    parse: parse3,
     valid,
     clean: clean3,
     inc,
@@ -47839,7 +47391,7 @@ var require_pluginUtils = __commonJS((exports, module) => {
     if (display) {
       return display;
     }
-    const cache = __require.cache;
+    const cache = import.meta.require.cache;
     if (cache) {
       const keys = Object.keys(cache);
       for (let i = 0;i < keys.length; i++) {
@@ -47935,7 +47487,7 @@ var require_pluginUtils = __commonJS((exports, module) => {
     return shouldSkipOverride(fn2);
   }
   var semver = require_semver2();
-  var assert = __require("node:assert");
+  var assert = import.meta.require("assert");
   var kRegisteredPlugins = Symbol.for("registered-plugin");
   var {
     kTestInternals
@@ -47997,9 +47549,456 @@ var require_reqIdGenFactory = __commonJS((exports, module) => {
   };
 });
 
+// node_modules/fast-decode-uri-component/index.js
+var require_fast_decode_uri_component2 = __commonJS((exports, module) => {
+  function decodeURIComponent2(uri2) {
+    var percentPosition = uri2.indexOf("%");
+    if (percentPosition === -1)
+      return uri2;
+    var length = uri2.length;
+    var decoded = "";
+    var last = 0;
+    var codepoint = 0;
+    var startOfOctets = percentPosition;
+    var state = UTF8_ACCEPT;
+    while (percentPosition > -1 && percentPosition < length) {
+      var high = hexCodeToInt(uri2[percentPosition + 1], 4);
+      var low = hexCodeToInt(uri2[percentPosition + 2], 0);
+      var byte2 = high | low;
+      var type3 = UTF8_DATA[byte2];
+      state = UTF8_DATA[256 + state + type3];
+      codepoint = codepoint << 6 | byte2 & UTF8_DATA[364 + type3];
+      if (state === UTF8_ACCEPT) {
+        decoded += uri2.slice(last, startOfOctets);
+        decoded += codepoint <= 65535 ? String.fromCharCode(codepoint) : String.fromCharCode(55232 + (codepoint >> 10), 56320 + (codepoint & 1023));
+        codepoint = 0;
+        last = percentPosition + 3;
+        percentPosition = startOfOctets = uri2.indexOf("%", last);
+      } else if (state === UTF8_REJECT) {
+        return null;
+      } else {
+        percentPosition += 3;
+        if (percentPosition < length && uri2.charCodeAt(percentPosition) === 37)
+          continue;
+        return null;
+      }
+    }
+    return decoded + uri2.slice(last);
+  }
+  function hexCodeToInt(c, shift) {
+    var i = HEX[c];
+    return i === undefined ? 255 : i << shift;
+  }
+  var UTF8_ACCEPT = 12;
+  var UTF8_REJECT = 0;
+  var UTF8_DATA = [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    4,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    6,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    8,
+    7,
+    7,
+    10,
+    9,
+    9,
+    9,
+    11,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    12,
+    0,
+    0,
+    0,
+    0,
+    24,
+    36,
+    48,
+    60,
+    72,
+    84,
+    96,
+    0,
+    12,
+    12,
+    12,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    24,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    24,
+    24,
+    24,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    24,
+    24,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    48,
+    48,
+    48,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    48,
+    48,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    48,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    127,
+    63,
+    63,
+    63,
+    0,
+    31,
+    15,
+    15,
+    15,
+    7,
+    7,
+    7
+  ];
+  var HEX = {
+    "0": 0,
+    "1": 1,
+    "2": 2,
+    "3": 3,
+    "4": 4,
+    "5": 5,
+    "6": 6,
+    "7": 7,
+    "8": 8,
+    "9": 9,
+    a: 10,
+    A: 10,
+    b: 11,
+    B: 11,
+    c: 12,
+    C: 12,
+    d: 13,
+    D: 13,
+    e: 14,
+    E: 14,
+    f: 15,
+    F: 15
+  };
+  module.exports = decodeURIComponent2;
+});
+
 // node_modules/fast-querystring/lib/parse.js
 var require_parse5 = __commonJS((exports, module) => {
-  function parse4(input) {
+  function parse3(input) {
     const result = new Empty;
     if (typeof input !== "string") {
       return result;
@@ -48028,7 +48027,7 @@ var require_parse5 = __commonJS((exports, module) => {
             key = key.replace(plusRegex2, " ");
           }
           if (shouldDecodeKey) {
-            key = fastDecode2(key) || key;
+            key = fastDecode(key) || key;
           }
           if (hasBothKeyValuePair) {
             value2 = input.slice(equalityIndex + 1, i);
@@ -48036,7 +48035,7 @@ var require_parse5 = __commonJS((exports, module) => {
               value2 = value2.replace(plusRegex2, " ");
             }
             if (shouldDecodeValue) {
-              value2 = fastDecode2(value2) || value2;
+              value2 = fastDecode(value2) || value2;
             }
           }
           const currentValue = result[key];
@@ -48079,12 +48078,12 @@ var require_parse5 = __commonJS((exports, module) => {
     }
     return result;
   }
-  var fastDecode2 = require_fast_decode_uri_component();
+  var fastDecode = require_fast_decode_uri_component2();
   var plusRegex2 = /\+/g;
   var Empty = function() {
   };
   Empty.prototype = Object.create(null);
-  module.exports = parse4;
+  module.exports = parse3;
 });
 
 // node_modules/fast-querystring/lib/internals/querystring.js
@@ -48137,7 +48136,7 @@ var require_querystring = __commonJS((exports, module) => {
       return out + str.slice(lastPos);
     return out;
   }
-  var hexTable = Array.from({ length: 256 }, (_, i) => "%" + ((i < 16 ? "0" : "") + i.toString(16)).toUpperCase());
+  var hexTable = Array.from({ length: 256 }, (_2, i) => "%" + ((i < 16 ? "0" : "") + i.toString(16)).toUpperCase());
   var noEscape = new Int8Array([
     0,
     0,
@@ -48324,15 +48323,15 @@ var require_stringify2 = __commonJS((exports, module) => {
 
 // node_modules/fast-querystring/lib/index.js
 var require_lib3 = __commonJS((exports, module) => {
-  var parse4 = require_parse5();
+  var parse3 = require_parse5();
   var stringify = require_stringify2();
   var fastQuerystring = {
-    parse: parse4,
+    parse: parse3,
     stringify
   };
   module.exports = fastQuerystring;
   module.exports.default = fastQuerystring;
-  module.exports.parse = parse4;
+  module.exports.parse = parse3;
   module.exports.stringify = stringify;
 });
 
@@ -49004,7 +49003,7 @@ var require_reconstruct = __commonJS((exports) => {
 });
 
 // node_modules/ret/dist/index.js
-var require_dist3 = __commonJS((exports, module) => {
+var require_dist4 = __commonJS((exports, module) => {
   var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
     if (k2 === undefined)
       k2 = k;
@@ -49049,7 +49048,7 @@ var require_safe_regex2 = __commonJS((exports, module) => {
     else if (typeof re !== "string")
       re = String(re);
     try {
-      re = parse4(re);
+      re = parse3(re);
     } catch (err) {
       return false;
     }
@@ -49087,8 +49086,8 @@ var require_safe_regex2 = __commonJS((exports, module) => {
   function isRegExp(x) {
     return {}.toString.call(x) === "[object RegExp]";
   }
-  var parse4 = require_dist3();
-  var types = parse4.types;
+  var parse3 = require_dist4();
+  var types = parse3.types;
   module.exports = safeRegex;
   module.exports.default = safeRegex;
   module.exports.safeRegex = safeRegex;
@@ -49602,7 +49601,7 @@ var require_accept_version = __commonJS((exports, module) => {
     this.maxMinors = {};
     this.maxPatches = {};
   }
-  var assert = __require("node:assert");
+  var assert = import.meta.require("assert");
   SemVerStore.prototype.set = function(version2, store) {
     if (typeof version2 !== "string") {
       throw new TypeError("Version should be a string");
@@ -49672,7 +49671,7 @@ var require_accept_host = __commonJS((exports, module) => {
       }
     };
   }
-  var assert = __require("node:assert");
+  var assert = import.meta.require("assert");
   module.exports = {
     name: "host",
     mustMatchWhenDerived: false,
@@ -49687,7 +49686,7 @@ var require_accept_host = __commonJS((exports, module) => {
 var require_constrainer = __commonJS((exports, module) => {
   var acceptVersionStrategy = require_accept_version();
   var acceptHostStrategy = require_accept_host();
-  var assert = __require("node:assert");
+  var assert = import.meta.require("assert");
 
   class Constrainer {
     constructor(customStrategies) {
@@ -50050,7 +50049,7 @@ var require_find_my_way = __commonJS((exports, module) => {
       return {};
     return Object.assign({}, route.store);
   }
-  var assert = __require("node:assert");
+  var assert = import.meta.require("assert");
   var querystring = require_lib3();
   var isRegexSafe = require_safe_regex2();
   var deepEqual = require_fast_deep_equal();
@@ -52992,8 +52991,8 @@ var require_fastify = __commonJS((exports, module) => {
   }
   var VERSION = "5.1.0";
   var Avvio = require_boot();
-  var http = __require("node:http");
-  var diagnostics = __require("node:diagnostics_channel");
+  var http = import.meta.require("http");
+  var diagnostics = import.meta.require("diagnostics_channel");
   var lightMyRequest;
   var {
     kAvvioBoot,
@@ -53482,8 +53481,8 @@ var require_node3 = __commonJS((exports, module) => {
       debug.inspectOpts[keys[i]] = exports.inspectOpts[keys[i]];
     }
   }
-  var tty = __require("tty");
-  var util = __require("util");
+  var tty = import.meta.require("tty");
+  var util = import.meta.require("util");
   exports.init = init;
   exports.log = log;
   exports.formatArgs = formatArgs;
@@ -53580,7 +53579,7 @@ var require_node3 = __commonJS((exports, module) => {
   exports.inspectOpts = Object.keys(process.env).filter((key) => {
     return /^debug_/i.test(key);
   }).reduce((obj, key) => {
-    const prop = key.substring(6).toLowerCase().replace(/_([a-z])/g, (_, k) => {
+    const prop = key.substring(6).toLowerCase().replace(/_([a-z])/g, (_2, k) => {
       return k.toUpperCase();
     });
     let val = process.env[key];
@@ -53902,14 +53901,14 @@ var require_response3 = __commonJS((exports, module) => {
   var typeis = require_type_is().is;
   var statuses = require_statuses2();
   var destroy = require_destroy();
-  var assert = __require("assert");
-  var extname = __require("path").extname;
+  var assert = import.meta.require("assert");
+  var extname = import.meta.require("path").extname;
   var vary = require_vary();
   var only = require_only();
-  var util = __require("util");
+  var util = import.meta.require("util");
   var encodeUrl = require_encodeurl3();
-  var Stream = __require("stream");
-  var URL2 = __require("url").URL;
+  var Stream = import.meta.require("stream");
+  var URL2 = import.meta.require("url").URL;
   module.exports = {
     get socket() {
       return this.res.socket;
@@ -54280,7 +54279,7 @@ var require_compat = __commonJS((exports, module) => {
    * Copyright(c) 2014-2015 Douglas Christopher Wilson
    * MIT Licensed
    */
-  var EventEmitter = __require("events").EventEmitter;
+  var EventEmitter = import.meta.require("events").EventEmitter;
   lazyProperty(exports, "callSiteToString", function callSiteToString() {
     var limit = Error.stackTraceLimit;
     var obj = {};
@@ -54598,7 +54597,7 @@ var require_depd2 = __commonJS((exports, module) => {
    */
   var callSiteToString = require_compat().callSiteToString;
   var eventListenerCount = require_compat().eventListenerCount;
-  var relative = __require("path").relative;
+  var relative = import.meta.require("path").relative;
   module.exports = depd;
   var basePath = process.cwd();
 });
@@ -54890,7 +54889,7 @@ var require_compat2 = __commonJS((exports, module) => {
    * Copyright(c) 2014-2015 Douglas Christopher Wilson
    * MIT Licensed
    */
-  var EventEmitter = __require("events").EventEmitter;
+  var EventEmitter = import.meta.require("events").EventEmitter;
   lazyProperty(exports, "callSiteToString", function callSiteToString() {
     var limit = Error.stackTraceLimit;
     var obj = {};
@@ -55208,7 +55207,7 @@ var require_depd3 = __commonJS((exports, module) => {
    */
   var callSiteToString = require_compat2().callSiteToString;
   var eventListenerCount = require_compat2().eventListenerCount;
-  var relative = __require("path").relative;
+  var relative = import.meta.require("path").relative;
   module.exports = depd;
   var basePath = process.cwd();
 });
@@ -55748,7 +55747,7 @@ var require_lib4 = __commonJS((exports, module) => {
     var bh = crypto2.createHmac("sha256", key).update(sb).digest();
     return bufferEqual(ah, bh) && a === b;
   }
-  var crypto2 = __require("crypto");
+  var crypto2 = import.meta.require("crypto");
   module.exports = timeSafeCompare;
 });
 
@@ -55790,7 +55789,7 @@ var require_keygrip = __commonJS((exports, module) => {
    * MIT Licensed
    */
   var compare = require_lib4();
-  var crypto2 = __require("crypto");
+  var crypto2 = import.meta.require("crypto");
   Keygrip.sign = Keygrip.verify = Keygrip.index = function() {
     throw new Error("Usage: require('keygrip')(<array-of-keys>)");
   };
@@ -55877,7 +55876,7 @@ var require_cookies = __commonJS((exports, module) => {
    */
   var deprecate2 = require_depd()("cookies");
   var Keygrip = require_keygrip();
-  var http = __require("http");
+  var http = import.meta.require("http");
   var fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
   var PRIORITY_REGEXP = /^(?:low|medium|high)$/i;
   var REGEXP_CACHE = Object.create(null);
@@ -55996,7 +55995,7 @@ var require_cookies = __commonJS((exports, module) => {
 
 // node_modules/koa/lib/context.js
 var require_context2 = __commonJS((exports, module) => {
-  var util = __require("util");
+  var util = import.meta.require("util");
   var createError = require_http_errors2();
   var httpAssert = require_http_assert();
   var delegate = require_delegates();
@@ -56079,17 +56078,17 @@ var require_context2 = __commonJS((exports, module) => {
 
 // node_modules/koa/lib/request.js
 var require_request4 = __commonJS((exports, module) => {
-  var URL2 = __require("url").URL;
-  var net = __require("net");
+  var URL2 = import.meta.require("url").URL;
+  var net = import.meta.require("net");
   var accepts = require_accepts();
   var contentType = require_content_type();
-  var stringify = __require("url").format;
-  var parse4 = require_parseurl();
-  var qs = __require("querystring");
+  var stringify = import.meta.require("url").format;
+  var parse3 = require_parseurl();
+  var qs = import.meta.require("querystring");
   var typeis = require_type_is();
   var fresh = require_fresh();
   var only = require_only();
-  var util = __require("util");
+  var util = import.meta.require("util");
   var IP = Symbol("context#ip");
   module.exports = {
     get header() {
@@ -56125,10 +56124,10 @@ var require_request4 = __commonJS((exports, module) => {
       this.req.method = val;
     },
     get path() {
-      return parse4(this.req).pathname;
+      return parse3(this.req).pathname;
     },
     set path(path) {
-      const url = parse4(this.req);
+      const url = parse3(this.req);
       if (url.pathname === path)
         return;
       url.pathname = path;
@@ -56146,10 +56145,10 @@ var require_request4 = __commonJS((exports, module) => {
     get querystring() {
       if (!this.req)
         return "";
-      return parse4(this.req).query || "";
+      return parse3(this.req).query || "";
     },
     set querystring(str) {
-      const url = parse4(this.req);
+      const url = parse3(this.req);
       if (url.search === `?${str}`)
         return;
       url.search = str;
@@ -56543,16 +56542,16 @@ var require_application2 = __commonJS((exports, module) => {
   var isGeneratorFunction = require_is_generator_function();
   var debug = require_src2()("koa:application");
   var onFinished = require_on_finished();
-  var assert = __require("assert");
+  var assert = import.meta.require("assert");
   var response = require_response3();
   var compose2 = require_koa_compose();
   var context = require_context2();
   var request = require_request4();
   var statuses = require_statuses2();
-  var Emitter = __require("events");
-  var util = __require("util");
-  var Stream = __require("stream");
-  var http = __require("http");
+  var Emitter = import.meta.require("events");
+  var util = import.meta.require("util");
+  var Stream = import.meta.require("stream");
+  var http = import.meta.require("http");
   var only = require_only();
   var convert3 = require_koa_convert();
   var deprecate2 = require_depd()("koa");
@@ -56576,7 +56575,7 @@ var require_application2 = __commonJS((exports, module) => {
         this[util.inspect.custom] = this.inspect;
       }
       if (options.asyncLocalStorage) {
-        const { AsyncLocalStorage } = __require("async_hooks");
+        const { AsyncLocalStorage } = import.meta.require("async_hooks");
         assert(AsyncLocalStorage, "Requires node 12.17.0 or higher to enable asyncLocalStorage");
         this.ctxStorage = new AsyncLocalStorage;
       }
@@ -56673,6 +56672,10 @@ var require_application2 = __commonJS((exports, module) => {
   };
   module.exports.HttpError = HttpError;
 });
+
+// src/index.ts
+import { createServer as createServer2 } from "http";
+import { request } from "undici";
 
 // framework/express.ts
 var import_express = __toESM(require_express2(), 1);
@@ -64591,44 +64594,35 @@ var TypeCompiler;
   }
   TypeCompiler2.Compile = Compile;
 })(TypeCompiler || (TypeCompiler = {}));
-// node_modules/elysia/dist/index.mjs
+// node_modules/elysia/dist/bun/index.js
 function isLeapYear(year) {
   return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
 }
 function date3(str) {
-  const matches = DATE.exec(str);
+  let matches = DATE.exec(str);
   if (!matches)
     return false;
-  const year = +matches[1];
-  const month = +matches[2];
-  const day = +matches[3];
+  let year = +matches[1], month = +matches[2], day = +matches[3];
   return month >= 1 && month <= 12 && day >= 1 && day <= (month === 2 && isLeapYear(year) ? 29 : DAYS[month]);
 }
 function getTime(strictTimeZone) {
   return function time(str) {
-    const matches = TIME.exec(str);
+    let matches = TIME.exec(str);
     if (!matches)
       return false;
-    const hr = +matches[1];
-    const min = +matches[2];
-    const sec = +matches[3];
-    const tz = matches[4];
-    const tzSign = matches[5] === "-" ? -1 : 1;
-    const tzH = +(matches[6] || 0);
-    const tzM = +(matches[7] || 0);
+    let hr = +matches[1], min = +matches[2], sec = +matches[3], tz = matches[4], tzSign = matches[5] === "-" ? -1 : 1, tzH = +(matches[6] || 0), tzM = +(matches[7] || 0);
     if (tzH > 23 || tzM > 59 || strictTimeZone && !tz)
       return false;
     if (hr <= 23 && min <= 59 && sec < 60)
       return true;
-    const utcMin = min - tzM * tzSign;
-    const utcHr = hr - tzH * tzSign - (utcMin < 0 ? 1 : 0);
+    let utcMin = min - tzM * tzSign, utcHr = hr - tzH * tzSign - (utcMin < 0 ? 1 : 0);
     return (utcHr === 23 || utcHr === -1) && (utcMin === 59 || utcMin === -1) && sec < 61;
   };
 }
 function getDateTime(strictTimeZone) {
-  const time = getTime(strictTimeZone);
+  let time = getTime(strictTimeZone);
   return function date_time(str) {
-    const dateTime = str.split(DATE_TIME_SEPARATOR);
+    let dateTime = str.split(DATE_TIME_SEPARATOR);
     return dateTime.length === 2 && date3(dateTime[0]) && time(dateTime[1]);
   };
 }
@@ -64636,8 +64630,7 @@ function uri(str) {
   return NOT_URI_FRAGMENT.test(str) && URI.test(str);
 }
 function byte(str) {
-  BYTE.lastIndex = 0;
-  return BYTE.test(str);
+  return BYTE.lastIndex = 0, BYTE.test(str);
 }
 function validateInt32(value2) {
   return Number.isInteger(value2) && value2 <= MAX_INT32 && value2 >= MIN_INT32;
@@ -64652,24 +64645,19 @@ function regex(str) {
   if (Z_ANCHOR.test(str))
     return false;
   try {
-    new RegExp(str);
-    return true;
+    return new RegExp(str), true;
   } catch (e) {
     return false;
   }
 }
-var import_cookie3 = __toESM(require_dist(), 1);
-var import_cookie4 = __toESM(require_dist(), 1);
-var import_fast_decode_uri_component = __toESM(require_fast_decode_uri_component(), 1);
 async function* streamResponse(response) {
-  const body = response.body;
+  let body = response.body;
   if (!body)
     return;
-  const reader = body.getReader();
-  const decoder = new TextDecoder;
+  let reader = body.getReader(), decoder = new TextDecoder;
   try {
     while (true) {
-      const { done, value: value2 } = await reader.read();
+      let { done, value: value2 } = await reader.read();
       if (done)
         break;
       yield decoder.decode(value2);
@@ -64680,39 +64668,29 @@ async function* streamResponse(response) {
 }
 function removeTrailingEquals(digest) {
   let trimmedDigest = digest;
-  while (trimmedDigest.endsWith("=")) {
+  while (trimmedDigest.endsWith("="))
     trimmedDigest = trimmedDigest.slice(0, -1);
-  }
   return trimmedDigest;
 }
-var import_fast_decode_uri_component2 = __toESM(require_fast_decode_uri_component(), 1);
-var import_fast_decode_uri_component3 = __toESM(require_fast_decode_uri_component(), 1);
 function parseQueryFromURL(input) {
-  const result = {};
+  let result = {};
   if (typeof input !== "string")
     return result;
-  let key = "";
-  let value2 = "";
-  let startingIndex = -1;
-  let equalityIndex = -1;
-  let flags = 0;
-  const l = input.length;
-  for (let i = 0;i < l; i++) {
+  let key = "", value2 = "", startingIndex = -1, equalityIndex = -1, flags = 0, l = input.length;
+  for (let i = 0;i < l; i++)
     switch (input.charCodeAt(i)) {
       case 38:
-        const hasBothKeyValuePair = equalityIndex > startingIndex;
+        let hasBothKeyValuePair = equalityIndex > startingIndex;
         if (!hasBothKeyValuePair)
           equalityIndex = i;
-        key = input.slice(startingIndex + 1, equalityIndex);
-        if (hasBothKeyValuePair || key.length > 0) {
+        if (key = input.slice(startingIndex + 1, equalityIndex), hasBothKeyValuePair || key.length > 0) {
           if (flags & 1)
             key = key.replace(plusRegex, " ");
           if (flags & 2)
             key = import_fast_decode_uri_component2.default(key) || key;
           if (!result[key]) {
             if (hasBothKeyValuePair) {
-              value2 = input.slice(equalityIndex + 1, i);
-              if (flags & 4)
+              if (value2 = input.slice(equalityIndex + 1, i), flags & 4)
                 value2 = value2.replace(plusRegex, " ");
               if (flags & 8)
                 value2 = import_fast_decode_uri_component2.default(value2) || value2;
@@ -64720,11 +64698,7 @@ function parseQueryFromURL(input) {
             result[key] = value2;
           }
         }
-        key = "";
-        value2 = "";
-        startingIndex = i;
-        equalityIndex = i;
-        flags = 0;
+        key = "", value2 = "", startingIndex = i, equalityIndex = i, flags = 0;
         break;
       case 61:
         if (equalityIndex <= startingIndex)
@@ -64745,19 +64719,16 @@ function parseQueryFromURL(input) {
           flags |= 2;
         break;
     }
-  }
   if (startingIndex < l) {
-    const hasBothKeyValuePair = equalityIndex > startingIndex;
-    key = input.slice(startingIndex + 1, hasBothKeyValuePair ? equalityIndex : l);
-    if (hasBothKeyValuePair || key.length > 0) {
+    let hasBothKeyValuePair = equalityIndex > startingIndex;
+    if (key = input.slice(startingIndex + 1, hasBothKeyValuePair ? equalityIndex : l), hasBothKeyValuePair || key.length > 0) {
       if (flags & 1)
         key = key.replace(plusRegex, " ");
       if (flags & 2)
         key = import_fast_decode_uri_component2.default(key) || key;
       if (!result[key]) {
         if (hasBothKeyValuePair) {
-          value2 = input.slice(equalityIndex + 1, l);
-          if (flags & 4)
+          if (value2 = input.slice(equalityIndex + 1, l), flags & 4)
             value2 = value2.replace(plusRegex, " ");
           if (flags & 8)
             value2 = import_fast_decode_uri_component2.default(value2) || value2;
@@ -64768,237 +64739,347 @@ function parseQueryFromURL(input) {
   }
   return result;
 }
-var createNode = (part, inert) => {
-  const inertMap = inert?.length ? {} : null;
-  if (inertMap)
-    for (const child of inert)
-      inertMap[child.part.charCodeAt(0)] = child;
-  return {
-    part,
-    store: null,
-    inert: inertMap,
-    params: null,
-    wildcardStore: null
-  };
+var __create2 = Object.create;
+var { getPrototypeOf: __getProtoOf2, defineProperty: __defProp2, getOwnPropertyNames: __getOwnPropNames2 } = Object;
+var __hasOwnProp2 = Object.prototype.hasOwnProperty;
+var __toESM2 = (mod, isNodeMode, target) => {
+  target = mod != null ? __create2(__getProtoOf2(mod)) : {};
+  let to = isNodeMode || !mod || !mod.__esModule ? __defProp2(target, "default", { value: mod, enumerable: true }) : target;
+  for (let key of __getOwnPropNames2(mod))
+    if (!__hasOwnProp2.call(to, key))
+      __defProp2(to, key, { get: () => mod[key], enumerable: true });
+  return to;
 };
-var cloneNode = (node, part) => ({
-  ...node,
-  part
+var __commonJS2 = (cb, mod) => () => (mod || cb((mod = { exports: {} }).exports, mod), mod.exports);
+var require_dist = __commonJS2((exports) => {
+  Object.defineProperty(exports, "__esModule", { value: true });
+  exports.parse = parse3;
+  exports.serialize = serialize2;
+  var cookieNameRegExp = /^[!#$%&'*+\-.^_`|~0-9A-Za-z]+$/, cookieValueRegExp = /^("?)[\u0021\u0023-\u002B\u002D-\u003A\u003C-\u005B\u005D-\u007E]*\1$/, domainValueRegExp = /^([.]?[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)([.][a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$/i, pathValueRegExp = /^[\u0020-\u003A\u003D-\u007E]*$/, __toString = Object.prototype.toString, NullObject = (() => {
+    let C = function() {
+    };
+    return C.prototype = Object.create(null), C;
+  })();
+  function parse3(str, options) {
+    let obj = new NullObject, len = str.length;
+    if (len < 2)
+      return obj;
+    let dec = options?.decode || decode2, index = 0;
+    do {
+      let eqIdx = str.indexOf("=", index);
+      if (eqIdx === -1)
+        break;
+      let colonIdx = str.indexOf(";", index), endIdx = colonIdx === -1 ? len : colonIdx;
+      if (eqIdx > endIdx) {
+        index = str.lastIndexOf(";", eqIdx - 1) + 1;
+        continue;
+      }
+      let keyStartIdx = startIndex(str, index, eqIdx), keyEndIdx = endIndex(str, eqIdx, keyStartIdx), key = str.slice(keyStartIdx, keyEndIdx);
+      if (obj[key] === undefined) {
+        let valStartIdx = startIndex(str, eqIdx + 1, endIdx), valEndIdx = endIndex(str, endIdx, valStartIdx), value2 = dec(str.slice(valStartIdx, valEndIdx));
+        obj[key] = value2;
+      }
+      index = endIdx + 1;
+    } while (index < len);
+    return obj;
+  }
+  function startIndex(str, index, max) {
+    do {
+      let code = str.charCodeAt(index);
+      if (code !== 32 && code !== 9)
+        return index;
+    } while (++index < max);
+    return max;
+  }
+  function endIndex(str, index, min) {
+    while (index > min) {
+      let code = str.charCodeAt(--index);
+      if (code !== 32 && code !== 9)
+        return index + 1;
+    }
+    return min;
+  }
+  function serialize2(name, val, options) {
+    let enc = options?.encode || encodeURIComponent;
+    if (!cookieNameRegExp.test(name))
+      throw new TypeError(`argument name is invalid: ${name}`);
+    let value2 = enc(val);
+    if (!cookieValueRegExp.test(value2))
+      throw new TypeError(`argument val is invalid: ${val}`);
+    let str = name + "=" + value2;
+    if (!options)
+      return str;
+    if (options.maxAge !== undefined) {
+      if (!Number.isInteger(options.maxAge))
+        throw new TypeError(`option maxAge is invalid: ${options.maxAge}`);
+      str += "; Max-Age=" + options.maxAge;
+    }
+    if (options.domain) {
+      if (!domainValueRegExp.test(options.domain))
+        throw new TypeError(`option domain is invalid: ${options.domain}`);
+      str += "; Domain=" + options.domain;
+    }
+    if (options.path) {
+      if (!pathValueRegExp.test(options.path))
+        throw new TypeError(`option path is invalid: ${options.path}`);
+      str += "; Path=" + options.path;
+    }
+    if (options.expires) {
+      if (!isDate(options.expires) || !Number.isFinite(options.expires.valueOf()))
+        throw new TypeError(`option expires is invalid: ${options.expires}`);
+      str += "; Expires=" + options.expires.toUTCString();
+    }
+    if (options.httpOnly)
+      str += "; HttpOnly";
+    if (options.secure)
+      str += "; Secure";
+    if (options.partitioned)
+      str += "; Partitioned";
+    if (options.priority)
+      switch (typeof options.priority === "string" ? options.priority.toLowerCase() : options.sameSite) {
+        case "low":
+          str += "; Priority=Low";
+          break;
+        case "medium":
+          str += "; Priority=Medium";
+          break;
+        case "high":
+          str += "; Priority=High";
+          break;
+        default:
+          throw new TypeError(`option priority is invalid: ${options.priority}`);
+      }
+    if (options.sameSite)
+      switch (typeof options.sameSite === "string" ? options.sameSite.toLowerCase() : options.sameSite) {
+        case true:
+        case "strict":
+          str += "; SameSite=Strict";
+          break;
+        case "lax":
+          str += "; SameSite=Lax";
+          break;
+        case "none":
+          str += "; SameSite=None";
+          break;
+        default:
+          throw new TypeError(`option sameSite is invalid: ${options.sameSite}`);
+      }
+    return str;
+  }
+  function decode2(str) {
+    if (str.indexOf("%") === -1)
+      return str;
+    try {
+      return decodeURIComponent(str);
+    } catch (e) {
+      return str;
+    }
+  }
+  function isDate(val) {
+    return __toString.call(val) === "[object Date]";
+  }
 });
-var createParamNode = (name) => ({
-  name,
-  store: null,
-  inert: null
+var require_fast_decode_uri_component = __commonJS2((exports, module) => {
+  var UTF8_ACCEPT = 12, UTF8_REJECT = 0, UTF8_DATA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 10, 9, 9, 9, 11, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 24, 36, 48, 60, 72, 84, 96, 0, 12, 12, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 24, 24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 48, 48, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 48, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 127, 63, 63, 63, 0, 31, 15, 15, 15, 7, 7, 7];
+  function decodeURIComponent2(uri2) {
+    var percentPosition = uri2.indexOf("%");
+    if (percentPosition === -1)
+      return uri2;
+    var length = uri2.length, decoded = "", last = 0, codepoint = 0, startOfOctets = percentPosition, state = UTF8_ACCEPT;
+    while (percentPosition > -1 && percentPosition < length) {
+      var high = hexCodeToInt(uri2[percentPosition + 1], 4), low = hexCodeToInt(uri2[percentPosition + 2], 0), byte2 = high | low, type3 = UTF8_DATA[byte2];
+      if (state = UTF8_DATA[256 + state + type3], codepoint = codepoint << 6 | byte2 & UTF8_DATA[364 + type3], state === UTF8_ACCEPT)
+        decoded += uri2.slice(last, startOfOctets), decoded += codepoint <= 65535 ? String.fromCharCode(codepoint) : String.fromCharCode(55232 + (codepoint >> 10), 56320 + (codepoint & 1023)), codepoint = 0, last = percentPosition + 3, percentPosition = startOfOctets = uri2.indexOf("%", last);
+      else if (state === UTF8_REJECT)
+        return null;
+      else {
+        if (percentPosition += 3, percentPosition < length && uri2.charCodeAt(percentPosition) === 37)
+          continue;
+        return null;
+      }
+    }
+    return decoded + uri2.slice(last);
+  }
+  var HEX = { "0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, a: 10, A: 10, b: 11, B: 11, c: 12, C: 12, d: 13, D: 13, e: 14, E: 14, f: 15, F: 15 };
+  function hexCodeToInt(c, shift) {
+    var i = HEX[c];
+    return i === undefined ? 255 : i << shift;
+  }
+  module.exports = decodeURIComponent2;
 });
-var Memoirist = class _Memoirist {
+var U = (z, q) => {
+  let v = q?.length ? {} : null;
+  if (v)
+    for (let K of q)
+      v[K.part.charCodeAt(0)] = K;
+  return { part: z, store: null, inert: v, params: null, wildcardStore: null };
+};
+var _ = (z, q) => ({ ...z, part: q });
+var $ = (z) => ({ name: z, store: null, inert: null });
+
+class Y {
   root = {};
   history = [];
-  static regex = {
-    static: /:.+?(?=\/|$)/,
-    params: /:.+?(?=\/|$)/g,
-    optionalParams: /:.+?\?(?=\/|$)/g
-  };
-  add(method, path, store, {
-    ignoreError = false,
-    ignoreHistory = false
-  } = {}) {
-    if (typeof path !== "string")
+  static regex = { static: /:.+?(?=\/|$)/, params: /:.+?(?=\/|$)/g, optionalParams: /:.+?\?(?=\/|$)/g };
+  add(z, q, v, { ignoreError: K = false, ignoreHistory: V = false } = {}) {
+    if (typeof q !== "string")
       throw new TypeError("Route path must be a string");
-    if (path === "")
-      path = "/";
-    else if (path[0] !== "/")
-      path = `/${path}`;
-    const isWildcard = path[path.length - 1] === "*";
-    const optionalParams = path.match(_Memoirist.regex.optionalParams);
-    if (optionalParams) {
-      const originalPath = path.replaceAll("?", "");
-      this.add(method, originalPath, store, {
-        ignoreError
-      });
-      for (let i = 0;i < optionalParams.length; i++) {
-        let newPath = path.replace("/" + optionalParams[i], "");
-        this.add(method, newPath, store, {
-          ignoreError: true
-        });
+    if (q === "")
+      q = "/";
+    else if (q[0] !== "/")
+      q = `/${q}`;
+    let S = q[q.length - 1] === "*", D = q.match(Y.regex.optionalParams);
+    if (D) {
+      let F = q.replaceAll("?", "");
+      this.add(z, F, v, { ignoreError: K });
+      for (let B = 0;B < D.length; B++) {
+        let A = q.replace("/" + D[B], "");
+        this.add(z, A, v, { ignoreError: true });
       }
-      return store;
+      return v;
     }
-    if (optionalParams)
-      path = path.replaceAll("?", "");
-    if (this.history.find(([m, p, s]) => m === method && p === path))
-      return store;
-    if (isWildcard || optionalParams && path.charCodeAt(path.length - 1) === 63)
-      path = path.slice(0, -1);
-    if (!ignoreHistory)
-      this.history.push([method, path, store]);
-    const inertParts = path.split(_Memoirist.regex.static);
-    const paramParts = path.match(_Memoirist.regex.params) || [];
-    if (inertParts[inertParts.length - 1] === "")
-      inertParts.pop();
-    let node;
-    if (!this.root[method])
-      node = this.root[method] = createNode("/");
+    if (D)
+      q = q.replaceAll("?", "");
+    if (this.history.find(([F, B, A]) => F === z && B === q))
+      return v;
+    if (S || D && q.charCodeAt(q.length - 1) === 63)
+      q = q.slice(0, -1);
+    if (!V)
+      this.history.push([z, q, v]);
+    let G = q.split(Y.regex.static), J = q.match(Y.regex.params) || [];
+    if (G[G.length - 1] === "")
+      G.pop();
+    let b;
+    if (!this.root[z])
+      b = this.root[z] = U("/");
     else
-      node = this.root[method];
-    let paramPartsIndex = 0;
-    for (let i = 0;i < inertParts.length; ++i) {
-      let part = inertParts[i];
-      if (i > 0) {
-        const param = paramParts[paramPartsIndex++].slice(1);
-        if (node.params === null)
-          node.params = createParamNode(param);
-        else if (node.params.name !== param) {
-          if (ignoreError)
-            return store;
+      b = this.root[z];
+    let Q = 0;
+    for (let F = 0;F < G.length; ++F) {
+      let B = G[F];
+      if (F > 0) {
+        let A = J[Q++].slice(1);
+        if (b.params === null)
+          b.params = $(A);
+        else if (b.params.name !== A)
+          if (K)
+            return v;
           else
-            throw new Error(`Cannot create route "${path}" with parameter "${param}" because a route already exists with a different parameter name ("${node.params.name}") in the same location`);
-        }
-        const params = node.params;
-        if (params.inert === null) {
-          node = params.inert = createNode(part);
+            throw new Error(`Cannot create route "${q}" with parameter "${A}" because a route already exists with a different parameter name ("${b.params.name}") in the same location`);
+        let O = b.params;
+        if (O.inert === null) {
+          b = O.inert = U(B);
           continue;
         }
-        node = params.inert;
+        b = O.inert;
       }
-      for (let j = 0;; ) {
-        if (j === part.length) {
-          if (j < node.part.length) {
-            const childNode = cloneNode(node, node.part.slice(j));
-            Object.assign(node, createNode(part, [childNode]));
+      for (let A = 0;; ) {
+        if (A === B.length) {
+          if (A < b.part.length) {
+            let O = _(b, b.part.slice(A));
+            Object.assign(b, U(B, [O]));
           }
           break;
         }
-        if (j === node.part.length) {
-          if (node.inert === null)
-            node.inert = {};
-          const inert = node.inert[part.charCodeAt(j)];
-          if (inert) {
-            node = inert;
-            part = part.slice(j);
-            j = 0;
+        if (A === b.part.length) {
+          if (b.inert === null)
+            b.inert = {};
+          let O = b.inert[B.charCodeAt(A)];
+          if (O) {
+            b = O, B = B.slice(A), A = 0;
             continue;
           }
-          const childNode = createNode(part.slice(j));
-          node.inert[part.charCodeAt(j)] = childNode;
-          node = childNode;
+          let X = U(B.slice(A));
+          b.inert[B.charCodeAt(A)] = X, b = X;
           break;
         }
-        if (part[j] !== node.part[j]) {
-          const existingChild = cloneNode(node, node.part.slice(j));
-          const newChild = createNode(part.slice(j));
-          Object.assign(node, createNode(node.part.slice(0, j), [
-            existingChild,
-            newChild
-          ]));
-          node = newChild;
+        if (B[A] !== b.part[A]) {
+          let O = _(b, b.part.slice(A)), X = U(B.slice(A));
+          Object.assign(b, U(b.part.slice(0, A), [O, X])), b = X;
           break;
         }
-        ++j;
+        ++A;
       }
     }
-    if (paramPartsIndex < paramParts.length) {
-      const param = paramParts[paramPartsIndex];
-      const name = param.slice(1);
-      if (node.params === null)
-        node.params = createParamNode(name);
-      else if (node.params.name !== name) {
-        if (ignoreError)
-          return store;
+    if (Q < J.length) {
+      let B = J[Q].slice(1);
+      if (b.params === null)
+        b.params = $(B);
+      else if (b.params.name !== B)
+        if (K)
+          return v;
         else
-          throw new Error(`Cannot create route "${path}" with parameter "${name}" because a route already exists with a different parameter name ("${node.params.name}") in the same location`);
-      }
-      if (node.params.store === null)
-        node.params.store = store;
-      return node.params.store;
+          throw new Error(`Cannot create route "${q}" with parameter "${B}" because a route already exists with a different parameter name ("${b.params.name}") in the same location`);
+      if (b.params.store === null)
+        b.params.store = v;
+      return b.params.store;
     }
-    if (isWildcard) {
-      if (node.wildcardStore === null)
-        node.wildcardStore = store;
-      return node.wildcardStore;
+    if (S) {
+      if (b.wildcardStore === null)
+        b.wildcardStore = v;
+      return b.wildcardStore;
     }
-    if (node.store === null)
-      node.store = store;
-    return node.store;
+    if (b.store === null)
+      b.store = v;
+    return b.store;
   }
-  find(method, url) {
-    const root = this.root[method];
-    if (!root)
+  find(z, q) {
+    let v = this.root[z];
+    if (!v)
       return null;
-    return matchRoute(url, url.length, root, 0);
+    return Z(q, q.length, v, 0);
   }
-};
-var matchRoute = (url, urlLength, node, startIndex) => {
-  const part = node.part;
-  const length = part.length;
-  const endIndex = startIndex + length;
-  if (length > 1) {
-    if (endIndex > urlLength)
+}
+var Z = (z, q, v, K) => {
+  let V = v.part, S = V.length, D = K + S;
+  if (S > 1) {
+    if (D > q)
       return null;
-    if (length < 15) {
-      for (let i = 1, j = startIndex + 1;i < length; ++i, ++j)
-        if (part.charCodeAt(i) !== url.charCodeAt(j))
+    if (S < 15) {
+      for (let G = 1, J = K + 1;G < S; ++G, ++J)
+        if (V.charCodeAt(G) !== z.charCodeAt(J))
           return null;
-    } else if (url.slice(startIndex, endIndex) !== part)
+    } else if (z.slice(K, D) !== V)
       return null;
   }
-  if (endIndex === urlLength) {
-    if (node.store !== null)
-      return {
-        store: node.store,
-        params: {}
-      };
-    if (node.wildcardStore !== null)
-      return {
-        store: node.wildcardStore,
-        params: { "*": "" }
-      };
+  if (D === q) {
+    if (v.store !== null)
+      return { store: v.store, params: {} };
+    if (v.wildcardStore !== null)
+      return { store: v.wildcardStore, params: { "*": "" } };
     return null;
   }
-  if (node.inert !== null) {
-    const inert = node.inert[url.charCodeAt(endIndex)];
-    if (inert !== undefined) {
-      const route = matchRoute(url, urlLength, inert, endIndex);
-      if (route !== null)
-        return route;
+  if (v.inert !== null) {
+    let G = v.inert[z.charCodeAt(D)];
+    if (G !== undefined) {
+      let J = Z(z, q, G, D);
+      if (J !== null)
+        return J;
     }
   }
-  if (node.params !== null) {
-    const { store, name, inert } = node.params;
-    const slashIndex = url.indexOf("/", endIndex);
-    if (slashIndex !== endIndex) {
-      if (slashIndex === -1 || slashIndex >= urlLength) {
-        if (store !== null) {
-          const params = {};
-          params[name] = url.substring(endIndex, urlLength);
-          return {
-            store,
-            params
-          };
+  if (v.params !== null) {
+    let { store: G, name: J, inert: b } = v.params, Q = z.indexOf("/", D);
+    if (Q !== D) {
+      if (Q === -1 || Q >= q) {
+        if (G !== null) {
+          let F = {};
+          return F[J] = z.substring(D, q), { store: G, params: F };
         }
-      } else if (inert !== null) {
-        const route = matchRoute(url, urlLength, inert, slashIndex);
-        if (route !== null) {
-          route.params[name] = url.substring(endIndex, slashIndex);
-          return route;
-        }
+      } else if (b !== null) {
+        let F = Z(z, q, b, Q);
+        if (F !== null)
+          return F.params[J] = z.substring(D, Q), F;
       }
     }
   }
-  if (node.wildcardStore !== null)
-    return {
-      store: node.wildcardStore,
-      params: {
-        "*": url.substring(endIndex, urlLength)
-      }
-    };
+  if (v.wildcardStore !== null)
+    return { store: v.wildcardStore, params: { "*": z.substring(D, q) } };
   return null;
 };
 var hasReturn = (fn2) => {
-  const fnLiteral = typeof fn2 === "object" ? fn2.fn.toString() : typeof fn2 === "string" ? fn2.toString() : fn2;
-  const parenthesisEnd = fnLiteral.indexOf(")");
-  if (fnLiteral.charCodeAt(parenthesisEnd + 2) === 61 && fnLiteral.charCodeAt(parenthesisEnd + 5) !== 123) {
+  let fnLiteral = typeof fn2 === "object" ? fn2.fn.toString() : typeof fn2 === "string" ? fn2.toString() : fn2, parenthesisEnd = fnLiteral.indexOf(")");
+  if (fnLiteral.charCodeAt(parenthesisEnd + 2) === 61 && fnLiteral.charCodeAt(parenthesisEnd + 5) !== 123)
     return true;
-  }
   return fnLiteral.includes("return");
 };
 var separateFunction = (code) => {
@@ -65007,8 +65088,7 @@ var separateFunction = (code) => {
   code = code.trimStart();
   let index = -1;
   if (code.charCodeAt(0) === 40) {
-    index = code.indexOf("=>", code.indexOf(")"));
-    if (index !== -1) {
+    if (index = code.indexOf("=>", code.indexOf(")")), index !== -1) {
       let bracketEndIndex = index;
       while (bracketEndIndex > 0)
         if (code.charCodeAt(--bracketEndIndex) === 41)
@@ -65016,51 +65096,29 @@ var separateFunction = (code) => {
       let body = code.slice(index + 2);
       if (body.charCodeAt(0) === 32)
         body = body.trimStart();
-      return [
-        code.slice(1, bracketEndIndex),
-        body,
-        {
-          isArrowReturn: body.charCodeAt(0) !== 123
-        }
-      ];
+      return [code.slice(1, bracketEndIndex), body, { isArrowReturn: body.charCodeAt(0) !== 123 }];
     }
   }
   if (code.startsWith("function")) {
     index = code.indexOf("(");
-    const end = code.indexOf(")");
-    return [
-      code.slice(index + 1, end),
-      code.slice(end + 2),
-      {
-        isArrowReturn: false
-      }
-    ];
+    let end = code.indexOf(")");
+    return [code.slice(index + 1, end), code.slice(end + 2), { isArrowReturn: false }];
   }
-  const start = code.indexOf("(");
+  let start = code.indexOf("(");
   if (start !== -1) {
-    const sep = code.indexOf("\n", 2);
-    const parameter = code.slice(0, sep);
-    const end = parameter.lastIndexOf(")") + 1;
-    const body = code.slice(sep + 1);
-    return [
-      parameter.slice(start, end),
-      "{" + body,
-      {
-        isArrowReturn: false
-      }
-    ];
+    let sep = code.indexOf("\n", 2), parameter = code.slice(0, sep), end = parameter.lastIndexOf(")") + 1, body = code.slice(sep + 1);
+    return [parameter.slice(start, end), "{" + body, { isArrowReturn: false }];
   }
-  const x = code.split("\n", 2);
+  let x = code.split("\n", 2);
   return [x[0], x[1], { isArrowReturn: false }];
 };
 var bracketPairRange = (parameter) => {
-  const start = parameter.indexOf("{");
+  let start = parameter.indexOf("{");
   if (start === -1)
     return [-1, 0];
-  let end = start + 1;
-  let deep = 1;
+  let end = start + 1, deep = 1;
   for (;end < parameter.length; end++) {
-    const char = parameter.charCodeAt(end);
+    let char = parameter.charCodeAt(end);
     if (char === 123)
       deep++;
     else if (char === 125)
@@ -65073,13 +65131,12 @@ var bracketPairRange = (parameter) => {
   return [start, end + 1];
 };
 var bracketPairRangeReverse = (parameter) => {
-  const end = parameter.lastIndexOf("}");
+  let end = parameter.lastIndexOf("}");
   if (end === -1)
     return [-1, 0];
-  let start = end - 1;
-  let deep = 1;
+  let start = end - 1, deep = 1;
   for (;start >= 0; start--) {
-    const char = parameter.charCodeAt(start);
+    let char = parameter.charCodeAt(start);
     if (char === 125)
       deep++;
     else if (char === 123)
@@ -65093,7 +65150,7 @@ var bracketPairRangeReverse = (parameter) => {
 };
 var removeColonAlias = (parameter) => {
   while (true) {
-    const start = parameter.indexOf(":");
+    let start = parameter.indexOf(":");
     if (start === -1)
       break;
     let end = parameter.indexOf(",", start);
@@ -65109,41 +65166,33 @@ var retrieveRootParamters = (parameter) => {
   let hasParenthesis = false;
   if (parameter.charCodeAt(0) === 40)
     parameter = parameter.slice(1, -1);
-  if (parameter.charCodeAt(0) === 123) {
-    hasParenthesis = true;
-    parameter = parameter.slice(1, -1);
-  }
+  if (parameter.charCodeAt(0) === 123)
+    hasParenthesis = true, parameter = parameter.slice(1, -1);
   parameter = parameter.replace(/( |\t|\n)/g, "").trim();
   let parameters3 = [];
   while (true) {
     let [start, end] = bracketPairRange(parameter);
     if (start === -1)
       break;
-    parameters3.push(parameter.slice(0, start - 1));
-    if (parameter.charCodeAt(end) === 44)
+    if (parameters3.push(parameter.slice(0, start - 1)), parameter.charCodeAt(end) === 44)
       end++;
     parameter = parameter.slice(end);
   }
-  parameter = removeColonAlias(parameter);
-  if (parameter)
+  if (parameter = removeColonAlias(parameter), parameter)
     parameters3 = parameters3.concat(parameter.split(","));
-  const newParameters = [];
-  for (const p of parameters3) {
+  let newParameters = [];
+  for (let p of parameters3) {
     if (p.indexOf(",") === -1) {
       newParameters.push(p);
       continue;
     }
-    for (const q of p.split(","))
+    for (let q of p.split(","))
       newParameters.push(q.trim());
   }
-  parameters3 = newParameters;
-  return {
-    hasParenthesis,
-    parameters: parameters3
-  };
+  return parameters3 = newParameters, { hasParenthesis, parameters: parameters3 };
 };
 var findParameterReference = (parameter, inference) => {
-  const { parameters: parameters3, hasParenthesis } = retrieveRootParamters(parameter);
+  let { parameters: parameters3, hasParenthesis } = retrieveRootParamters(parameter);
   if (!inference.query && parameters3.includes("query"))
     inference.query = true;
   if (!inference.headers && parameters3.includes("headers"))
@@ -65161,32 +65210,25 @@ var findParameterReference = (parameter, inference) => {
   return parameters3.join(", ");
 };
 var findEndIndex = (type3, content, index) => {
-  const newLineIndex = content.indexOf(type3 + "\n", index);
-  const newTabIndex = content.indexOf(type3 + "	", index);
-  const commaIndex = content.indexOf(type3 + ",", index);
-  const semicolonIndex = content.indexOf(type3 + ";", index);
-  const emptyIndex = content.indexOf(type3 + " ", index);
+  let newLineIndex = content.indexOf(type3 + "\n", index), newTabIndex = content.indexOf(type3 + "\t", index), commaIndex = content.indexOf(type3 + ",", index), semicolonIndex = content.indexOf(type3 + ";", index), emptyIndex = content.indexOf(type3 + " ", index);
   return [newLineIndex, newTabIndex, commaIndex, semicolonIndex, emptyIndex].filter((i) => i > 0).sort((a, b) => a - b)[0] || -1;
 };
 var findAlias = (type3, body, depth = 0) => {
   if (depth > 5)
     return [];
-  const aliases = [];
-  let content = body;
+  let aliases = [], content = body;
   while (true) {
     let index = findEndIndex(" = " + type3, content);
     if (index === -1) {
-      const lastIndex = content.indexOf(" = " + type3);
+      let lastIndex = content.indexOf(" = " + type3);
       if (lastIndex + 3 + type3.length !== content.length)
         break;
       index = lastIndex;
     }
-    const part = content.slice(0, index);
-    let variable = part.slice(part.lastIndexOf(" ") + 1);
+    let part = content.slice(0, index), variable = part.slice(part.lastIndexOf(" ") + 1);
     if (variable === "}") {
-      const [start, end] = bracketPairRangeReverse(part);
-      aliases.push(removeColonAlias(content.slice(start, end)));
-      content = content.slice(index + 3 + type3.length);
+      let [start, end] = bracketPairRangeReverse(part);
+      aliases.push(removeColonAlias(content.slice(start, end))), content = content.slice(index + 3 + type3.length);
       continue;
     }
     while (variable.charCodeAt(0) === 44)
@@ -65197,10 +65239,10 @@ var findAlias = (type3, body, depth = 0) => {
       aliases.push(variable);
     content = content.slice(index + 3 + type3.length);
   }
-  for (const alias of aliases) {
+  for (let alias of aliases) {
     if (alias.charCodeAt(0) === 123)
       continue;
-    const deepAlias = findAlias(alias, body);
+    let deepAlias = findAlias(alias, body);
     if (deepAlias.length > 0)
       aliases.push(...deepAlias);
   }
@@ -65211,25 +65253,23 @@ var extractMainParameter = (parameter) => {
     return;
   if (parameter.charCodeAt(0) !== 123)
     return parameter;
-  parameter = parameter.slice(2, -2);
-  const hasComma = parameter.includes(",");
-  if (!hasComma) {
+  if (parameter = parameter.slice(2, -2), !parameter.includes(",")) {
     if (parameter.includes("..."))
       return parameter.slice(parameter.indexOf("...") + 3);
     return;
   }
-  const spreadIndex = parameter.indexOf("...");
+  let spreadIndex = parameter.indexOf("...");
   if (spreadIndex === -1)
     return;
   return parameter.slice(spreadIndex + 3).trimEnd();
 };
 var inferBodyReference = (code, aliases, inference) => {
-  const access = (type3, alias) => code.includes(alias + "." + type3) || code.includes(alias + '["' + type3 + '"]') || code.includes(alias + "['" + type3 + "']");
-  for (const alias of aliases) {
+  let access = (type3, alias) => code.includes(alias + "." + type3) || code.includes(alias + '["' + type3 + '"]') || code.includes(alias + "['" + type3 + "']");
+  for (let alias of aliases) {
     if (!alias)
       continue;
     if (alias.charCodeAt(0) === 123) {
-      const parameters3 = retrieveRootParamters(alias).parameters;
+      let parameters3 = retrieveRootParamters(alias).parameters;
       if (!inference.query && parameters3.includes("query"))
         inference.query = true;
       if (!inference.headers && parameters3.includes("headers"))
@@ -65265,37 +65305,18 @@ var inferBodyReference = (code, aliases, inference) => {
 };
 var isContextPassToFunction = (context, body, inference) => {
   try {
-    const captureFunction = new RegExp(`(?:\\w)\\((?:.*)?${context}`, "gs");
+    let captureFunction = new RegExp(`(?:\\w)\\((?:.*)?${context}`, "gs");
     captureFunction.test(body);
-    const nextChar = body.charCodeAt(captureFunction.lastIndex);
-    if (nextChar === 41 || nextChar === 44) {
-      inference.query = true;
-      inference.headers = true;
-      inference.body = true;
-      inference.cookie = true;
-      inference.set = true;
-      inference.server = true;
-      return true;
-    }
+    let nextChar = body.charCodeAt(captureFunction.lastIndex);
+    if (nextChar === 41 || nextChar === 44)
+      return inference.query = true, inference.headers = true, inference.body = true, inference.cookie = true, inference.set = true, inference.server = true, true;
     return false;
-  } catch (error22) {
-    console.log("[Sucrose] warning: unexpected isContextPassToFunction error, you may continue development as usual but please report the following to maintainers:");
-    console.log("--- body ---");
-    console.log(body);
-    console.log("--- context ---");
-    console.log(context);
-    return true;
+  } catch (error3) {
+    return console.log("[Sucrose] warning: unexpected isContextPassToFunction error, you may continue development as usual but please report the following to maintainers:"), console.log("--- body ---"), console.log(body), console.log("--- context ---"), console.log(context), true;
   }
 };
-var sucrose = (lifeCycle, inference = {
-  query: false,
-  headers: false,
-  body: false,
-  cookie: false,
-  set: false,
-  server: false
-}) => {
-  const events = [];
+var sucrose = (lifeCycle, inference = { query: false, headers: false, body: false, cookie: false, set: false, server: false }) => {
+  let events = [];
   if (lifeCycle.handler && typeof lifeCycle.handler === "function")
     events.push(lifeCycle.handler);
   if (lifeCycle.request?.length)
@@ -65314,17 +65335,13 @@ var sucrose = (lifeCycle, inference = {
     events.push(...lifeCycle.mapResponse);
   if (lifeCycle.afterResponse?.length)
     events.push(...lifeCycle.afterResponse);
-  for (const e of events) {
+  for (let e of events) {
     if (!e)
       continue;
-    const event = "fn" in e ? e.fn : e;
-    const [parameter, body, { isArrowReturn }] = separateFunction(event.toString());
-    const rootParameters = findParameterReference(parameter, inference);
-    const mainParameter = extractMainParameter(rootParameters);
+    let event = "fn" in e ? e.fn : e, [parameter, body, { isArrowReturn }] = separateFunction(event.toString()), rootParameters = findParameterReference(parameter, inference), mainParameter = extractMainParameter(rootParameters);
     if (mainParameter) {
-      const aliases = findAlias(mainParameter, body);
-      aliases.splice(0, -1, mainParameter);
-      if (!isContextPassToFunction(mainParameter, body, inference))
+      let aliases = findAlias(mainParameter, body);
+      if (aliases.splice(0, -1, mainParameter), !isContextPassToFunction(mainParameter, body, inference))
         inferBodyReference(body, aliases, inference);
       if (!inference.query && body.includes("return " + mainParameter + ".query"))
         inference.query = true;
@@ -65334,34 +65351,7 @@ var sucrose = (lifeCycle, inference = {
   }
   return inference;
 };
-var fullFormats = {
-  date: date3,
-  time: getTime(true),
-  "date-time": getDateTime(true),
-  "iso-time": getTime(false),
-  "iso-date-time": getDateTime(false),
-  duration: /^P(?!$)((\d+Y)?(\d+M)?(\d+D)?(T(?=\d)(\d+H)?(\d+M)?(\d+S)?)?|(\d+W)?)$/,
-  uri,
-  "uri-reference": /^(?:[a-z][a-z0-9+\-.]*:)?(?:\/?\/(?:(?:[a-z0-9\-._~!$&'()*+,;=:]|%[0-9a-f]{2})*@)?(?:\[(?:(?:(?:(?:[0-9a-f]{1,4}:){6}|::(?:[0-9a-f]{1,4}:){5}|(?:[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){4}|(?:(?:[0-9a-f]{1,4}:){0,1}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){3}|(?:(?:[0-9a-f]{1,4}:){0,2}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){2}|(?:(?:[0-9a-f]{1,4}:){0,3}[0-9a-f]{1,4})?::[0-9a-f]{1,4}:|(?:(?:[0-9a-f]{1,4}:){0,4}[0-9a-f]{1,4})?::)(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?))|(?:(?:[0-9a-f]{1,4}:){0,5}[0-9a-f]{1,4})?::[0-9a-f]{1,4}|(?:(?:[0-9a-f]{1,4}:){0,6}[0-9a-f]{1,4})?::)|[Vv][0-9a-f]+\.[a-z0-9\-._~!$&'()*+,;=:]+)\]|(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)|(?:[a-z0-9\-._~!$&'"()*+,;=]|%[0-9a-f]{2})*)(?::\d*)?(?:\/(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})*)*|\/(?:(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})+(?:\/(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})*)*)?|(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})+(?:\/(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})*)*)?(?:\?(?:[a-z0-9\-._~!$&'"()*+,;=:@/?]|%[0-9a-f]{2})*)?(?:#(?:[a-z0-9\-._~!$&'"()*+,;=:@/?]|%[0-9a-f]{2})*)?$/i,
-  "uri-template": /^(?:(?:[^\x00-\x20"'<>%\\^`{|}]|%[0-9a-f]{2})|\{[+#./;?&=,!@|]?(?:[a-z0-9_]|%[0-9a-f]{2})+(?::[1-9][0-9]{0,3}|\*)?(?:,(?:[a-z0-9_]|%[0-9a-f]{2})+(?::[1-9][0-9]{0,3}|\*)?)*\})*$/i,
-  url: /^(?:https?|ftp):\/\/(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z0-9\u{00a1}-\u{ffff}]+-)*[a-z0-9\u{00a1}-\u{ffff}]+)(?:\.(?:[a-z0-9\u{00a1}-\u{ffff}]+-)*[a-z0-9\u{00a1}-\u{ffff}]+)*(?:\.(?:[a-z\u{00a1}-\u{ffff}]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/iu,
-  email: /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i,
-  hostname: /^(?=.{1,253}\.?$)[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[-0-9a-z]{0,61}[0-9a-z])?)*\.?$/i,
-  ipv4: /^(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)$/,
-  ipv6: /^((([0-9a-f]{1,4}:){7}([0-9a-f]{1,4}|:))|(([0-9a-f]{1,4}:){6}(:[0-9a-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9a-f]{1,4}:){5}(((:[0-9a-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9a-f]{1,4}:){4}(((:[0-9a-f]{1,4}){1,3})|((:[0-9a-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9a-f]{1,4}:){3}(((:[0-9a-f]{1,4}){1,4})|((:[0-9a-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9a-f]{1,4}:){2}(((:[0-9a-f]{1,4}){1,5})|((:[0-9a-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9a-f]{1,4}:){1}(((:[0-9a-f]{1,4}){1,6})|((:[0-9a-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9a-f]{1,4}){1,7})|((:[0-9a-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))$/i,
-  regex,
-  uuid: /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i,
-  "json-pointer": /^(?:\/(?:[^~/]|~0|~1)*)*$/,
-  "json-pointer-uri-fragment": /^#(?:\/(?:[a-z0-9_\-.!$&'()*+,;:=@]|%[0-9a-f]{2}|~0|~1)*)*$/i,
-  "relative-json-pointer": /^(?:0|[1-9][0-9]*)(?:#|(?:\/(?:[^~/]|~0|~1)*)*)$/,
-  byte,
-  int32: { type: "number", validate: validateInt32 },
-  int64: { type: "number", validate: validateInt64 },
-  float: { type: "number", validate: validateNumber },
-  double: { type: "number", validate: validateNumber },
-  password: true,
-  binary: true
-};
+var fullFormats = { date: date3, time: getTime(true), "date-time": getDateTime(true), "iso-time": getTime(false), "iso-date-time": getDateTime(false), duration: /^P(?!$)((\d+Y)?(\d+M)?(\d+D)?(T(?=\d)(\d+H)?(\d+M)?(\d+S)?)?|(\d+W)?)$/, uri, "uri-reference": /^(?:[a-z][a-z0-9+\-.]*:)?(?:\/?\/(?:(?:[a-z0-9\-._~!$&'()*+,;=:]|%[0-9a-f]{2})*@)?(?:\[(?:(?:(?:(?:[0-9a-f]{1,4}:){6}|::(?:[0-9a-f]{1,4}:){5}|(?:[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){4}|(?:(?:[0-9a-f]{1,4}:){0,1}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){3}|(?:(?:[0-9a-f]{1,4}:){0,2}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){2}|(?:(?:[0-9a-f]{1,4}:){0,3}[0-9a-f]{1,4})?::[0-9a-f]{1,4}:|(?:(?:[0-9a-f]{1,4}:){0,4}[0-9a-f]{1,4})?::)(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?))|(?:(?:[0-9a-f]{1,4}:){0,5}[0-9a-f]{1,4})?::[0-9a-f]{1,4}|(?:(?:[0-9a-f]{1,4}:){0,6}[0-9a-f]{1,4})?::)|[Vv][0-9a-f]+\.[a-z0-9\-._~!$&'()*+,;=:]+)\]|(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)|(?:[a-z0-9\-._~!$&'"()*+,;=]|%[0-9a-f]{2})*)(?::\d*)?(?:\/(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})*)*|\/(?:(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})+(?:\/(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})*)*)?|(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})+(?:\/(?:[a-z0-9\-._~!$&'"()*+,;=:@]|%[0-9a-f]{2})*)*)?(?:\?(?:[a-z0-9\-._~!$&'"()*+,;=:@/?]|%[0-9a-f]{2})*)?(?:#(?:[a-z0-9\-._~!$&'"()*+,;=:@/?]|%[0-9a-f]{2})*)?$/i, "uri-template": /^(?:(?:[^\x00-\x20"'<>%\\^`{|}]|%[0-9a-f]{2})|\{[+#./;?&=,!@|]?(?:[a-z0-9_]|%[0-9a-f]{2})+(?::[1-9][0-9]{0,3}|\*)?(?:,(?:[a-z0-9_]|%[0-9a-f]{2})+(?::[1-9][0-9]{0,3}|\*)?)*\})*$/i, url: /^(?:https?|ftp):\/\/(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z0-9\u{00a1}-\u{ffff}]+-)*[a-z0-9\u{00a1}-\u{ffff}]+)(?:\.(?:[a-z0-9\u{00a1}-\u{ffff}]+-)*[a-z0-9\u{00a1}-\u{ffff}]+)*(?:\.(?:[a-z\u{00a1}-\u{ffff}]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/iu, email: /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i, hostname: /^(?=.{1,253}\.?$)[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[-0-9a-z]{0,61}[0-9a-z])?)*\.?$/i, ipv4: /^(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)$/, ipv6: /^((([0-9a-f]{1,4}:){7}([0-9a-f]{1,4}|:))|(([0-9a-f]{1,4}:){6}(:[0-9a-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9a-f]{1,4}:){5}(((:[0-9a-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9a-f]{1,4}:){4}(((:[0-9a-f]{1,4}){1,3})|((:[0-9a-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9a-f]{1,4}:){3}(((:[0-9a-f]{1,4}){1,4})|((:[0-9a-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9a-f]{1,4}:){2}(((:[0-9a-f]{1,4}){1,5})|((:[0-9a-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9a-f]{1,4}:){1}(((:[0-9a-f]{1,4}){1,6})|((:[0-9a-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9a-f]{1,4}){1,7})|((:[0-9a-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))$/i, regex, uuid: /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i, "json-pointer": /^(?:\/(?:[^~/]|~0|~1)*)*$/, "json-pointer-uri-fragment": /^#(?:\/(?:[a-z0-9_\-.!$&'()*+,;:=@]|%[0-9a-f]{2}|~0|~1)*)*$/i, "relative-json-pointer": /^(?:0|[1-9][0-9]*)(?:#|(?:\/(?:[^~/]|~0|~1)*)*)$/, byte, int32: { type: "number", validate: validateInt32 }, int64: { type: "number", validate: validateInt64 }, float: { type: "number", validate: validateNumber }, double: { type: "number", validate: validateNumber }, password: true, binary: true };
 var DATE = /^(\d\d\d\d)-(\d\d)-(\d\d)$/;
 var DAYS = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 var TIME = /^(\d\d):(\d\d):(\d\d(?:\.\d+)?)(z|([+-])(\d\d)(?::?(\d\d))?)?$/i;
@@ -65369,8 +65359,8 @@ var DATE_TIME_SEPARATOR = /t|\s/i;
 var NOT_URI_FRAGMENT = /\/|:/;
 var URI = /^(?:[a-z][a-z0-9+\-.]*:)(?:\/?\/(?:(?:[a-z0-9\-._~!$&'()*+,;=:]|%[0-9a-f]{2})*@)?(?:\[(?:(?:(?:(?:[0-9a-f]{1,4}:){6}|::(?:[0-9a-f]{1,4}:){5}|(?:[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){4}|(?:(?:[0-9a-f]{1,4}:){0,1}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){3}|(?:(?:[0-9a-f]{1,4}:){0,2}[0-9a-f]{1,4})?::(?:[0-9a-f]{1,4}:){2}|(?:(?:[0-9a-f]{1,4}:){0,3}[0-9a-f]{1,4})?::[0-9a-f]{1,4}:|(?:(?:[0-9a-f]{1,4}:){0,4}[0-9a-f]{1,4})?::)(?:[0-9a-f]{1,4}:[0-9a-f]{1,4}|(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?))|(?:(?:[0-9a-f]{1,4}:){0,5}[0-9a-f]{1,4})?::[0-9a-f]{1,4}|(?:(?:[0-9a-f]{1,4}:){0,6}[0-9a-f]{1,4})?::)|[Vv][0-9a-f]+\.[a-z0-9\-._~!$&'()*+,;=:]+)\]|(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)|(?:[a-z0-9\-._~!$&'()*+,;=]|%[0-9a-f]{2})*)(?::\d*)?(?:\/(?:[a-z0-9\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*|\/(?:(?:[a-z0-9\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})+(?:\/(?:[a-z0-9\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*)?|(?:[a-z0-9\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})+(?:\/(?:[a-z0-9\-._~!$&'()*+,;=:@]|%[0-9a-f]{2})*)*)(?:\?(?:[a-z0-9\-._~!$&'()*+,;=:@/?]|%[0-9a-f]{2})*)?(?:#(?:[a-z0-9\-._~!$&'()*+,;=:@/?]|%[0-9a-f]{2})*)?$/i;
 var BYTE = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/gm;
-var MIN_INT32 = -(2 ** 31);
-var MAX_INT32 = 2 ** 31 - 1;
+var MIN_INT32 = -2147483648;
+var MAX_INT32 = 2147483647;
 var Z_ANCHOR = /[^\\]\\Z/;
 var isISO8601 = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
 var isFormalDate = /(?:Sun|Mon|Tue|Wed|Thu|Fri|Sat)\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s\d{2}\s\d{4}\s\d{2}:\d{2}:\d{2}\sGMT(?:\+|-)\d{4}\s\([^)]+\)/;
@@ -65379,9 +65369,9 @@ var _validateDate = fullFormats.date;
 var _validateDateTime = fullFormats["date-time"];
 if (!exports_format.Has("date"))
   TypeSystem.Format("date", (value2) => {
-    const temp = value2.replace(/"/g, "");
+    let temp = value2.replace(/"/g, "");
     if (isISO8601.test(temp) || isFormalDate.test(temp) || isShortenDate.test(temp) || _validateDate(temp)) {
-      const date22 = new Date(temp);
+      let date22 = new Date(temp);
       if (!Number.isNaN(date22.getTime()))
         return true;
     }
@@ -65389,16 +65379,16 @@ if (!exports_format.Has("date"))
   });
 if (!exports_format.Has("date-time"))
   TypeSystem.Format("date-time", (value2) => {
-    const temp = value2.replace(/"/g, "");
+    let temp = value2.replace(/"/g, "");
     if (isISO8601.test(temp) || isFormalDate.test(temp) || isShortenDate.test(temp) || _validateDateTime(temp)) {
-      const date22 = new Date(temp);
+      let date22 = new Date(temp);
       if (!Number.isNaN(date22.getTime()))
         return true;
     }
     return false;
   });
 Object.entries(fullFormats).forEach((formatEntry) => {
-  const [formatName, formatValue] = formatEntry;
+  let [formatName, formatValue] = formatEntry;
   if (!exports_format.Has(formatName)) {
     if (formatValue instanceof RegExp)
       TypeSystem.Format(formatName, (value2) => formatValue.test(value2));
@@ -65463,8 +65453,7 @@ if (!exports_format.Has("ObjectString"))
     if (start !== 123 && start !== 91)
       return false;
     try {
-      JSON.parse(value2);
-      return true;
+      return JSON.parse(value2), true;
     } catch {
       return false;
     }
@@ -65477,8 +65466,7 @@ if (!exports_format.Has("ArrayString"))
     if (start !== 123 && start !== 91)
       return false;
     try {
-      JSON.parse(value2);
-      return true;
+      return JSON.parse(value2), true;
     } catch {
       return false;
     }
@@ -65486,234 +65474,143 @@ if (!exports_format.Has("ArrayString"))
 exports_type.Set("UnionEnum", (schema3, value2) => {
   return (typeof value2 === "number" || typeof value2 === "string" || value2 === null) && schema3.enum.includes(value2);
 });
-var ElysiaType = {
-  Numeric: (property) => {
-    const schema3 = Type.Number(property);
-    return t.Transform(t.Union([
-      t.String({
-        format: "numeric",
-        default: 0
-      }),
-      t.Number(property)
-    ], property)).Decode((value2) => {
-      const number3 = +value2;
-      if (isNaN(number3))
-        return value2;
-      if (property && !exports_value2.Check(schema3, number3))
-        throw new ValidationError("property", schema3, number3);
-      return number3;
-    }).Encode((value2) => value2);
-  },
-  Date: (property) => {
-    const schema3 = Type.Date(property);
-    return t.Transform(t.Union([
-      Type.Date(property),
-      t.String({
-        format: "date",
-        default: (/* @__PURE__ */ new Date()).toISOString()
-      }),
-      t.String({
-        format: "date-time",
-        default: (/* @__PURE__ */ new Date()).toISOString()
-      })
-    ], property)).Decode((value2) => {
-      if (value2 instanceof Date)
-        return value2;
-      const date22 = new Date(value2);
-      if (!exports_value2.Check(schema3, date22))
-        throw new ValidationError("property", schema3, date22);
-      return date22;
-    }).Encode((value2) => {
-      if (typeof value2 === "string")
-        return new Date(value2);
+var ElysiaType = { Numeric: (property) => {
+  let schema3 = Type.Number(property);
+  return t.Transform(t.Union([t.String({ format: "numeric", default: 0 }), t.Number(property)], property)).Decode((value2) => {
+    let number3 = +value2;
+    if (isNaN(number3))
       return value2;
-    });
-  },
-  BooleanString: (property) => {
-    const schema3 = Type.Boolean(property);
-    return t.Transform(t.Union([
-      t.Boolean(property),
-      t.String({
-        format: "boolean",
-        default: false
-      })
-    ], property)).Decode((value2) => {
-      if (typeof value2 === "string")
-        return value2 === "true";
-      if (property && !exports_value2.Check(schema3, value2))
-        throw new ValidationError("property", schema3, value2);
+    if (property && !exports_value2.Check(schema3, number3))
+      throw new ValidationError("property", schema3, number3);
+    return number3;
+  }).Encode((value2) => value2);
+}, Date: (property) => {
+  let schema3 = Type.Date(property);
+  return t.Transform(t.Union([Type.Date(property), t.String({ format: "date", default: new Date().toISOString() }), t.String({ format: "date-time", default: new Date().toISOString() })], property)).Decode((value2) => {
+    if (value2 instanceof Date)
       return value2;
-    }).Encode((value2) => value2);
-  },
-  ObjectString: (properties, options) => {
-    const schema3 = t.Object(properties, options);
-    const defaultValue = JSON.stringify(exports_value2.Create(schema3));
-    let compiler2;
-    try {
-      compiler2 = TypeCompiler.Compile(schema3);
-    } catch {
-    }
-    return t.Transform(t.Union([
-      t.String({
-        format: "ObjectString",
-        default: defaultValue
-      }),
-      schema3
-    ])).Decode((value2) => {
-      if (typeof value2 === "string") {
-        if (value2.charCodeAt(0) !== 123)
-          throw new ValidationError("property", schema3, value2);
-        try {
-          value2 = JSON.parse(value2);
-        } catch {
-          throw new ValidationError("property", schema3, value2);
-        }
-        if (compiler2) {
-          if (!compiler2.Check(value2))
-            throw new ValidationError("property", schema3, value2);
-          return compiler2.Decode(value2);
-        }
-        if (!exports_value2.Check(schema3, value2))
-          throw new ValidationError("property", schema3, value2);
-        return exports_value2.Decode(schema3, value2);
-      }
-      return value2;
-    }).Encode((value2) => {
-      if (typeof value2 === "string")
-        try {
-          value2 = JSON.parse(value2);
-        } catch {
-          throw new ValidationError("property", schema3, value2);
-        }
-      if (!exports_value2.Check(schema3, value2))
-        throw new ValidationError("property", schema3, value2);
-      return JSON.stringify(value2);
-    });
-  },
-  ArrayString: (children = {}, options) => {
-    const schema3 = t.Array(children, options);
-    const defaultValue = JSON.stringify(exports_value2.Create(schema3));
-    let compiler2;
-    try {
-      compiler2 = TypeCompiler.Compile(schema3);
-    } catch {
-    }
-    return t.Transform(t.Union([
-      t.String({
-        format: "ArrayString",
-        default: defaultValue
-      }),
-      schema3
-    ])).Decode((value2) => {
-      if (typeof value2 === "string") {
-        if (value2.charCodeAt(0) !== 91)
-          throw new ValidationError("property", schema3, value2);
-        try {
-          value2 = JSON.parse(value2);
-        } catch {
-          throw new ValidationError("property", schema3, value2);
-        }
-        if (compiler2) {
-          if (!compiler2.Check(value2))
-            throw new ValidationError("property", schema3, value2);
-          return compiler2.Decode(value2);
-        }
-        if (!exports_value2.Check(schema3, value2))
-          throw new ValidationError("property", schema3, value2);
-        return exports_value2.Decode(schema3, value2);
-      }
-      return value2;
-    }).Encode((value2) => {
-      if (typeof value2 === "string")
-        try {
-          value2 = JSON.parse(value2);
-        } catch {
-          throw new ValidationError("property", schema3, value2);
-        }
-      if (!exports_value2.Check(schema3, value2))
-        throw new ValidationError("property", schema3, value2);
-      return JSON.stringify(value2);
-    });
-  },
-  File: File2,
-  Files: (options = {}) => t.Transform(Files(options)).Decode((value2) => {
-    if (Array.isArray(value2))
-      return value2;
-    return [value2];
-  }).Encode((value2) => value2),
-  Nullable: (schema3) => t.Union([schema3, t.Null()]),
-  MaybeEmpty: (schema3) => t.Union([schema3, t.Null(), t.Undefined()]),
-  Cookie: (properties, {
-    domain,
-    expires,
-    httpOnly,
-    maxAge,
-    path,
-    priority,
-    sameSite,
-    secure,
-    secrets,
-    sign,
-    ...options
-  } = {}) => {
-    const v = t.Object(properties, options);
-    v.config = {
-      domain,
-      expires,
-      httpOnly,
-      maxAge,
-      path,
-      priority,
-      sameSite,
-      secure,
-      secrets,
-      sign
-    };
-    return v;
-  },
-  UnionEnum: (values, options = {}) => {
-    const type3 = values.every((value2) => typeof value2 === "string") ? { type: "string" } : values.every((value2) => typeof value2 === "number") ? { type: "number" } : values.every((value2) => value2 === null) ? { type: "null" } : {};
-    if (values.some((x) => typeof x === "object" && x !== null))
-      throw new Error("This type does not support objects or arrays");
-    return {
-      default: values[0],
-      ...options,
-      [Kind]: "UnionEnum",
-      ...type3,
-      enum: values
-    };
+    let date22 = new Date(value2);
+    if (!exports_value2.Check(schema3, date22))
+      throw new ValidationError("property", schema3, date22);
+    return date22;
+  }).Encode((value2) => {
+    if (typeof value2 === "string")
+      return new Date(value2);
+    return value2;
+  });
+}, BooleanString: (property) => {
+  let schema3 = Type.Boolean(property);
+  return t.Transform(t.Union([t.Boolean(property), t.String({ format: "boolean", default: false })], property)).Decode((value2) => {
+    if (typeof value2 === "string")
+      return value2 === "true";
+    if (property && !exports_value2.Check(schema3, value2))
+      throw new ValidationError("property", schema3, value2);
+    return value2;
+  }).Encode((value2) => value2);
+}, ObjectString: (properties, options) => {
+  let schema3 = t.Object(properties, options), defaultValue = JSON.stringify(exports_value2.Create(schema3)), compiler2;
+  try {
+    compiler2 = TypeCompiler.Compile(schema3);
+  } catch {
   }
-};
+  return t.Transform(t.Union([t.String({ format: "ObjectString", default: defaultValue }), schema3])).Decode((value2) => {
+    if (typeof value2 === "string") {
+      if (value2.charCodeAt(0) !== 123)
+        throw new ValidationError("property", schema3, value2);
+      try {
+        value2 = JSON.parse(value2);
+      } catch {
+        throw new ValidationError("property", schema3, value2);
+      }
+      if (compiler2) {
+        if (!compiler2.Check(value2))
+          throw new ValidationError("property", schema3, value2);
+        return compiler2.Decode(value2);
+      }
+      if (!exports_value2.Check(schema3, value2))
+        throw new ValidationError("property", schema3, value2);
+      return exports_value2.Decode(schema3, value2);
+    }
+    return value2;
+  }).Encode((value2) => {
+    if (typeof value2 === "string")
+      try {
+        value2 = JSON.parse(value2);
+      } catch {
+        throw new ValidationError("property", schema3, value2);
+      }
+    if (!exports_value2.Check(schema3, value2))
+      throw new ValidationError("property", schema3, value2);
+    return JSON.stringify(value2);
+  });
+}, ArrayString: (children = {}, options) => {
+  let schema3 = t.Array(children, options), defaultValue = JSON.stringify(exports_value2.Create(schema3)), compiler2;
+  try {
+    compiler2 = TypeCompiler.Compile(schema3);
+  } catch {
+  }
+  return t.Transform(t.Union([t.String({ format: "ArrayString", default: defaultValue }), schema3])).Decode((value2) => {
+    if (typeof value2 === "string") {
+      if (value2.charCodeAt(0) !== 91)
+        throw new ValidationError("property", schema3, value2);
+      try {
+        value2 = JSON.parse(value2);
+      } catch {
+        throw new ValidationError("property", schema3, value2);
+      }
+      if (compiler2) {
+        if (!compiler2.Check(value2))
+          throw new ValidationError("property", schema3, value2);
+        return compiler2.Decode(value2);
+      }
+      if (!exports_value2.Check(schema3, value2))
+        throw new ValidationError("property", schema3, value2);
+      return exports_value2.Decode(schema3, value2);
+    }
+    return value2;
+  }).Encode((value2) => {
+    if (typeof value2 === "string")
+      try {
+        value2 = JSON.parse(value2);
+      } catch {
+        throw new ValidationError("property", schema3, value2);
+      }
+    if (!exports_value2.Check(schema3, value2))
+      throw new ValidationError("property", schema3, value2);
+    return JSON.stringify(value2);
+  });
+}, File: File2, Files: (options = {}) => t.Transform(Files(options)).Decode((value2) => {
+  if (Array.isArray(value2))
+    return value2;
+  return [value2];
+}).Encode((value2) => value2), Nullable: (schema3) => t.Union([schema3, t.Null()]), MaybeEmpty: (schema3) => t.Union([schema3, t.Null(), t.Undefined()]), Cookie: (properties, { domain, expires, httpOnly, maxAge, path, priority, sameSite, secure, secrets, sign, ...options } = {}) => {
+  let v = t.Object(properties, options);
+  return v.config = { domain, expires, httpOnly, maxAge, path, priority, sameSite, secure, secrets, sign }, v;
+}, UnionEnum: (values, options = {}) => {
+  let type3 = values.every((value2) => typeof value2 === "string") ? { type: "string" } : values.every((value2) => typeof value2 === "number") ? { type: "number" } : values.every((value2) => value2 === null) ? { type: "null" } : {};
+  if (values.some((x) => typeof x === "object" && x !== null))
+    throw new Error("This type does not support objects or arrays");
+  return { default: values[0], ...options, [Kind]: "UnionEnum", ...type3, enum: values };
+} };
 t.BooleanString = ElysiaType.BooleanString;
 t.ObjectString = ElysiaType.ObjectString;
 t.ArrayString = ElysiaType.ArrayString;
 t.Numeric = ElysiaType.Numeric;
-t.File = (arg = {}) => ElysiaType.File({
-  default: "File",
-  ...arg,
-  extension: arg?.type,
-  type: "string",
-  format: "binary"
-});
-t.Files = (arg = {}) => ElysiaType.Files({
-  ...arg,
-  elysiaMeta: "Files",
-  default: "Files",
-  extension: arg?.type,
-  type: "array",
-  items: {
-    ...arg,
-    default: "Files",
-    type: "string",
-    format: "binary"
-  }
-});
+t.File = (arg = {}) => ElysiaType.File({ default: "File", ...arg, extension: arg?.type, type: "string", format: "binary" });
+t.Files = (arg = {}) => ElysiaType.Files({ ...arg, elysiaMeta: "Files", default: "Files", extension: arg?.type, type: "array", items: { ...arg, default: "Files", type: "string", format: "binary" } });
 t.Nullable = (schema3) => ElysiaType.Nullable(schema3);
 t.MaybeEmpty = ElysiaType.MaybeEmpty;
 t.Cookie = ElysiaType.Cookie;
 t.Date = ElysiaType.Date;
 t.UnionEnum = ElysiaType.UnionEnum;
-var Cookie = class {
+var import_cookie22 = __toESM2(require_dist(), 1);
+var import_cookie3 = __toESM2(require_dist(), 1);
+var import_fast_decode_uri_component = __toESM2(require_fast_decode_uri_component(), 1);
+
+class Cookie {
+  name;
+  jar;
+  initial;
   constructor(name, jar, initial = {}) {
     this.name = name;
     this.jar = jar;
@@ -65802,70 +65699,52 @@ var Cookie = class {
     this.setCookie.secrets = secrets;
   }
   update(config) {
-    this.setCookie = Object.assign(this.cookie, typeof config === "function" ? config(this.cookie) : config);
-    return this;
+    return this.setCookie = Object.assign(this.cookie, typeof config === "function" ? config(this.cookie) : config), this;
   }
   set(config) {
-    this.setCookie = Object.assign({
-      ...this.initial,
-      value: this.value
-    }, typeof config === "function" ? config(this.cookie) : config);
-    return this;
+    return this.setCookie = Object.assign({ ...this.initial, value: this.value }, typeof config === "function" ? config(this.cookie) : config), this;
   }
   remove() {
     if (this.value === undefined)
       return;
-    this.set({
-      expires: /* @__PURE__ */ new Date(0),
-      maxAge: 0,
-      value: ""
-    });
-    return this;
+    return this.set({ expires: new Date(0), maxAge: 0, value: "" }), this;
   }
   toString() {
     return typeof this.value === "object" ? JSON.stringify(this.value) : this.value?.toString() ?? "";
   }
-};
+}
 var createCookieJar = (set22, store, initial) => {
   if (!set22.cookie)
     set22.cookie = {};
-  return new Proxy(store, {
-    get(_, key) {
-      if (key in store)
-        return new Cookie(key, set22.cookie, Object.assign({}, initial ?? {}, store[key]));
-      return new Cookie(key, set22.cookie, Object.assign({}, initial));
-    }
-  });
+  return new Proxy(store, { get(_2, key) {
+    if (key in store)
+      return new Cookie(key, set22.cookie, Object.assign({}, initial ?? {}, store[key]));
+    return new Cookie(key, set22.cookie, Object.assign({}, initial));
+  } });
 };
-var parseCookie = async (set22, cookieString, {
-  secrets,
-  sign,
-  ...initial
-} = {}) => {
+var parseCookie = async (set22, cookieString, { secrets, sign, ...initial } = {}) => {
   if (!cookieString)
     return createCookieJar(set22, {}, initial);
-  const isStringKey = typeof secrets === "string";
+  let isStringKey = typeof secrets === "string";
   if (sign && sign !== true && !Array.isArray(sign))
     sign = [sign];
-  const jar = {};
-  const cookies = import_cookie4.parse(cookieString);
-  for (const [name, v] of Object.entries(cookies)) {
+  let jar = {}, cookies = import_cookie3.parse(cookieString);
+  for (let [name, v] of Object.entries(cookies)) {
     let value2 = import_fast_decode_uri_component.default(v);
     if (sign === true || sign?.includes(name)) {
       if (!secrets)
         throw new Error("No secret is provided to cookie plugin");
       if (isStringKey) {
-        const temp = await unsignCookie(value2, secrets);
+        let temp = await unsignCookie(value2, secrets);
         if (temp === false)
           throw new InvalidCookieSignature(name);
         value2 = temp;
       } else {
         let decoded = true;
         for (let i = 0;i < secrets.length; i++) {
-          const temp = await unsignCookie(value2, secrets[i]);
+          let temp = await unsignCookie(value2, secrets[i]);
           if (temp !== false) {
-            decoded = true;
-            value2 = temp;
+            decoded = true, value2 = temp;
             break;
           }
         }
@@ -65873,9 +65752,7 @@ var parseCookie = async (set22, cookieString, {
           throw new InvalidCookieSignature(name);
       }
     }
-    jar[name] = {
-      value: value2
-    };
+    jar[name] = { value: value2 };
   }
   return createCookieJar(set22, jar, initial);
 };
@@ -65883,37 +65760,25 @@ var hasHeaderShorthand = "toJSON" in new Headers;
 var isNotEmpty = (obj) => {
   if (!obj)
     return false;
-  for (const x in obj)
+  for (let x in obj)
     return true;
   return false;
 };
 var handleFile = (response, set22) => {
-  const size = response.size;
+  let size = response.size;
   if (!set22 && size || size && set22 && set22.status !== 206 && set22.status !== 304 && set22.status !== 412 && set22.status !== 416) {
     if (set22 && isNotEmpty(set22.headers)) {
       if (set22.headers instanceof Headers) {
         if (hasHeaderShorthand)
           set22.headers = set22.headers.toJSON();
         else
-          for (const [key, value2] of set22.headers.entries())
+          for (let [key, value2] of set22.headers.entries())
             if (key in set22.headers)
               set22.headers[key] = value2;
       }
-      return new Response(response, {
-        status: set22.status,
-        headers: Object.assign({
-          "accept-ranges": "bytes",
-          "content-range": `bytes 0-${size - 1}/${size}`
-        }, set22.headers)
-      });
+      return new Response(response, { status: set22.status, headers: Object.assign({ "accept-ranges": "bytes", "content-range": `bytes 0-${size - 1}/${size}` }, set22.headers) });
     }
-    return new Response(response, {
-      headers: {
-        "accept-ranges": "bytes",
-        "content-range": `bytes 0-${size - 1}/${size}`,
-        "transfer-encoding": "chunked"
-      }
-    });
+    return new Response(response, { headers: { "accept-ranges": "bytes", "content-range": `bytes 0-${size - 1}/${size}`, "transfer-encoding": "chunked" } });
   }
   return new Response(response);
 };
@@ -65922,7 +65787,7 @@ var parseSetCookies = (headers, setCookie) => {
     return headers;
   headers.delete("set-cookie");
   for (let i = 0;i < setCookie.length; i++) {
-    const index = setCookie[i].indexOf("=");
+    let index = setCookie[i].indexOf("=");
     headers.append("set-cookie", `${setCookie[i].slice(0, index)}=${setCookie[i].slice(index + 1) || ""}`);
   }
   return headers;
@@ -65930,14 +65795,14 @@ var parseSetCookies = (headers, setCookie) => {
 var serializeCookie = (cookies) => {
   if (!cookies || !isNotEmpty(cookies))
     return;
-  const set22 = [];
-  for (const [key, property] of Object.entries(cookies)) {
+  let set22 = [];
+  for (let [key, property] of Object.entries(cookies)) {
     if (!key || !property)
       continue;
-    const value2 = property.value;
+    let value2 = property.value;
     if (value2 === undefined || value2 === null)
       continue;
-    set22.push(import_cookie3.serialize(key, typeof value2 === "object" ? JSON.stringify(value2) : value2 + "", property));
+    set22.push(import_cookie22.serialize(key, typeof value2 === "object" ? JSON.stringify(value2) : value2 + "", property));
   }
   if (set22.length === 0)
     return;
@@ -65954,72 +65819,59 @@ var handleStream = async (generator, set22, request) => {
       return mapResponse(init.value, set22, request);
     return mapCompactResponse(init.value, request);
   }
-  return new Response(new ReadableStream({
-    async start(controller) {
-      let end = false;
-      request?.signal.addEventListener("abort", () => {
-        end = true;
-        try {
-          controller.close();
-        } catch {
-        }
-      });
-      if (init.value !== undefined && init.value !== null) {
-        if (typeof init.value === "object")
-          try {
-            controller.enqueue(Buffer.from(JSON.stringify(init.value)));
-          } catch {
-            controller.enqueue(Buffer.from(init.value.toString()));
-          }
-        else
-          controller.enqueue(Buffer.from(init.value.toString()));
-      }
-      for await (const chunk of generator) {
-        if (end)
-          break;
-        if (chunk === undefined || chunk === null)
-          continue;
-        if (typeof chunk === "object")
-          try {
-            controller.enqueue(Buffer.from(JSON.stringify(chunk)));
-          } catch {
-            controller.enqueue(Buffer.from(chunk.toString()));
-          }
-        else
-          controller.enqueue(Buffer.from(chunk.toString()));
-        await new Promise((resolve) => setTimeout(() => resolve(), 0));
-      }
+  return new Response(new ReadableStream({ async start(controller) {
+    let end = false;
+    if (request?.signal.addEventListener("abort", () => {
+      end = true;
       try {
         controller.close();
       } catch {
       }
+    }), init.value !== undefined && init.value !== null)
+      if (typeof init.value === "object")
+        try {
+          controller.enqueue(Buffer.from(JSON.stringify(init.value)));
+        } catch {
+          controller.enqueue(Buffer.from(init.value.toString()));
+        }
+      else
+        controller.enqueue(Buffer.from(init.value.toString()));
+    for await (let chunk of generator) {
+      if (end)
+        break;
+      if (chunk === undefined || chunk === null)
+        continue;
+      if (typeof chunk === "object")
+        try {
+          controller.enqueue(Buffer.from(JSON.stringify(chunk)));
+        } catch {
+          controller.enqueue(Buffer.from(chunk.toString()));
+        }
+      else
+        controller.enqueue(Buffer.from(chunk.toString()));
+      await new Promise((resolve) => setTimeout(() => resolve(), 0));
     }
-  }), {
-    ...set22,
-    headers: {
-      "transfer-encoding": "chunked",
-      "content-type": "text/event-stream; charset=utf-8",
-      ...set22?.headers
+    try {
+      controller.close();
+    } catch {
     }
-  });
+  } }), { ...set22, headers: { "transfer-encoding": "chunked", "content-type": "text/event-stream; charset=utf-8", ...set22?.headers } });
 };
 var mapResponse = (response, set22, request) => {
   if (isNotEmpty(set22.headers) || set22.status !== 200 || set22.redirect || set22.cookie) {
     if (typeof set22.status === "string")
       set22.status = StatusMap[set22.status];
     if (set22.redirect) {
-      set22.headers.Location = set22.redirect;
-      if (!set22.status || set22.status < 300 || set22.status >= 400)
+      if (set22.headers.Location = set22.redirect, !set22.status || set22.status < 300 || set22.status >= 400)
         set22.status = 302;
     }
     if (set22.cookie && isNotEmpty(set22.cookie)) {
-      const cookie = serializeCookie(set22.cookie);
+      let cookie = serializeCookie(set22.cookie);
       if (cookie)
         set22.headers["set-cookie"] = cookie;
     }
-    if (set22.headers["set-cookie"] && Array.isArray(set22.headers["set-cookie"])) {
+    if (set22.headers["set-cookie"] && Array.isArray(set22.headers["set-cookie"]))
       set22.headers = parseSetCookies(new Headers(set22.headers), set22.headers["set-cookie"]);
-    }
     switch (response?.constructor?.name) {
       case "String":
         return new Response(response, set22);
@@ -66030,20 +65882,14 @@ var mapResponse = (response, set22, request) => {
       case "Object":
         return Response.json(response, set22);
       case "ElysiaCustomStatusResponse":
-        set22.status = response.code;
-        return mapResponse(response.response, set22, request);
+        return set22.status = response.code, mapResponse(response.response, set22, request);
       case "ReadableStream":
         if (!set22.headers["content-type"]?.startsWith("text/event-stream"))
           set22.headers["content-type"] = "text/event-stream; charset=utf-8";
-        request?.signal.addEventListener("abort", {
-          handleEvent() {
-            if (!request?.signal.aborted)
-              response.cancel(request);
-          }
-        }, {
-          once: true
-        });
-        return new Response(response, set22);
+        return request?.signal.addEventListener("abort", { handleEvent() {
+          if (!request?.signal.aborted)
+            response.cancel(request);
+        } }, { once: true }), new Response(response, set22);
       case undefined:
         if (!response)
           return new Response("", set22);
@@ -66051,19 +65897,17 @@ var mapResponse = (response, set22, request) => {
       case "Response":
         let isCookieSet = false;
         if (set22.headers instanceof Headers)
-          for (const key of set22.headers.keys()) {
+          for (let key of set22.headers.keys())
             if (key === "set-cookie") {
               if (isCookieSet)
                 continue;
               isCookieSet = true;
-              for (const cookie of set22.headers.getSetCookie()) {
+              for (let cookie of set22.headers.getSetCookie())
                 response.headers.append("set-cookie", cookie);
-              }
             } else
               response.headers.append(key, set22.headers?.get(key) ?? "");
-          }
         else
-          for (const key in set22.headers)
+          for (let key in set22.headers)
             response.headers.append(key, set22.headers[key]);
         if (response.status !== set22.status)
           set22.status = response.status;
@@ -66089,24 +65933,22 @@ var mapResponse = (response, set22, request) => {
         if (response instanceof Response) {
           let isCookieSet2 = false;
           if (set22.headers instanceof Headers)
-            for (const key of set22.headers.keys()) {
+            for (let key of set22.headers.keys())
               if (key === "set-cookie") {
                 if (isCookieSet2)
                   continue;
                 isCookieSet2 = true;
-                for (const cookie of set22.headers.getSetCookie()) {
+                for (let cookie of set22.headers.getSetCookie())
                   response.headers.append("set-cookie", cookie);
-                }
               } else
                 response.headers.append(key, set22.headers?.get(key) ?? "");
-            }
           else
-            for (const key in set22.headers)
+            for (let key in set22.headers)
               response.headers.append(key, set22.headers[key]);
           if (hasHeaderShorthand)
             set22.headers = response.headers.toJSON();
           else
-            for (const [key, value2] of response.headers.entries())
+            for (let [key, value2] of response.headers.entries())
               if (key in set22.headers)
                 set22.headers[key] = value2;
           return response;
@@ -66115,10 +65957,8 @@ var mapResponse = (response, set22, request) => {
           return response.then((x) => mapResponse(x, set22));
         if (response instanceof Error)
           return errorToResponse(response, set22);
-        if (response instanceof ElysiaCustomStatusResponse) {
-          set22.status = response.code;
-          return mapResponse(response.response, set22, request);
-        }
+        if (response instanceof ElysiaCustomStatusResponse)
+          return set22.status = response.code, mapResponse(response.response, set22, request);
         if (typeof response?.next === "function")
           return handleStream(response, set22, request);
         if (typeof response?.then === "function")
@@ -66126,7 +65966,7 @@ var mapResponse = (response, set22, request) => {
         if (typeof response?.toResponse === "function")
           return mapResponse(response.toResponse(), set22);
         if ("charCodeAt" in response) {
-          const code = response.charCodeAt(0);
+          let code = response.charCodeAt(0);
           if (code === 123 || code === 91) {
             if (!set22.headers["Content-Type"])
               set22.headers["Content-Type"] = "application/json";
@@ -66146,30 +65986,16 @@ var mapResponse = (response, set22, request) => {
       case "Object":
         return Response.json(response, set22);
       case "ElysiaCustomStatusResponse":
-        set22.status = response.code;
-        return mapResponse(response.response, set22, request);
+        return set22.status = response.code, mapResponse(response.response, set22, request);
       case "ReadableStream":
-        request?.signal.addEventListener("abort", {
-          handleEvent() {
-            if (!request?.signal.aborted)
-              response.cancel(request);
-          }
-        }, {
-          once: true
-        });
-        return new Response(response, {
-          headers: {
-            "Content-Type": "text/event-stream; charset=utf-8"
-          }
-        });
+        return request?.signal.addEventListener("abort", { handleEvent() {
+          if (!request?.signal.aborted)
+            response.cancel(request);
+        } }, { once: true }), new Response(response, { headers: { "Content-Type": "text/event-stream; charset=utf-8" } });
       case undefined:
         if (!response)
           return new Response("");
-        return new Response(JSON.stringify(response), {
-          headers: {
-            "content-type": "application/json"
-          }
-        });
+        return new Response(JSON.stringify(response), { headers: { "content-type": "application/json" } });
       case "Response":
         if (response.headers.get("transfer-encoding") === "chunked")
           return handleStream(streamResponse(response), set22, request);
@@ -66178,7 +66004,7 @@ var mapResponse = (response, set22, request) => {
         return errorToResponse(response, set22);
       case "Promise":
         return response.then((x) => {
-          const r = mapCompactResponse(x, request);
+          let r = mapCompactResponse(x, request);
           if (r !== undefined)
             return r;
           return new Response("");
@@ -66201,10 +66027,8 @@ var mapResponse = (response, set22, request) => {
           return response.then((x) => mapResponse(x, set22));
         if (response instanceof Error)
           return errorToResponse(response, set22);
-        if (response instanceof ElysiaCustomStatusResponse) {
-          set22.status = response.code;
-          return mapResponse(response.response, set22, request);
-        }
+        if (response instanceof ElysiaCustomStatusResponse)
+          return set22.status = response.code, mapResponse(response.response, set22, request);
         if (typeof response?.next === "function")
           return handleStream(response, set22, request);
         if (typeof response?.then === "function")
@@ -66212,7 +66036,7 @@ var mapResponse = (response, set22, request) => {
         if (typeof response?.toResponse === "function")
           return mapResponse(response.toResponse(), set22);
         if ("charCodeAt" in response) {
-          const code = response.charCodeAt(0);
+          let code = response.charCodeAt(0);
           if (code === 123 || code === 91) {
             if (!set22.headers["Content-Type"])
               set22.headers["Content-Type"] = "application/json";
@@ -66229,12 +66053,11 @@ var mapEarlyResponse = (response, set22, request) => {
     if (typeof set22.status === "string")
       set22.status = StatusMap[set22.status];
     if (set22.redirect) {
-      set22.headers.Location = set22.redirect;
-      if (!set22.status || set22.status < 300 || set22.status >= 400)
+      if (set22.headers.Location = set22.redirect, !set22.status || set22.status < 300 || set22.status >= 400)
         set22.status = 302;
     }
     if (set22.cookie && isNotEmpty(set22.cookie)) {
-      const cookie = serializeCookie(set22.cookie);
+      let cookie = serializeCookie(set22.cookie);
       if (cookie)
         set22.headers["set-cookie"] = cookie;
     }
@@ -66250,20 +66073,14 @@ var mapEarlyResponse = (response, set22, request) => {
       case "Object":
         return Response.json(response, set22);
       case "ElysiaCustomStatusResponse":
-        set22.status = response.code;
-        return mapEarlyResponse(response.response, set22, request);
+        return set22.status = response.code, mapEarlyResponse(response.response, set22, request);
       case "ReadableStream":
         if (!set22.headers["content-type"]?.startsWith("text/event-stream"))
           set22.headers["content-type"] = "text/event-stream; charset=utf-8";
-        request?.signal.addEventListener("abort", {
-          handleEvent() {
-            if (!request?.signal.aborted)
-              response.cancel(request);
-          }
-        }, {
-          once: true
-        });
-        return new Response(response, set22);
+        return request?.signal.addEventListener("abort", { handleEvent() {
+          if (!request?.signal.aborted)
+            response.cancel(request);
+        } }, { once: true }), new Response(response, set22);
       case undefined:
         if (!response)
           return;
@@ -66271,19 +66088,17 @@ var mapEarlyResponse = (response, set22, request) => {
       case "Response":
         let isCookieSet = false;
         if (set22.headers instanceof Headers)
-          for (const key of set22.headers.keys()) {
+          for (let key of set22.headers.keys())
             if (key === "set-cookie") {
               if (isCookieSet)
                 continue;
               isCookieSet = true;
-              for (const cookie of set22.headers.getSetCookie()) {
+              for (let cookie of set22.headers.getSetCookie())
                 response.headers.append("set-cookie", cookie);
-              }
             } else
               response.headers.append(key, set22.headers?.get(key) ?? "");
-          }
         else
-          for (const key in set22.headers)
+          for (let key in set22.headers)
             response.headers.append(key, set22.headers[key]);
         if (response.status !== set22.status)
           set22.status = response.status;
@@ -66292,7 +66107,7 @@ var mapEarlyResponse = (response, set22, request) => {
         return response;
       case "Promise":
         return response.then((x) => {
-          const r = mapEarlyResponse(x, set22);
+          let r = mapEarlyResponse(x, set22);
           if (r !== undefined)
             return r;
         });
@@ -66313,19 +66128,17 @@ var mapEarlyResponse = (response, set22, request) => {
         if (response instanceof Response) {
           let isCookieSet2 = false;
           if (set22.headers instanceof Headers)
-            for (const key of set22.headers.keys()) {
+            for (let key of set22.headers.keys())
               if (key === "set-cookie") {
                 if (isCookieSet2)
                   continue;
                 isCookieSet2 = true;
-                for (const cookie of set22.headers.getSetCookie()) {
+                for (let cookie of set22.headers.getSetCookie())
                   response.headers.append("set-cookie", cookie);
-                }
               } else
                 response.headers.append(key, set22.headers?.get(key) ?? "");
-            }
           else
-            for (const key in set22.headers)
+            for (let key in set22.headers)
               response.headers.append(key, set22.headers[key]);
           if (response.status !== set22.status)
             set22.status = response.status;
@@ -66335,10 +66148,8 @@ var mapEarlyResponse = (response, set22, request) => {
           return response.then((x) => mapEarlyResponse(x, set22));
         if (response instanceof Error)
           return errorToResponse(response, set22);
-        if (response instanceof ElysiaCustomStatusResponse) {
-          set22.status = response.code;
-          return mapEarlyResponse(response.response, set22, request);
-        }
+        if (response instanceof ElysiaCustomStatusResponse)
+          return set22.status = response.code, mapEarlyResponse(response.response, set22, request);
         if (typeof response?.next === "function")
           return handleStream(response, set22, request);
         if (typeof response?.then === "function")
@@ -66346,7 +66157,7 @@ var mapEarlyResponse = (response, set22, request) => {
         if (typeof response?.toResponse === "function")
           return mapEarlyResponse(response.toResponse(), set22);
         if ("charCodeAt" in response) {
-          const code = response.charCodeAt(0);
+          let code = response.charCodeAt(0);
           if (code === 123 || code === 91) {
             if (!set22.headers["Content-Type"])
               set22.headers["Content-Type"] = "application/json";
@@ -66366,37 +66177,23 @@ var mapEarlyResponse = (response, set22, request) => {
       case "Object":
         return Response.json(response, set22);
       case "ElysiaCustomStatusResponse":
-        set22.status = response.code;
-        return mapEarlyResponse(response.response, set22, request);
+        return set22.status = response.code, mapEarlyResponse(response.response, set22, request);
       case "ReadableStream":
-        request?.signal.addEventListener("abort", {
-          handleEvent() {
-            if (!request?.signal.aborted)
-              response.cancel(request);
-          }
-        }, {
-          once: true
-        });
-        return new Response(response, {
-          headers: {
-            "Content-Type": "text/event-stream; charset=utf-8"
-          }
-        });
+        return request?.signal.addEventListener("abort", { handleEvent() {
+          if (!request?.signal.aborted)
+            response.cancel(request);
+        } }, { once: true }), new Response(response, { headers: { "Content-Type": "text/event-stream; charset=utf-8" } });
       case undefined:
         if (!response)
           return new Response("");
-        return new Response(JSON.stringify(response), {
-          headers: {
-            "content-type": "application/json"
-          }
-        });
+        return new Response(JSON.stringify(response), { headers: { "content-type": "application/json" } });
       case "Response":
         if (response.headers.get("transfer-encoding") === "chunked")
           return handleStream(streamResponse(response));
         return response;
       case "Promise":
         return response.then((x) => {
-          const r = mapEarlyResponse(x, set22);
+          let r = mapEarlyResponse(x, set22);
           if (r !== undefined)
             return r;
         });
@@ -66420,10 +66217,8 @@ var mapEarlyResponse = (response, set22, request) => {
           return response.then((x) => mapEarlyResponse(x, set22));
         if (response instanceof Error)
           return errorToResponse(response, set22);
-        if (response instanceof ElysiaCustomStatusResponse) {
-          set22.status = response.code;
-          return mapEarlyResponse(response.response, set22, request);
-        }
+        if (response instanceof ElysiaCustomStatusResponse)
+          return set22.status = response.code, mapEarlyResponse(response.response, set22, request);
         if (typeof response?.next === "function")
           return handleStream(response, set22, request);
         if (typeof response?.then === "function")
@@ -66431,7 +66226,7 @@ var mapEarlyResponse = (response, set22, request) => {
         if (typeof response?.toResponse === "function")
           return mapEarlyResponse(response.toResponse(), set22);
         if ("charCodeAt" in response) {
-          const code = response.charCodeAt(0);
+          let code = response.charCodeAt(0);
           if (code === 123 || code === 91) {
             if (!set22.headers["Content-Type"])
               set22.headers["Content-Type"] = "application/json";
@@ -66452,32 +66247,16 @@ var mapCompactResponse = (response, request) => {
     case "Object":
       return Response.json(response);
     case "ElysiaCustomStatusResponse":
-      return mapResponse(response.response, {
-        status: response.code,
-        headers: {}
-      });
+      return mapResponse(response.response, { status: response.code, headers: {} });
     case "ReadableStream":
-      request?.signal.addEventListener("abort", {
-        handleEvent() {
-          if (!request?.signal.aborted)
-            response.cancel(request);
-        }
-      }, {
-        once: true
-      });
-      return new Response(response, {
-        headers: {
-          "Content-Type": "text/event-stream; charset=utf-8"
-        }
-      });
+      return request?.signal.addEventListener("abort", { handleEvent() {
+        if (!request?.signal.aborted)
+          response.cancel(request);
+      } }, { once: true }), new Response(response, { headers: { "Content-Type": "text/event-stream; charset=utf-8" } });
     case undefined:
       if (!response)
         return new Response("");
-      return new Response(JSON.stringify(response), {
-        headers: {
-          "content-type": "application/json"
-        }
-      });
+      return new Response(JSON.stringify(response), { headers: { "content-type": "application/json" } });
     case "Response":
       if (response.headers.get("transfer-encoding") === "chunked")
         return handleStream(streamResponse(response));
@@ -66501,10 +66280,7 @@ var mapCompactResponse = (response, request) => {
       if (response instanceof Error)
         return errorToResponse(response);
       if (response instanceof ElysiaCustomStatusResponse)
-        return mapResponse(response.response, {
-          status: response.code,
-          headers: {}
-        });
+        return mapResponse(response.response, { status: response.code, headers: {} });
       if (typeof response?.next === "function")
         return handleStream(response, undefined, request);
       if (typeof response?.then === "function")
@@ -66512,41 +66288,25 @@ var mapCompactResponse = (response, request) => {
       if (typeof response?.toResponse === "function")
         return mapCompactResponse(response.toResponse());
       if ("charCodeAt" in response) {
-        const code = response.charCodeAt(0);
-        if (code === 123 || code === 91) {
-          return new Response(JSON.stringify(response), {
-            headers: {
-              "Content-Type": "application/json"
-            }
-          });
-        }
+        let code = response.charCodeAt(0);
+        if (code === 123 || code === 91)
+          return new Response(JSON.stringify(response), { headers: { "Content-Type": "application/json" } });
       }
       return new Response(response);
   }
 };
-var errorToResponse = (error22, set22) => new Response(JSON.stringify({
-  name: error22?.name,
-  message: error22?.message,
-  cause: error22?.cause
-}), {
-  status: set22?.status !== 200 ? set22?.status ?? 500 : 500,
-  headers: set22?.headers
-});
+var errorToResponse = (error3, set22) => new Response(JSON.stringify({ name: error3?.name, message: error3?.message, cause: error3?.cause }), { status: set22?.status !== 200 ? set22?.status ?? 500 : 500, headers: set22?.headers });
 var createStaticHandler = (handle, hooks, setHeaders2 = {}) => {
   if (typeof handle === "function")
     return;
-  const response = mapResponse(handle, {
-    headers: setHeaders2
-  });
+  let response = mapResponse(handle, { headers: setHeaders2 });
   if (hooks.parse.length === 0 && hooks.transform.length === 0 && hooks.beforeHandle.length === 0 && hooks.afterHandle.length === 0)
     return response.clone.bind(response);
 };
 var createNativeStaticHandler = (handle, hooks, setHeaders2 = {}) => {
   if (typeof handle === "function" || handle instanceof Blob)
     return;
-  const response = mapResponse(handle, {
-    headers: setHeaders2
-  });
+  let response = mapResponse(handle, { headers: setHeaders2 });
   if (hooks.parse.length === 0 && hooks.transform.length === 0 && hooks.beforeHandle.length === 0 && hooks.afterHandle.length === 0) {
     if (!response.headers.has("content-type"))
       response.headers.append("content-type", "text/plain;charset=utf-8");
@@ -66554,19 +66314,15 @@ var createNativeStaticHandler = (handle, hooks, setHeaders2 = {}) => {
   }
 };
 var replaceUrlPath = (url, pathname) => {
-  const urlObject = new URL(url);
-  urlObject.pathname = pathname;
-  return urlObject.toString();
+  let urlObject = new URL(url);
+  return urlObject.pathname = pathname, urlObject.toString();
 };
 var isClass = (v) => typeof v === "function" && /^\s*class\s+/.test(v.toString()) || v.toString().startsWith("[object ") && v.toString() !== "[object Object]" || isNotEmpty(Object.getPrototypeOf(v));
 var isObject = (item) => item && typeof item === "object" && !Array.isArray(item);
-var mergeDeep = (target, source, {
-  skipKeys,
-  override = true
-} = {}) => {
+var mergeDeep = (target, source, { skipKeys, override = true } = {}) => {
   if (!isObject(target) || !isObject(source))
     return target;
-  for (const [key, value2] of Object.entries(source)) {
+  for (let [key, value2] of Object.entries(source)) {
     if (skipKeys?.includes(key))
       continue;
     if (!isObject(value2) || !(key in target) || isClass(value2)) {
@@ -66579,8 +66335,7 @@ var mergeDeep = (target, source, {
   return target;
 };
 var mergeCookie = (a, b) => {
-  const { properties: _, ...target } = a ?? {};
-  const { properties: __, ...source } = b ?? {};
+  let { properties: _2, ...target } = a ?? {}, { properties: __, ...source } = b ?? {};
   return mergeDeep(target, source);
 };
 var mergeObjectArray = (a = [], b = []) => {
@@ -66588,46 +66343,23 @@ var mergeObjectArray = (a = [], b = []) => {
     return [];
   if (!b)
     return a;
-  const array3 = [];
-  const checksums = [];
+  let array3 = [], checksums = [];
   if (!Array.isArray(a))
     a = [a];
   if (!Array.isArray(b))
     b = [b];
-  for (const item of a) {
-    array3.push(item);
-    if (item.checksum)
+  for (let item of a)
+    if (array3.push(item), item.checksum)
       checksums.push(item.checksum);
-  }
-  for (const item of b)
+  for (let item of b)
     if (!checksums.includes(item.checksum))
       array3.push(item);
   return array3;
 };
-var primitiveHooks = [
-  "start",
-  "request",
-  "parse",
-  "transform",
-  "resolve",
-  "beforeHandle",
-  "afterHandle",
-  "mapResponse",
-  "afterResponse",
-  "trace",
-  "error",
-  "stop",
-  "body",
-  "headers",
-  "params",
-  "query",
-  "response",
-  "type",
-  "detail"
-];
+var primitiveHooks = ["start", "request", "parse", "transform", "resolve", "beforeHandle", "afterHandle", "mapResponse", "afterResponse", "trace", "error", "stop", "body", "headers", "params", "query", "response", "type", "detail"];
 var primitiveHookMap = primitiveHooks.reduce((acc, x) => (acc[x] = true, acc), {});
 var mergeResponse = (a, b) => {
-  const isRecordNumber = (x) => typeof x === "object" && Object.keys(x).every(isNumericString);
+  let isRecordNumber = (x) => typeof x === "object" && Object.keys(x).every(isNumericString);
   if (isRecordNumber(a) && isRecordNumber(b))
     return { ...a, ...b };
   else if (a && !isRecordNumber(a) && isRecordNumber(b))
@@ -66635,41 +66367,15 @@ var mergeResponse = (a, b) => {
   return b ?? a;
 };
 var mergeSchemaValidator = (a, b) => {
-  return {
-    body: b?.body ?? a?.body,
-    headers: b?.headers ?? a?.headers,
-    params: b?.params ?? a?.params,
-    query: b?.query ?? a?.query,
-    cookie: b?.cookie ?? a?.cookie,
-    response: mergeResponse(a?.response, b?.response)
-  };
+  return { body: b?.body ?? a?.body, headers: b?.headers ?? a?.headers, params: b?.params ?? a?.params, query: b?.query ?? a?.query, cookie: b?.cookie ?? a?.cookie, response: mergeResponse(a?.response, b?.response) };
 };
 var mergeHook = (a, b) => {
-  return {
-    ...a,
-    ...b,
-    body: b?.body ?? a?.body,
-    headers: b?.headers ?? a?.headers,
-    params: b?.params ?? a?.params,
-    query: b?.query ?? a?.query,
-    cookie: b?.cookie ?? a?.cookie,
-    response: mergeResponse(a?.response, b?.response),
-    type: a?.type || b?.type,
-    detail: mergeDeep(b?.detail ?? {}, a?.detail ?? {}),
-    parse: mergeObjectArray(a?.parse, b?.parse),
-    transform: mergeObjectArray(a?.transform, b?.transform),
-    beforeHandle: mergeObjectArray(a?.beforeHandle, b?.beforeHandle),
-    afterHandle: mergeObjectArray(a?.afterHandle, b?.afterHandle),
-    mapResponse: mergeObjectArray(a?.mapResponse, b?.mapResponse),
-    afterResponse: mergeObjectArray(a?.afterResponse, b?.afterResponse),
-    trace: mergeObjectArray(a?.trace, b?.trace),
-    error: mergeObjectArray(a?.error, b?.error)
-  };
+  return { ...a, ...b, body: b?.body ?? a?.body, headers: b?.headers ?? a?.headers, params: b?.params ?? a?.params, query: b?.query ?? a?.query, cookie: b?.cookie ?? a?.cookie, response: mergeResponse(a?.response, b?.response), type: a?.type || b?.type, detail: mergeDeep(b?.detail ?? {}, a?.detail ?? {}), parse: mergeObjectArray(a?.parse, b?.parse), transform: mergeObjectArray(a?.transform, b?.transform), beforeHandle: mergeObjectArray(a?.beforeHandle, b?.beforeHandle), afterHandle: mergeObjectArray(a?.afterHandle, b?.afterHandle), mapResponse: mergeObjectArray(a?.mapResponse, b?.mapResponse), afterResponse: mergeObjectArray(a?.afterResponse, b?.afterResponse), trace: mergeObjectArray(a?.trace, b?.trace), error: mergeObjectArray(a?.error, b?.error) };
 };
 var replaceSchemaType = (schema3, options, root = true) => {
   if (!Array.isArray(options))
     return _replaceSchemaType(schema3, options, root);
-  for (const option of options)
+  for (let option of options)
     schema3 = _replaceSchemaType(schema3, option, root);
   return schema3;
 };
@@ -66678,7 +66384,7 @@ var _replaceSchemaType = (schema3, options, root = true) => {
     return schema3;
   if (options.untilObjectFound && !root && schema3.type === "object")
     return schema3;
-  const fromSymbol = options.from[Kind];
+  let fromSymbol = options.from[Kind];
   if (schema3.oneOf) {
     for (let i = 0;i < schema3.oneOf.length; i++)
       schema3.oneOf[i] = _replaceSchemaType(schema3.oneOf[i], options, root);
@@ -66699,59 +66405,32 @@ var _replaceSchemaType = (schema3, options, root = true) => {
       schema3.not[i] = _replaceSchemaType(schema3.not[i], options, root);
     return schema3;
   }
-  const isRoot = root && !!options.excludeRoot;
+  let isRoot = root && !!options.excludeRoot;
   if (schema3[Kind] === fromSymbol) {
-    const { anyOf, oneOf, allOf, not: not3, properties: properties2, items, ...rest3 } = schema3;
-    const to = options.to(rest3);
-    let transform4;
-    const composeProperties = (v) => {
+    let { anyOf, oneOf, allOf, not: not3, properties: properties2, items, ...rest3 } = schema3, to = options.to(rest3), transform4, composeProperties = (v) => {
       if (properties2 && v.type === "object") {
-        const newProperties = {};
-        for (const [key, value22] of Object.entries(properties2))
+        let newProperties = {};
+        for (let [key, value22] of Object.entries(properties2))
           newProperties[key] = _replaceSchemaType(value22, options, false);
-        return {
-          ...rest3,
-          ...v,
-          properties: newProperties
-        };
+        return { ...rest3, ...v, properties: newProperties };
       }
       if (items && v.type === "array")
-        return {
-          ...rest3,
-          ...v,
-          items: _replaceSchemaType(items, options, false)
-        };
-      const value2 = {
-        ...rest3,
-        ...v
-      };
-      delete value2["required"];
-      if (properties2 && v.type === "string" && v.format === "ObjectString" && v.default === "{}") {
-        transform4 = t.ObjectString(properties2, rest3);
-        value2.default = JSON.stringify(exports_value2.Create(t.Object(properties2)));
-        value2.properties = properties2;
-      }
-      if (items && v.type === "string" && v.format === "ArrayString" && v.default === "[]") {
-        transform4 = t.ArrayString(items, rest3);
-        value2.default = JSON.stringify(exports_value2.Create(t.Array(items)));
-        value2.items = items;
-      }
+        return { ...rest3, ...v, items: _replaceSchemaType(items, options, false) };
+      let value2 = { ...rest3, ...v };
+      if (delete value2.required, properties2 && v.type === "string" && v.format === "ObjectString" && v.default === "{}")
+        transform4 = t.ObjectString(properties2, rest3), value2.default = JSON.stringify(exports_value2.Create(t.Object(properties2))), value2.properties = properties2;
+      if (items && v.type === "string" && v.format === "ArrayString" && v.default === "[]")
+        transform4 = t.ArrayString(items, rest3), value2.default = JSON.stringify(exports_value2.Create(t.Array(items))), value2.items = items;
       return value2;
     };
     if (isRoot) {
       if (properties2) {
-        const newProperties = {};
-        for (const [key, value2] of Object.entries(properties2))
+        let newProperties = {};
+        for (let [key, value2] of Object.entries(properties2))
           newProperties[key] = _replaceSchemaType(value2, options, false);
-        return {
-          ...rest3,
-          properties: newProperties
-        };
+        return { ...rest3, properties: newProperties };
       } else if (items?.map)
-        return {
-          ...rest3,
-          items: items.map((v) => _replaceSchemaType(v, options, false))
-        };
+        return { ...rest3, items: items.map((v) => _replaceSchemaType(v, options, false)) };
       return rest3;
     }
     if (to.anyOf)
@@ -66771,32 +66450,20 @@ var _replaceSchemaType = (schema3, options, root = true) => {
     if (to.anyOf || to.oneOf || to.allOf || to.not)
       return to;
     if (properties2) {
-      const newProperties = {};
-      for (const [key, value2] of Object.entries(properties2))
+      let newProperties = {};
+      for (let [key, value2] of Object.entries(properties2))
         newProperties[key] = _replaceSchemaType(value2, options, false);
-      return {
-        ...rest3,
-        ...to,
-        properties: newProperties
-      };
+      return { ...rest3, ...to, properties: newProperties };
     } else if (items?.map)
-      return {
-        ...rest3,
-        ...to,
-        items: items.map((v) => _replaceSchemaType(v, options, false))
-      };
-    return {
-      ...rest3,
-      ...to
-    };
+      return { ...rest3, ...to, items: items.map((v) => _replaceSchemaType(v, options, false)) };
+    return { ...rest3, ...to };
   }
-  const properties = schema3?.properties;
+  let properties = schema3?.properties;
   if (properties && root && options.rootOnly !== true)
-    for (const [key, value2] of Object.entries(properties)) {
+    for (let [key, value2] of Object.entries(properties))
       switch (value2[Kind]) {
         case fromSymbol:
-          const { anyOf, oneOf, allOf, not: not3, type: type3, ...rest3 } = value2;
-          const to = options.to(rest3);
+          let { anyOf, oneOf, allOf, not: not3, type: type3, ...rest3 } = value2, to = options.to(rest3);
           if (to.anyOf)
             for (let i = 0;i < to.anyOf.length; i++)
               to.anyOf[i] = { ...rest3, ...to.anyOf[i] };
@@ -66809,10 +66476,7 @@ var _replaceSchemaType = (schema3, options, root = true) => {
           else if (to.not)
             for (let i = 0;i < to.not.length; i++)
               to.not[i] = { ...rest3, ...to.not[i] };
-          properties[key] = {
-            ...rest3,
-            ..._replaceSchemaType(rest3, options, false)
-          };
+          properties[key] = { ...rest3, ..._replaceSchemaType(rest3, options, false) };
           break;
         case "Object":
         case "Union":
@@ -66820,14 +66484,12 @@ var _replaceSchemaType = (schema3, options, root = true) => {
           break;
         default:
           if (value2.items)
-            for (let i = 0;i < value2.items.length; i++) {
+            for (let i = 0;i < value2.items.length; i++)
               value2.items[i] = _replaceSchemaType(value2.items[i], options, false);
-            }
           else if (value2.anyOf || value2.oneOf || value2.allOf || value2.not)
             properties[key] = _replaceSchemaType(value2, options, false);
           break;
       }
-    }
   return schema3;
 };
 var createCleaner = (schema3) => (value2) => {
@@ -66843,141 +66505,73 @@ var createCleaner = (schema3) => (value2) => {
     }
   return value2;
 };
-var getSchemaValidator = (s, {
-  models = {},
-  dynamic = false,
-  normalize = false,
-  additionalProperties = false,
-  coerce = false,
-  additionalCoerce = []
-} = {}) => {
+var getSchemaValidator = (s, { models = {}, dynamic = false, normalize = false, additionalProperties = false, coerce = false, additionalCoerce = [] } = {}) => {
   if (!s)
     return;
   if (typeof s === "string" && !(s in models))
     return;
   let schema3 = typeof s === "string" ? models[s] : s;
-  if (coerce || additionalCoerce) {
+  if (coerce || additionalCoerce)
     if (coerce)
-      schema3 = replaceSchemaType(schema3, [
-        {
-          from: t.Number(),
-          to: (options) => t.Numeric(options),
-          untilObjectFound: true
-        },
-        {
-          from: t.Boolean(),
-          to: (options) => t.BooleanString(options),
-          untilObjectFound: true
-        },
-        ...Array.isArray(additionalCoerce) ? additionalCoerce : [additionalCoerce]
-      ]);
-    else {
-      schema3 = replaceSchemaType(schema3, [
-        ...Array.isArray(additionalCoerce) ? additionalCoerce : [additionalCoerce]
-      ]);
-    }
-  }
+      schema3 = replaceSchemaType(schema3, [{ from: t.Number(), to: (options) => t.Numeric(options), untilObjectFound: true }, { from: t.Boolean(), to: (options) => t.BooleanString(options), untilObjectFound: true }, ...Array.isArray(additionalCoerce) ? additionalCoerce : [additionalCoerce]]);
+    else
+      schema3 = replaceSchemaType(schema3, [...Array.isArray(additionalCoerce) ? additionalCoerce : [additionalCoerce]]);
   if (schema3.type === "object" && "additionalProperties" in schema3 === false)
     schema3.additionalProperties = additionalProperties;
   if (dynamic) {
-    const validator = {
-      schema: schema3,
-      references: "",
-      checkFunc: () => {
-      },
-      code: "",
-      Check: (value2) => exports_value2.Check(schema3, value2),
-      Errors: (value2) => exports_value2.Errors(schema3, value2),
-      Code: () => "",
-      Clean: createCleaner(schema3),
-      Decode: (value2) => exports_value2.Decode(schema3, value2),
-      Encode: (value2) => exports_value2.Encode(schema3, value2)
-    };
+    let validator = { schema: schema3, references: "", checkFunc: () => {
+    }, code: "", Check: (value2) => exports_value2.Check(schema3, value2), Errors: (value2) => exports_value2.Errors(schema3, value2), Code: () => "", Clean: createCleaner(schema3), Decode: (value2) => exports_value2.Decode(schema3, value2), Encode: (value2) => exports_value2.Encode(schema3, value2) };
     if (normalize && schema3.additionalProperties === false)
       validator.Clean = createCleaner(schema3);
     if (schema3.config) {
-      validator.config = schema3.config;
-      if (validator?.schema?.config)
+      if (validator.config = schema3.config, validator?.schema?.config)
         delete validator.schema.config;
     }
-    validator.parse = (v) => {
+    return validator.parse = (v) => {
       try {
         return validator.Decode(v);
-      } catch (error22) {
+      } catch (error3) {
         throw [...validator.Errors(v)].map(mapValueError);
       }
-    };
-    validator.safeParse = (v) => {
+    }, validator.safeParse = (v) => {
       try {
         return { success: true, data: validator.Decode(v), error: null };
-      } catch (error22) {
-        const errors2 = [...compiled.Errors(v)].map(mapValueError);
-        return {
-          success: false,
-          data: null,
-          error: errors2[0]?.summary,
-          errors: errors2
-        };
+      } catch (error3) {
+        let errors2 = [...compiled.Errors(v)].map(mapValueError);
+        return { success: false, data: null, error: errors2[0]?.summary, errors: errors2 };
       }
-    };
-    return validator;
+    }, validator;
   }
-  const compiled = TypeCompiler.Compile(schema3, Object.values(models));
-  compiled.Clean = createCleaner(schema3);
-  if (schema3.config) {
-    compiled.config = schema3.config;
-    if (compiled?.schema?.config)
+  let compiled = TypeCompiler.Compile(schema3, Object.values(models));
+  if (compiled.Clean = createCleaner(schema3), schema3.config) {
+    if (compiled.config = schema3.config, compiled?.schema?.config)
       delete compiled.schema.config;
   }
-  compiled.parse = (v) => {
+  return compiled.parse = (v) => {
     try {
       return compiled.Decode(v);
-    } catch (error22) {
+    } catch (error3) {
       throw [...compiled.Errors(v)].map(mapValueError);
     }
-  };
-  compiled.safeParse = (v) => {
+  }, compiled.safeParse = (v) => {
     try {
       return { success: true, data: compiled.Decode(v), error: null };
-    } catch (error22) {
-      const errors2 = [...compiled.Errors(v)].map(mapValueError);
-      return {
-        success: false,
-        data: null,
-        error: errors2[0]?.summary,
-        errors: errors2
-      };
+    } catch (error3) {
+      let errors2 = [...compiled.Errors(v)].map(mapValueError);
+      return { success: false, data: null, error: errors2[0]?.summary, errors: errors2 };
     }
-  };
-  return compiled;
+  }, compiled;
 };
-var getResponseSchemaValidator = (s, {
-  models = {},
-  dynamic = false,
-  normalize = false,
-  additionalProperties = false
-}) => {
+var getResponseSchemaValidator = (s, { models = {}, dynamic = false, normalize = false, additionalProperties = false }) => {
   if (!s)
     return;
   if (typeof s === "string" && !(s in models))
     return;
-  const maybeSchemaOrRecord = typeof s === "string" ? models[s] : s;
-  const compile = (schema3, references) => {
+  let maybeSchemaOrRecord = typeof s === "string" ? models[s] : s, compile = (schema3, references) => {
     if (dynamic)
-      return {
-        schema: schema3,
-        references: "",
-        checkFunc: () => {
-        },
-        code: "",
-        Check: (value2) => exports_value2.Check(schema3, value2),
-        Errors: (value2) => exports_value2.Errors(schema3, value2),
-        Code: () => "",
-        Clean: createCleaner(schema3),
-        Decode: (value2) => exports_value2.Decode(schema3, value2),
-        Encode: (value2) => exports_value2.Encode(schema3, value2)
-      };
-    const compiledValidator = TypeCompiler.Compile(schema3, references);
+      return { schema: schema3, references: "", checkFunc: () => {
+      }, code: "", Check: (value2) => exports_value2.Check(schema3, value2), Errors: (value2) => exports_value2.Errors(schema3, value2), Code: () => "", Clean: createCleaner(schema3), Decode: (value2) => exports_value2.Decode(schema3, value2), Encode: (value2) => exports_value2.Encode(schema3, value2) };
+    let compiledValidator = TypeCompiler.Compile(schema3, references);
     if (normalize && schema3.additionalProperties === false)
       compiledValidator.Clean = createCleaner(schema3);
     return compiledValidator;
@@ -66985,26 +66579,22 @@ var getResponseSchemaValidator = (s, {
   if (Kind in maybeSchemaOrRecord) {
     if ("additionalProperties" in maybeSchemaOrRecord === false)
       maybeSchemaOrRecord.additionalProperties = additionalProperties;
-    return {
-      200: compile(maybeSchemaOrRecord, Object.values(models))
-    };
+    return { 200: compile(maybeSchemaOrRecord, Object.values(models)) };
   }
-  const record3 = {};
-  Object.keys(maybeSchemaOrRecord).forEach((status) => {
-    const maybeNameOrSchema = maybeSchemaOrRecord[+status];
+  let record3 = {};
+  return Object.keys(maybeSchemaOrRecord).forEach((status) => {
+    let maybeNameOrSchema = maybeSchemaOrRecord[+status];
     if (typeof maybeNameOrSchema === "string") {
       if (maybeNameOrSchema in models) {
-        const schema3 = models[maybeNameOrSchema];
-        schema3.type === "object" && "additionalProperties" in schema3;
-        record3[+status] = Kind in schema3 ? compile(schema3, Object.values(models)) : schema3;
+        let schema3 = models[maybeNameOrSchema];
+        schema3.type === "object" && "additionalProperties" in schema3, record3[+status] = Kind in schema3 ? compile(schema3, Object.values(models)) : schema3;
       }
       return;
     }
     if (maybeNameOrSchema.type === "object" && "additionalProperties" in maybeNameOrSchema === false)
       maybeNameOrSchema.additionalProperties = additionalProperties;
     record3[+status] = Kind in maybeNameOrSchema ? compile(maybeNameOrSchema, Object.values(models)) : maybeNameOrSchema;
-  });
-  return record3;
+  }), record3;
 };
 var isBun = typeof Bun !== "undefined";
 var hasHash = isBun && typeof Bun.hash === "function";
@@ -67013,84 +66603,43 @@ var checksum = (s) => {
     return Bun.hash(s);
   let h = 9;
   for (let i = 0;i < s.length; )
-    h = Math.imul(h ^ s.charCodeAt(i++), 9 ** 9);
+    h = Math.imul(h ^ s.charCodeAt(i++), 387420489);
   return h = h ^ h >>> 9;
 };
 var _stringToStructureCoercions;
 var stringToStructureCoercions = () => {
-  if (!_stringToStructureCoercions) {
-    _stringToStructureCoercions = [
-      {
-        from: t.Object({}),
-        to: () => t.ObjectString({}),
-        excludeRoot: true
-      },
-      {
-        from: t.Array(t.Any()),
-        to: () => t.ArrayString(t.Any())
-      }
-    ];
-  }
+  if (!_stringToStructureCoercions)
+    _stringToStructureCoercions = [{ from: t.Object({}), to: () => t.ObjectString({}), excludeRoot: true }, { from: t.Array(t.Any()), to: () => t.ArrayString(t.Any()) }];
   return _stringToStructureCoercions;
 };
 var _coercePrimitiveRoot;
 var coercePrimitiveRoot = () => {
   if (!_coercePrimitiveRoot)
-    _coercePrimitiveRoot = [
-      {
-        from: t.Number(),
-        to: (options) => t.Numeric(options),
-        rootOnly: true
-      },
-      {
-        from: t.Boolean(),
-        to: (options) => t.BooleanString(options),
-        rootOnly: true
-      }
-    ];
+    _coercePrimitiveRoot = [{ from: t.Number(), to: (options) => t.Numeric(options), rootOnly: true }, { from: t.Boolean(), to: (options) => t.BooleanString(options), rootOnly: true }];
   return _coercePrimitiveRoot;
 };
-var getCookieValidator = ({
-  validator,
-  defaultConfig = {},
-  config,
-  dynamic,
-  models
-}) => {
-  let cookieValidator = getSchemaValidator(validator, {
-    dynamic,
-    models,
-    additionalProperties: true,
-    coerce: true,
-    additionalCoerce: stringToStructureCoercions()
-  });
-  if (isNotEmpty(defaultConfig)) {
-    if (cookieValidator) {
+var getCookieValidator = ({ validator, defaultConfig = {}, config, dynamic, models }) => {
+  let cookieValidator = getSchemaValidator(validator, { dynamic, models, additionalProperties: true, coerce: true, additionalCoerce: stringToStructureCoercions() });
+  if (isNotEmpty(defaultConfig))
+    if (cookieValidator)
       cookieValidator.config = mergeCookie(cookieValidator.config, config);
-    } else {
-      cookieValidator = getSchemaValidator(t.Cookie({}), {
-        dynamic,
-        models,
-        additionalProperties: true
-      });
-      cookieValidator.config = defaultConfig;
-    }
-  }
+    else
+      cookieValidator = getSchemaValidator(t.Cookie({}), { dynamic, models, additionalProperties: true }), cookieValidator.config = defaultConfig;
   return cookieValidator;
 };
 var injectChecksum = (checksum2, x) => {
   if (!x)
     return;
   if (!Array.isArray(x)) {
-    const fn2 = x;
+    let fn2 = x;
     if (checksum2 && !fn2.checksum)
       fn2.checksum = checksum2;
     if (fn2.scope === "scoped")
       fn2.scope = "local";
     return fn2;
   }
-  const fns = [...x];
-  for (const fn2 of fns) {
+  let fns = [...x];
+  for (let fn2 of fns) {
     if (checksum2 && !fn2.checksum)
       fn2.checksum = checksum2;
     if (fn2.scope === "scoped")
@@ -67099,19 +66648,7 @@ var injectChecksum = (checksum2, x) => {
   return fns;
 };
 var mergeLifeCycle = (a, b, checksum2) => {
-  return {
-    start: mergeObjectArray(a.start, injectChecksum(checksum2, b?.start)),
-    request: mergeObjectArray(a.request, injectChecksum(checksum2, b?.request)),
-    parse: mergeObjectArray(a.parse, injectChecksum(checksum2, b?.parse)),
-    transform: mergeObjectArray(a.transform, injectChecksum(checksum2, b?.transform)),
-    beforeHandle: mergeObjectArray(a.beforeHandle, injectChecksum(checksum2, b?.beforeHandle)),
-    afterHandle: mergeObjectArray(a.afterHandle, injectChecksum(checksum2, b?.afterHandle)),
-    mapResponse: mergeObjectArray(a.mapResponse, injectChecksum(checksum2, b?.mapResponse)),
-    afterResponse: mergeObjectArray(a.afterResponse, injectChecksum(checksum2, b?.afterResponse)),
-    trace: mergeObjectArray(a.trace, injectChecksum(checksum2, b?.trace)),
-    error: mergeObjectArray(a.error, injectChecksum(checksum2, b?.error)),
-    stop: mergeObjectArray(a.stop, injectChecksum(checksum2, b?.stop))
-  };
+  return { start: mergeObjectArray(a.start, injectChecksum(checksum2, b?.start)), request: mergeObjectArray(a.request, injectChecksum(checksum2, b?.request)), parse: mergeObjectArray(a.parse, injectChecksum(checksum2, b?.parse)), transform: mergeObjectArray(a.transform, injectChecksum(checksum2, b?.transform)), beforeHandle: mergeObjectArray(a.beforeHandle, injectChecksum(checksum2, b?.beforeHandle)), afterHandle: mergeObjectArray(a.afterHandle, injectChecksum(checksum2, b?.afterHandle)), mapResponse: mergeObjectArray(a.mapResponse, injectChecksum(checksum2, b?.mapResponse)), afterResponse: mergeObjectArray(a.afterResponse, injectChecksum(checksum2, b?.afterResponse)), trace: mergeObjectArray(a.trace, injectChecksum(checksum2, b?.trace)), error: mergeObjectArray(a.error, injectChecksum(checksum2, b?.error)), stop: mergeObjectArray(a.stop, injectChecksum(checksum2, b?.stop)) };
 };
 var asHookType = (fn2, inject, { skipIfHasType = false } = {}) => {
   if (!fn2)
@@ -67123,7 +66660,7 @@ var asHookType = (fn2, inject, { skipIfHasType = false } = {}) => {
       fn2.scope = inject;
     return fn2;
   }
-  for (const x of fn2)
+  for (let x of fn2)
     if (skipIfHasType)
       x.scope ??= inject;
     else
@@ -67141,95 +66678,20 @@ var filterGlobal = (fn2) => {
       default:
         return { fn: fn2 };
     }
-  const array3 = [];
-  for (const x of fn2)
+  let array3 = [];
+  for (let x of fn2)
     switch (x.scope) {
       case "global":
       case "scoped":
-        array3.push({
-          ...x
-        });
+        array3.push({ ...x });
         break;
     }
   return array3;
 };
 var filterGlobalHook = (hook) => {
-  return {
-    ...hook,
-    type: hook?.type,
-    detail: hook?.detail,
-    parse: filterGlobal(hook?.parse),
-    transform: filterGlobal(hook?.transform),
-    beforeHandle: filterGlobal(hook?.beforeHandle),
-    afterHandle: filterGlobal(hook?.afterHandle),
-    mapResponse: filterGlobal(hook?.mapResponse),
-    afterResponse: filterGlobal(hook?.afterResponse),
-    error: filterGlobal(hook?.error),
-    trace: filterGlobal(hook?.trace)
-  };
+  return { ...hook, type: hook?.type, detail: hook?.detail, parse: filterGlobal(hook?.parse), transform: filterGlobal(hook?.transform), beforeHandle: filterGlobal(hook?.beforeHandle), afterHandle: filterGlobal(hook?.afterHandle), mapResponse: filterGlobal(hook?.mapResponse), afterResponse: filterGlobal(hook?.afterResponse), error: filterGlobal(hook?.error), trace: filterGlobal(hook?.trace) };
 };
-var StatusMap = {
-  Continue: 100,
-  "Switching Protocols": 101,
-  Processing: 102,
-  "Early Hints": 103,
-  OK: 200,
-  Created: 201,
-  Accepted: 202,
-  "Non-Authoritative Information": 203,
-  "No Content": 204,
-  "Reset Content": 205,
-  "Partial Content": 206,
-  "Multi-Status": 207,
-  "Already Reported": 208,
-  "Multiple Choices": 300,
-  "Moved Permanently": 301,
-  Found: 302,
-  "See Other": 303,
-  "Not Modified": 304,
-  "Temporary Redirect": 307,
-  "Permanent Redirect": 308,
-  "Bad Request": 400,
-  Unauthorized: 401,
-  "Payment Required": 402,
-  Forbidden: 403,
-  "Not Found": 404,
-  "Method Not Allowed": 405,
-  "Not Acceptable": 406,
-  "Proxy Authentication Required": 407,
-  "Request Timeout": 408,
-  Conflict: 409,
-  Gone: 410,
-  "Length Required": 411,
-  "Precondition Failed": 412,
-  "Payload Too Large": 413,
-  "URI Too Long": 414,
-  "Unsupported Media Type": 415,
-  "Range Not Satisfiable": 416,
-  "Expectation Failed": 417,
-  "I'm a teapot": 418,
-  "Misdirected Request": 421,
-  "Unprocessable Content": 422,
-  Locked: 423,
-  "Failed Dependency": 424,
-  "Too Early": 425,
-  "Upgrade Required": 426,
-  "Precondition Required": 428,
-  "Too Many Requests": 429,
-  "Request Header Fields Too Large": 431,
-  "Unavailable For Legal Reasons": 451,
-  "Internal Server Error": 500,
-  "Not Implemented": 501,
-  "Bad Gateway": 502,
-  "Service Unavailable": 503,
-  "Gateway Timeout": 504,
-  "HTTP Version Not Supported": 505,
-  "Variant Also Negotiates": 506,
-  "Insufficient Storage": 507,
-  "Loop Detected": 508,
-  "Not Extended": 510,
-  "Network Authentication Required": 511
-};
+var StatusMap = { Continue: 100, "Switching Protocols": 101, Processing: 102, "Early Hints": 103, OK: 200, Created: 201, Accepted: 202, "Non-Authoritative Information": 203, "No Content": 204, "Reset Content": 205, "Partial Content": 206, "Multi-Status": 207, "Already Reported": 208, "Multiple Choices": 300, "Moved Permanently": 301, Found: 302, "See Other": 303, "Not Modified": 304, "Temporary Redirect": 307, "Permanent Redirect": 308, "Bad Request": 400, Unauthorized: 401, "Payment Required": 402, Forbidden: 403, "Not Found": 404, "Method Not Allowed": 405, "Not Acceptable": 406, "Proxy Authentication Required": 407, "Request Timeout": 408, Conflict: 409, Gone: 410, "Length Required": 411, "Precondition Failed": 412, "Payload Too Large": 413, "URI Too Long": 414, "Unsupported Media Type": 415, "Range Not Satisfiable": 416, "Expectation Failed": 417, "I'm a teapot": 418, "Misdirected Request": 421, "Unprocessable Content": 422, Locked: 423, "Failed Dependency": 424, "Too Early": 425, "Upgrade Required": 426, "Precondition Required": 428, "Too Many Requests": 429, "Request Header Fields Too Large": 431, "Unavailable For Legal Reasons": 451, "Internal Server Error": 500, "Not Implemented": 501, "Bad Gateway": 502, "Service Unavailable": 503, "Gateway Timeout": 504, "HTTP Version Not Supported": 505, "Variant Also Negotiates": 506, "Insufficient Storage": 507, "Loop Detected": 508, "Not Extended": 510, "Network Authentication Required": 511 };
 var InvertedStatusMap = Object.fromEntries(Object.entries(StatusMap).map(([k, v]) => [v, k]));
 var encoder = new TextEncoder;
 var signCookie = async (val, secret) => {
@@ -67237,8 +66699,7 @@ var signCookie = async (val, secret) => {
     throw new TypeError("Cookie value must be provided as a string.");
   if (secret === null)
     throw new TypeError("Secret key must be provided.");
-  const secretKey = await crypto.subtle.importKey("raw", encoder.encode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
-  const hmacBuffer = await crypto.subtle.sign("HMAC", secretKey, encoder.encode(val));
+  let secretKey = await crypto.subtle.importKey("raw", encoder.encode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]), hmacBuffer = await crypto.subtle.sign("HMAC", secretKey, encoder.encode(val));
   return val + "." + removeTrailingEquals(Buffer.from(hmacBuffer).toString("base64"));
 };
 var unsignCookie = async (input, secret) => {
@@ -67246,31 +66707,23 @@ var unsignCookie = async (input, secret) => {
     throw new TypeError("Signed cookie string must be provided.");
   if (secret === null)
     throw new TypeError("Secret key must be provided.");
-  const tentativeValue = input.slice(0, input.lastIndexOf("."));
-  const expectedInput = await signCookie(tentativeValue, secret);
-  return expectedInput === input ? tentativeValue : false;
+  let tentativeValue = input.slice(0, input.lastIndexOf("."));
+  return await signCookie(tentativeValue, secret) === input ? tentativeValue : false;
 };
 var traceBackMacro = (extension, property) => {
   if (!extension || typeof extension !== "object" || !property)
     return;
-  for (const [key, value2] of Object.entries(property)) {
+  for (let [key, value2] of Object.entries(property)) {
     if (key in primitiveHookMap || !(key in extension))
       continue;
-    const v = extension[key];
-    if (typeof v === "function") {
-      v(value2);
-      delete property[key];
-    }
+    let v = extension[key];
+    if (typeof v === "function")
+      v(value2), delete property[key];
   }
 };
-var createMacroManager = ({
-  globalHook,
-  localHook
-}) => (stackName) => (type3, fn2) => {
+var createMacroManager = ({ globalHook, localHook }) => (stackName) => (type3, fn2) => {
   if (typeof type3 === "function")
-    type3 = {
-      fn: type3
-    };
+    type3 = { fn: type3 };
   if ("fn" in type3 || Array.isArray(type3)) {
     if (!localHook[stackName])
       localHook[stackName] = [];
@@ -67282,41 +66735,33 @@ var createMacroManager = ({
       localHook[stackName].push(type3);
     return;
   }
-  const { insert = "after", stack: stack2 = "local" } = type3;
+  let { insert = "after", stack: stack2 = "local" } = type3;
   if (typeof fn2 === "function")
     fn2 = { fn: fn2 };
-  if (stack2 === "global") {
-    if (!Array.isArray(fn2)) {
-      if (insert === "before") {
+  if (stack2 === "global")
+    if (!Array.isArray(fn2))
+      if (insert === "before")
         globalHook[stackName].unshift(fn2);
-      } else {
+      else
         globalHook[stackName].push(fn2);
-      }
-    } else {
-      if (insert === "before") {
-        globalHook[stackName] = fn2.concat(globalHook[stackName]);
-      } else {
-        globalHook[stackName] = globalHook[stackName].concat(fn2);
-      }
-    }
-  } else {
+    else if (insert === "before")
+      globalHook[stackName] = fn2.concat(globalHook[stackName]);
+    else
+      globalHook[stackName] = globalHook[stackName].concat(fn2);
+  else {
     if (!localHook[stackName])
       localHook[stackName] = [];
     if (typeof localHook[stackName] === "function")
       localHook[stackName] = [localHook[stackName]];
-    if (!Array.isArray(fn2)) {
-      if (insert === "before") {
+    if (!Array.isArray(fn2))
+      if (insert === "before")
         localHook[stackName].unshift(fn2);
-      } else {
+      else
         localHook[stackName].push(fn2);
-      }
-    } else {
-      if (insert === "before") {
-        localHook[stackName] = fn2.concat(localHook[stackName]);
-      } else {
-        localHook[stackName] = localHook[stackName].concat(fn2);
-      }
-    }
+    else if (insert === "before")
+      localHook[stackName] = fn2.concat(localHook[stackName]);
+    else
+      localHook[stackName] = localHook[stackName].concat(fn2);
   }
 };
 var parseNumericString = (message2) => {
@@ -67325,7 +66770,7 @@ var parseNumericString = (message2) => {
   if (message2.length < 16) {
     if (message2.trim().length === 0)
       return null;
-    const length = Number(message2);
+    let length = Number(message2);
     if (Number.isNaN(length))
       return null;
     return length;
@@ -67333,7 +66778,7 @@ var parseNumericString = (message2) => {
   if (message2.length === 16) {
     if (message2.trim().length === 0)
       return null;
-    const number3 = Number(message2);
+    let number3 = Number(message2);
     if (Number.isNaN(number3) || number3.toString() !== message2)
       return null;
     return number3;
@@ -67341,26 +66786,26 @@ var parseNumericString = (message2) => {
   return null;
 };
 var isNumericString = (message2) => parseNumericString(message2) !== null;
-var PromiseGroup = class {
+
+class PromiseGroup {
+  onError;
+  root = null;
+  promises = [];
   constructor(onError = console.error) {
     this.onError = onError;
-    this.root = null;
-    this.promises = [];
   }
   get size() {
     return this.promises.length;
   }
   add(promise3) {
-    this.promises.push(promise3);
-    this.root ||= this.drain();
-    return promise3;
+    return this.promises.push(promise3), this.root ||= this.drain(), promise3;
   }
   async drain() {
     while (this.promises.length > 0) {
       try {
         await this.promises[0];
-      } catch (error22) {
-        this.onError(error22);
+      } catch (error3) {
+        this.onError(error3);
       }
       this.promises.shift();
     }
@@ -67369,7 +66814,7 @@ var PromiseGroup = class {
   then(onfulfilled, onrejected) {
     return (this.root ?? Promise.resolve()).then(onfulfilled, onrejected);
   }
-};
+}
 var fnToContainer = (fn2) => {
   if (!fn2)
     return fn2;
@@ -67379,68 +66824,32 @@ var fnToContainer = (fn2) => {
     else if ("fn" in fn2)
       return fn2;
   }
-  const fns = [];
-  for (const x of fn2) {
+  let fns = [];
+  for (let x of fn2)
     if (typeof x === "function")
       fns.push({ fn: x });
     else if ("fn" in x)
       fns.push(x);
-  }
   return fns;
 };
 var localHookToLifeCycleStore = (a) => {
-  return {
-    ...a,
-    start: fnToContainer(a?.start),
-    request: fnToContainer(a?.request),
-    parse: fnToContainer(a?.parse),
-    transform: fnToContainer(a?.transform),
-    beforeHandle: fnToContainer(a?.beforeHandle),
-    afterHandle: fnToContainer(a?.afterHandle),
-    mapResponse: fnToContainer(a?.mapResponse),
-    afterResponse: fnToContainer(a?.afterResponse),
-    trace: fnToContainer(a?.trace),
-    error: fnToContainer(a?.error),
-    stop: fnToContainer(a?.stop)
-  };
+  return { ...a, start: fnToContainer(a?.start), request: fnToContainer(a?.request), parse: fnToContainer(a?.parse), transform: fnToContainer(a?.transform), beforeHandle: fnToContainer(a?.beforeHandle), afterHandle: fnToContainer(a?.afterHandle), mapResponse: fnToContainer(a?.mapResponse), afterResponse: fnToContainer(a?.afterResponse), trace: fnToContainer(a?.trace), error: fnToContainer(a?.error), stop: fnToContainer(a?.stop) };
 };
 var lifeCycleToFn = (a) => {
-  return {
-    ...a,
-    start: a.start?.map((x) => x.fn),
-    request: a.request?.map((x) => x.fn),
-    parse: a.parse?.map((x) => x.fn),
-    transform: a.transform?.map((x) => x.fn),
-    beforeHandle: a.beforeHandle?.map((x) => x.fn),
-    afterHandle: a.afterHandle?.map((x) => x.fn),
-    afterResponse: a.afterResponse?.map((x) => x.fn),
-    mapResponse: a.mapResponse?.map((x) => x.fn),
-    trace: a.trace?.map((x) => x.fn),
-    error: a.error?.map((x) => x.fn),
-    stop: a.stop?.map((x) => x.fn)
-  };
+  return { ...a, start: a.start?.map((x) => x.fn), request: a.request?.map((x) => x.fn), parse: a.parse?.map((x) => x.fn), transform: a.transform?.map((x) => x.fn), beforeHandle: a.beforeHandle?.map((x) => x.fn), afterHandle: a.afterHandle?.map((x) => x.fn), afterResponse: a.afterResponse?.map((x) => x.fn), mapResponse: a.mapResponse?.map((x) => x.fn), trace: a.trace?.map((x) => x.fn), error: a.error?.map((x) => x.fn), stop: a.stop?.map((x) => x.fn) };
 };
-var cloneInference = (inference) => ({
-  body: inference.body,
-  cookie: inference.cookie,
-  headers: inference.headers,
-  query: inference.query,
-  set: inference.set,
-  server: inference.server
-});
+var cloneInference = (inference) => ({ body: inference.body, cookie: inference.cookie, headers: inference.headers, query: inference.query, set: inference.set, server: inference.server });
 var redirect = (url, status = 302) => Response.redirect(url, status);
 var ELYSIA_FORM_DATA = Symbol("ElysiaFormData");
 var ELYSIA_REQUEST_ID = Symbol("ElysiaRequestId");
 var randomId = () => crypto.getRandomValues(new Uint32Array(1))[0];
 var deduplicateChecksum = (array3) => {
-  const hashes = [];
+  let hashes = [];
   for (let i = 0;i < array3.length; i++) {
-    const item = array3[i];
+    let item = array3[i];
     if (item.checksum) {
-      if (hashes.includes(item.checksum)) {
-        array3.splice(i, 1);
-        i--;
-      }
+      if (hashes.includes(item.checksum))
+        array3.splice(i, 1), i--;
       hashes.push(item.checksum);
     }
   }
@@ -67448,158 +66857,120 @@ var deduplicateChecksum = (array3) => {
 };
 var promoteEvent = (events, as = "scoped") => {
   if (as === "scoped") {
-    for (const event of events)
+    for (let event of events)
       if ("scope" in event && event.scope === "local")
         event.scope = "scoped";
     return;
   }
-  for (const event of events)
+  for (let event of events)
     if ("scope" in event)
       event.scope = "global";
 };
 var env = typeof Bun !== "undefined" ? Bun.env : typeof process !== "undefined" ? process?.env : undefined;
 var ERROR_CODE = Symbol("ElysiaErrorCode");
 var isProduction = (env?.NODE_ENV ?? env?.ENV) === "production";
-var ElysiaCustomStatusResponse = class {
+
+class ElysiaCustomStatusResponse {
+  code;
+  response;
   constructor(code, response) {
-    const res = response ?? (code in InvertedStatusMap ? InvertedStatusMap[code] : code);
-    this.code = StatusMap[code] ?? code;
-    this.response = res;
+    let res = response ?? (code in InvertedStatusMap ? InvertedStatusMap[code] : code);
+    this.code = StatusMap[code] ?? code, this.response = res;
   }
-};
+}
 var error3 = (code, response) => new ElysiaCustomStatusResponse(code, response);
-var InternalServerError = class extends Error {
+
+class InternalServerError extends Error {
+  code = "INTERNAL_SERVER_ERROR";
+  status = 500;
   constructor(message2) {
     super(message2 ?? "INTERNAL_SERVER_ERROR");
-    this.code = "INTERNAL_SERVER_ERROR";
-    this.status = 500;
   }
-};
-var NotFoundError = class extends Error {
+}
+
+class NotFoundError extends Error {
+  code = "NOT_FOUND";
+  status = 404;
   constructor(message2) {
     super(message2 ?? "NOT_FOUND");
-    this.code = "NOT_FOUND";
-    this.status = 404;
   }
-};
-var ParseError = class extends Error {
+}
+
+class ParseError extends Error {
+  code = "PARSE";
+  status = 400;
   constructor() {
     super("Failed to parse body");
-    this.code = "PARSE";
-    this.status = 400;
   }
-};
-var InvalidCookieSignature = class extends Error {
+}
+
+class InvalidCookieSignature extends Error {
+  key;
+  code = "INVALID_COOKIE_SIGNATURE";
+  status = 400;
   constructor(key, message2) {
     super(message2 ?? `"${key}" has invalid cookie signature`);
     this.key = key;
-    this.code = "INVALID_COOKIE_SIGNATURE";
-    this.status = 400;
   }
-};
+}
 var mapValueError = (error22) => {
   if (!error22)
-    return {
-      summary: undefined
-    };
-  const { message: message2, path, value: value2, type: type3 } = error22;
-  const property = path.slice(1).replaceAll("/", ".");
-  const isRoot = path === "";
+    return { summary: undefined };
+  let { message: message2, path, value: value2, type: type3 } = error22, property = path.slice(1).replaceAll("/", "."), isRoot = path === "";
   switch (type3) {
     case 42:
-      return {
-        ...error22,
-        summary: isRoot ? `Value should not be provided` : `Property '${property}' should not be provided`
-      };
+      return { ...error22, summary: isRoot ? "Value should not be provided" : `Property '${property}' should not be provided` };
     case 45:
-      return {
-        ...error22,
-        summary: isRoot ? `Value is missing` : `Property '${property}' is missing`
-      };
+      return { ...error22, summary: isRoot ? "Value is missing" : `Property '${property}' is missing` };
     case 50:
-      const quoteIndex = message2.indexOf("'");
-      const format = message2.slice(quoteIndex + 1, message2.indexOf("'", quoteIndex + 1));
-      return {
-        ...error22,
-        summary: isRoot ? `Value should be an email` : `Property '${property}' should be ${format}`
-      };
+      let quoteIndex = message2.indexOf("'"), format = message2.slice(quoteIndex + 1, message2.indexOf("'", quoteIndex + 1));
+      return { ...error22, summary: isRoot ? "Value should be an email" : `Property '${property}' should be ${format}` };
     case 54:
-      return {
-        ...error22,
-        summary: `${message2.slice(0, 9)} property '${property}' to be ${message2.slice(8)} but found: ${value2}`
-      };
+      return { ...error22, summary: `${message2.slice(0, 9)} property '${property}' to be ${message2.slice(8)} but found: ${value2}` };
     case 62:
-      const union4 = error22.schema.anyOf.map((x) => `'${x?.format ?? x.type}'`).join(", ");
-      return {
-        ...error22,
-        summary: isRoot ? `Value should be one of ${union4}` : `Property '${property}' should be one of: ${union4}`
-      };
+      let union4 = error22.schema.anyOf.map((x) => `'${x?.format ?? x.type}'`).join(", ");
+      return { ...error22, summary: isRoot ? `Value should be one of ${union4}` : `Property '${property}' should be one of: ${union4}` };
     default:
       return { summary: message2, ...error22 };
   }
 };
-var ValidationError = class _ValidationError extends Error {
+
+class ValidationError extends Error {
+  type;
+  validator;
+  value;
+  code = "VALIDATION";
+  status = 422;
   constructor(type3, validator, value2) {
     if (value2 && typeof value2 === "object" && value2 instanceof ElysiaCustomStatusResponse)
       value2 = value2.response;
-    const error22 = isProduction ? undefined : ("Errors" in validator) ? validator.Errors(value2).First() : exports_value2.Errors(validator, value2).First();
-    const customError = error22?.schema.error !== undefined ? typeof error22.schema.error === "function" ? error22.schema.error({
-      type: type3,
-      validator,
-      value: value2,
-      get errors() {
-        return [...validator.Errors(value2)].map(mapValueError);
-      }
-    }) : error22.schema.error : undefined;
-    const accessor = error22?.path || "root";
-    let message2 = "";
-    if (customError !== undefined) {
+    let error22 = isProduction ? undefined : ("Errors" in validator) ? validator.Errors(value2).First() : exports_value2.Errors(validator, value2).First(), customError = error22?.schema.error !== undefined ? typeof error22.schema.error === "function" ? error22.schema.error({ type: type3, validator, value: value2, get errors() {
+      return [...validator.Errors(value2)].map(mapValueError);
+    } }) : error22.schema.error : undefined, accessor = error22?.path || "root", message2 = "";
+    if (customError !== undefined)
       message2 = typeof customError === "object" ? JSON.stringify(customError) : customError + "";
-    } else if (isProduction) {
-      message2 = JSON.stringify({
-        type: "validation",
-        on: type3,
-        summary: mapValueError(error22).summary,
-        message: error22?.message,
-        found: value2
-      });
-    } else {
-      const schema3 = validator?.schema ?? validator;
-      const errors2 = "Errors" in validator ? [...validator.Errors(value2)].map(mapValueError) : [...exports_value2.Errors(validator, value2)].map(mapValueError);
-      let expected;
+    else if (isProduction)
+      message2 = JSON.stringify({ type: "validation", on: type3, summary: mapValueError(error22).summary, message: error22?.message, found: value2 });
+    else {
+      let schema3 = validator?.schema ?? validator, errors2 = "Errors" in validator ? [...validator.Errors(value2)].map(mapValueError) : [...exports_value2.Errors(validator, value2)].map(mapValueError), expected;
       try {
         expected = exports_value2.Create(schema3);
       } catch (error32) {
-        expected = {
-          type: "Could not create expected value",
-          message: error32?.message,
-          error: error32
-        };
+        expected = { type: "Could not create expected value", message: error32?.message, error: error32 };
       }
-      message2 = JSON.stringify({
-        type: "validation",
-        on: type3,
-        summary: errors2[0]?.summary,
-        property: accessor,
-        message: error22?.message,
-        expected,
-        found: value2,
-        errors: errors2
-      }, null, 2);
+      message2 = JSON.stringify({ type: "validation", on: type3, summary: errors2[0]?.summary, property: accessor, message: error22?.message, expected, found: value2, errors: errors2 }, null, 2);
     }
     super(message2);
     this.type = type3;
     this.validator = validator;
     this.value = value2;
-    this.code = "VALIDATION";
-    this.status = 422;
-    Object.setPrototypeOf(this, _ValidationError.prototype);
+    Object.setPrototypeOf(this, ValidationError.prototype);
   }
   get all() {
     return "Errors" in this.validator ? [...this.validator.Errors(this.value)].map(mapValueError) : [...exports_value2.Errors(this.validator, this.value)].map(mapValueError);
   }
   static simplifyModel(validator) {
-    const model = "schema" in validator ? validator.schema : validator;
+    let model = "schema" in validator ? validator.schema : validator;
     try {
       return exports_value2.Create(model);
     } catch {
@@ -67607,42 +66978,34 @@ var ValidationError = class _ValidationError extends Error {
     }
   }
   get model() {
-    return _ValidationError.simplifyModel(this.validator);
+    return ValidationError.simplifyModel(this.validator);
   }
   toResponse(headers) {
-    return new Response(this.message, {
-      status: 400,
-      headers: {
-        ...headers,
-        "content-type": "application/json"
-      }
-    });
+    return new Response(this.message, { status: 400, headers: { ...headers, "content-type": "application/json" } });
   }
-};
-var websocket = {
-  open(ws) {
-    ws.data.open?.(ws);
-  },
-  message(ws, message2) {
-    ws.data.message?.(ws, message2);
-  },
-  drain(ws) {
-    ws.data.drain?.(ws);
-  },
-  close(ws, code, reason) {
-    ws.data.close?.(ws, code, reason);
-  }
-};
-var ElysiaWS = class {
+}
+var websocket = { open(ws) {
+  ws.data.open?.(ws);
+}, message(ws, message2) {
+  ws.data.message?.(ws, message2);
+}, drain(ws) {
+  ws.data.drain?.(ws);
+}, close(ws, code, reason) {
+  ws.data.close?.(ws, code, reason);
+} };
+
+class ElysiaWS {
+  raw;
+  data;
+  validator;
+  _validator;
   constructor(raw2, data) {
     this.raw = raw2;
     this.data = data;
-    this.validator = raw2.data.validator;
-    if (raw2.data.id) {
+    if (this.validator = raw2.data.validator, raw2.data.id)
       this.id = raw2.data.id;
-    } else {
+    else
       this.id = randomId().toString();
-    }
   }
   get id() {
     return this.raw.data.id;
@@ -67656,46 +67019,38 @@ var ElysiaWS = class {
         throw new ValidationError("message", this.validator, data);
       if (typeof data === "object")
         data = JSON.stringify(data);
-      this.raw.publish(topic, data, compress);
-      return this;
+      return this.raw.publish(topic, data, compress), this;
     };
   }
   get send() {
     return (data) => {
       if (this.validator?.Check(data) === false)
         throw new ValidationError("message", this.validator, data);
-      if (Buffer.isBuffer(data)) {
-        this.raw.send(data);
-        return this;
-      }
+      if (Buffer.isBuffer(data))
+        return this.raw.send(data), this;
       if (typeof data === "object")
         data = JSON.stringify(data);
-      this.raw.send(data);
-      return this;
+      return this.raw.send(data), this;
     };
   }
   get subscribe() {
     return (room) => {
-      this.raw.subscribe(room);
-      return this;
+      return this.raw.subscribe(room), this;
     };
   }
   get unsubscribe() {
     return (room) => {
-      this.raw.unsubscribe(room);
-      return this;
+      return this.raw.unsubscribe(room), this;
     };
   }
   get cork() {
     return (callback) => {
-      this.raw.cork(callback);
-      return this;
+      return this.raw.cork(callback), this;
     };
   }
   get close() {
     return () => {
-      this.raw.close();
-      return this;
+      return this.raw.close(), this;
     };
   }
   get terminate() {
@@ -67707,24 +67062,15 @@ var ElysiaWS = class {
   get remoteAddress() {
     return this.raw.remoteAddress;
   }
-};
+}
 var version = "1.1.25";
+var import_fast_decode_uri_component2 = __toESM2(require_fast_decode_uri_component(), 1);
 var plusRegex = /\+/g;
 var parseQuery = (input) => {
-  const result = {};
+  let result = {};
   if (typeof input !== "string")
     return result;
-  const inputLength = input.length;
-  let key = "";
-  let value2 = "";
-  let startingIndex = -1;
-  let equalityIndex = -1;
-  let shouldDecodeKey = false;
-  let shouldDecodeValue = false;
-  let keyHasPlus = false;
-  let valueHasPlus = false;
-  let hasBothKeyValuePair = false;
-  let c = 0;
+  let inputLength = input.length, key = "", value2 = "", startingIndex = -1, equalityIndex = -1, shouldDecodeKey = false, shouldDecodeValue = false, keyHasPlus = false, valueHasPlus = false, hasBothKeyValuePair = false, c = 0;
   for (let i = 0;i < inputLength + 1; i++) {
     if (i !== inputLength)
       c = input.charCodeAt(i);
@@ -67732,39 +67078,28 @@ var parseQuery = (input) => {
       c = 38;
     switch (c) {
       case 38: {
-        hasBothKeyValuePair = equalityIndex > startingIndex;
-        if (!hasBothKeyValuePair)
+        if (hasBothKeyValuePair = equalityIndex > startingIndex, !hasBothKeyValuePair)
           equalityIndex = i;
-        key = input.slice(startingIndex + 1, equalityIndex);
-        if (hasBothKeyValuePair || key.length > 0) {
+        if (key = input.slice(startingIndex + 1, equalityIndex), hasBothKeyValuePair || key.length > 0) {
           if (keyHasPlus)
             key = key.replace(plusRegex, " ");
           if (shouldDecodeKey)
             key = import_fast_decode_uri_component2.default(key) || key;
           if (hasBothKeyValuePair) {
-            value2 = input.slice(equalityIndex + 1, i);
-            if (valueHasPlus)
+            if (value2 = input.slice(equalityIndex + 1, i), valueHasPlus)
               value2 = value2.replace(plusRegex, " ");
             if (shouldDecodeValue)
               value2 = import_fast_decode_uri_component2.default(value2) || value2;
           }
-          const currentValue = result[key];
+          let currentValue = result[key];
           if (currentValue === undefined)
             result[key] = value2;
-          else {
-            if (currentValue.pop)
-              currentValue.push(value2);
-            else
-              result[key] = [currentValue, value2];
-          }
+          else if (currentValue.pop)
+            currentValue.push(value2);
+          else
+            result[key] = [currentValue, value2];
         }
-        value2 = "";
-        startingIndex = i;
-        equalityIndex = i;
-        shouldDecodeKey = false;
-        shouldDecodeValue = false;
-        keyHasPlus = false;
-        valueHasPlus = false;
+        value2 = "", startingIndex = i, equalityIndex = i, shouldDecodeKey = false, shouldDecodeValue = false, keyHasPlus = false, valueHasPlus = false;
         break;
       }
       case 61:
@@ -67789,159 +67124,86 @@ var parseQuery = (input) => {
   }
   return result;
 };
+var import_fast_decode_uri_component3 = __toESM2(require_fast_decode_uri_component(), 1);
 var ELYSIA_TRACE = Symbol("ElysiaTrace");
 var createProcess = () => {
-  const { promise: promise3, resolve } = Promise.withResolvers();
-  const { promise: end, resolve: resolveEnd } = Promise.withResolvers();
-  const { promise: error22, resolve: resolveError } = Promise.withResolvers();
-  const callbacks = [];
-  const callbacksEnd = [];
-  return [
-    (callback) => {
-      if (callback)
-        callbacks.push(callback);
-      return promise3;
-    },
-    (process2) => {
-      const processes = [];
-      const resolvers = [];
-      let groupError = null;
-      for (let i = 0;i < (process2.total ?? 0); i++) {
-        const { promise: promise22, resolve: resolve2 } = Promise.withResolvers();
-        const { promise: end2, resolve: resolveEnd2 } = Promise.withResolvers();
-        const { promise: error32, resolve: resolveError2 } = Promise.withResolvers();
-        const callbacks2 = [];
-        const callbacksEnd2 = [];
-        processes.push((callback) => {
+  let { promise: promise3, resolve } = Promise.withResolvers(), { promise: end, resolve: resolveEnd } = Promise.withResolvers(), { promise: error22, resolve: resolveError } = Promise.withResolvers(), callbacks = [], callbacksEnd = [];
+  return [(callback) => {
+    if (callback)
+      callbacks.push(callback);
+    return promise3;
+  }, (process2) => {
+    let processes = [], resolvers = [], groupError = null;
+    for (let i = 0;i < (process2.total ?? 0); i++) {
+      let { promise: promise22, resolve: resolve2 } = Promise.withResolvers(), { promise: end2, resolve: resolveEnd2 } = Promise.withResolvers(), { promise: error32, resolve: resolveError2 } = Promise.withResolvers(), callbacks2 = [], callbacksEnd2 = [];
+      processes.push((callback) => {
+        if (callback)
+          callbacks2.push(callback);
+        return promise22;
+      }), resolvers.push((process3) => {
+        let result2 = { ...process3, end: end2, error: error32, index: i, onStop(callback) {
           if (callback)
-            callbacks2.push(callback);
-          return promise22;
-        });
-        resolvers.push((process3) => {
-          const result2 = {
-            ...process3,
-            end: end2,
-            error: error32,
-            index: i,
-            onStop(callback) {
-              if (callback)
-                callbacksEnd2.push(callback);
-              return end2;
-            }
-          };
-          resolve2(result2);
-          for (let i2 = 0;i2 < callbacks2.length; i2++)
-            callbacks2[i2](result2);
-          return (error4 = null) => {
-            const end3 = performance.now();
-            if (error4)
-              groupError = error4;
-            const detail = {
-              end: end3,
-              error: error4,
-              get elapsed() {
-                return end3 - process3.begin;
-              }
-            };
-            for (let i2 = 0;i2 < callbacksEnd2.length; i2++)
-              callbacksEnd2[i2](detail);
-            resolveEnd2(end3);
-            resolveError2(error4);
-          };
-        });
-      }
-      const result = {
-        ...process2,
-        end,
-        error: error22,
-        onEvent(callback) {
-          for (let i = 0;i < processes.length; i++)
-            processes[i](callback);
-        },
-        onStop(callback) {
-          if (callback)
-            callbacksEnd.push(callback);
-          return end;
-        }
-      };
-      resolve(result);
-      for (let i = 0;i < callbacks.length; i++)
-        callbacks[i](result);
-      return {
-        resolveChild: resolvers,
-        resolve(error32 = null) {
-          const end2 = performance.now();
-          if (!error32 && groupError)
-            error32 = groupError;
-          const detail = {
-            end: end2,
-            error: error32,
-            get elapsed() {
-              return end2 - process2.begin;
-            }
-          };
-          for (let i = 0;i < callbacksEnd.length; i++)
-            callbacksEnd[i](detail);
-          resolveEnd(end2);
-          resolveError(error32);
-        }
-      };
+            callbacksEnd2.push(callback);
+          return end2;
+        } };
+        resolve2(result2);
+        for (let i2 = 0;i2 < callbacks2.length; i2++)
+          callbacks2[i2](result2);
+        return (error4 = null) => {
+          let end3 = performance.now();
+          if (error4)
+            groupError = error4;
+          let detail = { end: end3, error: error4, get elapsed() {
+            return end3 - process3.begin;
+          } };
+          for (let i2 = 0;i2 < callbacksEnd2.length; i2++)
+            callbacksEnd2[i2](detail);
+          resolveEnd2(end3), resolveError2(error4);
+        };
+      });
     }
-  ];
+    let result = { ...process2, end, error: error22, onEvent(callback) {
+      for (let i = 0;i < processes.length; i++)
+        processes[i](callback);
+    }, onStop(callback) {
+      if (callback)
+        callbacksEnd.push(callback);
+      return end;
+    } };
+    resolve(result);
+    for (let i = 0;i < callbacks.length; i++)
+      callbacks[i](result);
+    return { resolveChild: resolvers, resolve(error32 = null) {
+      let end2 = performance.now();
+      if (!error32 && groupError)
+        error32 = groupError;
+      let detail = { end: end2, error: error32, get elapsed() {
+        return end2 - process2.begin;
+      } };
+      for (let i = 0;i < callbacksEnd.length; i++)
+        callbacksEnd[i](detail);
+      resolveEnd(end2), resolveError(error32);
+    } };
+  }];
 };
 var createTracer = (traceListener) => {
   return (context) => {
-    const [onRequest, resolveRequest] = createProcess();
-    const [onParse, resolveParse] = createProcess();
-    const [onTransform, resolveTransform] = createProcess();
-    const [onBeforeHandle, resolveBeforeHandle] = createProcess();
-    const [onHandle, resolveHandle] = createProcess();
-    const [onAfterHandle, resolveAfterHandle] = createProcess();
-    const [onError, resolveError] = createProcess();
-    const [onMapResponse, resolveMapResponse] = createProcess();
-    const [onAfterResponse, resolveAfterResponse] = createProcess();
-    traceListener({
-      id: context[ELYSIA_REQUEST_ID],
-      context,
-      set: context.set,
-      onRequest,
-      onParse,
-      onTransform,
-      onBeforeHandle,
-      onHandle,
-      onAfterHandle,
-      onMapResponse,
-      onAfterResponse,
-      onError
-    });
-    return {
-      request: resolveRequest,
-      parse: resolveParse,
-      transform: resolveTransform,
-      beforeHandle: resolveBeforeHandle,
-      handle: resolveHandle,
-      afterHandle: resolveAfterHandle,
-      error: resolveError,
-      mapResponse: resolveMapResponse,
-      afterResponse: resolveAfterResponse
-    };
+    let [onRequest, resolveRequest] = createProcess(), [onParse, resolveParse] = createProcess(), [onTransform, resolveTransform] = createProcess(), [onBeforeHandle, resolveBeforeHandle] = createProcess(), [onHandle, resolveHandle] = createProcess(), [onAfterHandle, resolveAfterHandle] = createProcess(), [onError, resolveError] = createProcess(), [onMapResponse, resolveMapResponse] = createProcess(), [onAfterResponse, resolveAfterResponse] = createProcess();
+    return traceListener({ id: context[ELYSIA_REQUEST_ID], context, set: context.set, onRequest, onParse, onTransform, onBeforeHandle, onHandle, onAfterHandle, onMapResponse, onAfterResponse, onError }), { request: resolveRequest, parse: resolveParse, transform: resolveTransform, beforeHandle: resolveBeforeHandle, handle: resolveHandle, afterHandle: resolveAfterHandle, error: resolveError, mapResponse: resolveMapResponse, afterResponse: resolveAfterResponse };
   };
 };
 var headersHasToJSON = new Headers().toJSON;
-var TypeBoxSymbol = {
-  optional: Symbol.for("TypeBox.Optional"),
-  kind: Symbol.for("TypeBox.Kind")
-};
+var TypeBoxSymbol = { optional: Symbol.for("TypeBox.Optional"), kind: Symbol.for("TypeBox.Kind") };
 var isOptional = (validator) => {
   if (!validator)
     return false;
-  const schema3 = validator?.schema;
+  let schema3 = validator?.schema;
   return !!schema3 && TypeBoxSymbol.optional in schema3;
 };
 var hasAdditionalProperties = (_schema) => {
   if (!_schema)
     return false;
-  const schema3 = _schema?.schema ?? _schema;
+  let schema3 = _schema?.schema ?? _schema;
   if (schema3.anyOf)
     return schema3.anyOf.some(hasAdditionalProperties);
   if (schema3.someOf)
@@ -67951,13 +67213,13 @@ var hasAdditionalProperties = (_schema) => {
   if (schema3.not)
     return schema3.not.some(hasAdditionalProperties);
   if (schema3.type === "object") {
-    const properties = schema3.properties;
+    let properties = schema3.properties;
     if ("additionalProperties" in schema3)
       return schema3.additionalProperties;
     if ("patternProperties" in schema3)
       return false;
-    for (const key of Object.keys(properties)) {
-      const property = properties[key];
+    for (let key of Object.keys(properties)) {
+      let property = properties[key];
       if (property.type === "object") {
         if (hasAdditionalProperties(property))
           return true;
@@ -67972,91 +67234,56 @@ var hasAdditionalProperties = (_schema) => {
   }
   return false;
 };
-var createReport = ({
-  context = "c",
-  trace,
-  addFn
-}) => {
+var createReport = ({ context = "c", trace, addFn }) => {
   if (!trace.length)
     return () => {
-      return {
-        resolveChild() {
-          return () => {
-          };
-        },
-        resolve() {
-        }
-      };
+      return { resolveChild() {
+        return () => {
+        };
+      }, resolve() {
+      } };
     };
   for (let i = 0;i < trace.length; i++)
-    addFn(`let report${i}, reportChild${i}, reportErr${i}, reportErrChild${i}; let trace${i} = ${context}[ELYSIA_TRACE]?.[${i}] ?? trace[${i}](${context});
-`);
-  return (event, {
-    name,
-    total = 0
-  } = {}) => {
+    addFn(`let report${i}, reportChild${i}, reportErr${i}, reportErrChild${i}; let trace${i} = ${context}[ELYSIA_TRACE]?.[${i}] ?? trace[${i}](${context});\n`);
+  return (event, { name, total = 0 } = {}) => {
     if (!name)
       name = "anonymous";
-    const reporter = event === "error" ? "reportErr" : "report";
+    let reporter = event === "error" ? "reportErr" : "report";
     for (let i = 0;i < trace.length; i++)
-      addFn(`
-${reporter}${i} = trace${i}.${event}({id,event: '${event}',name: '${name}',begin: performance.now(),total: ${total}})
-`);
-    return {
-      resolve() {
+      addFn(`\n${reporter}${i} = trace${i}.${event}({id,event: '${event}',name: '${name}',begin: performance.now(),total: ${total}})\n`);
+    return { resolve() {
+      for (let i = 0;i < trace.length; i++)
+        addFn(`\n${reporter}${i}.resolve()\n`);
+    }, resolveChild(name2) {
+      for (let i = 0;i < trace.length; i++)
+        addFn(`${reporter}Child${i} = ${reporter}${i}.resolveChild?.shift()?.({id,event: '${event}',name: '${name2}',begin: performance.now()})\n`);
+      return (binding) => {
         for (let i = 0;i < trace.length; i++)
-          addFn(`
-${reporter}${i}.resolve()
-`);
-      },
-      resolveChild(name2) {
-        for (let i = 0;i < trace.length; i++)
-          addFn(`${reporter}Child${i} = ${reporter}${i}.resolveChild?.shift()?.({id,event: '${event}',name: '${name2}',begin: performance.now()})
-`);
-        return (binding) => {
-          for (let i = 0;i < trace.length; i++) {
-            if (binding)
-              addFn(`
+          if (binding)
+            addFn(`
                              	if (${binding} instanceof Error)
                     				${reporter}Child${i}?.(${binding})
                            		else
-                             		${reporter}Child${i}?.()
-`);
-            else
-              addFn(`${reporter}Child${i}?.()
-`);
-          }
-        };
-      }
-    };
+                             		${reporter}Child${i}?.()\n`);
+          else
+            addFn(`${reporter}Child${i}?.()\n`);
+      };
+    } };
   };
 };
-var composeValidationFactory = ({
-  injectResponse = "",
-  normalize = false,
-  validator
-}) => ({
-  composeValidation: (type3, value2 = `c.${type3}`) => `c.set.status = 422; throw new ValidationError('${type3}', validator.${type3}, ${value2})`,
-  composeResponseValidation: (name = "r") => {
-    let code = "\n" + injectResponse + "\n";
-    code += `if(${name} instanceof ElysiaCustomStatusResponse) {
+var composeValidationFactory = ({ injectResponse = "", normalize = false, validator }) => ({ composeValidation: (type3, value2 = `c.${type3}`) => `c.set.status = 422; throw new ValidationError('${type3}', validator.${type3}, ${value2})`, composeResponseValidation: (name = "r") => {
+  let code = "\n" + injectResponse + "\n";
+  code += `if(${name} instanceof ElysiaCustomStatusResponse) {
 			c.set.status = ${name}.code
 			${name} = ${name}.response
 		}
 
-		const isResponse = ${name} instanceof Response
-
-`;
-    code += `switch(c.set.status) {
-`;
-    for (const [status, value2] of Object.entries(validator.response)) {
-      code += `	case ${status}:
-				if (!isResponse) {
-`;
-      if (normalize && "Clean" in value2 && !hasAdditionalProperties(value2))
-        code += `${name} = validator.response['${status}'].Clean(${name})
-`;
-      code += `if(validator.response['${status}'].Check(${name}) === false) {
+		const isResponse = ${name} instanceof Response\n\n`, code += "switch(c.set.status) {\n";
+  for (let [status, value2] of Object.entries(validator.response)) {
+    if (code += `\tcase ${status}:
+				if (!isResponse) {\n`, normalize && "Clean" in value2 && !hasAdditionalProperties(value2))
+      code += `${name} = validator.response['${status}'].Clean(${name})\n`;
+    code += `if(validator.response['${status}'].Check(${name}) === false) {
 					c.set.status = 422
 
 					throw new ValidationError('response', validator.response['${status}'], ${name})
@@ -68065,34 +67292,29 @@ var composeValidationFactory = ({
 				c.set.status = ${status}
 			}
 
-			break
-
-`;
-    }
-    code += "\n}\n";
-    return code;
+			break\n\n`;
   }
-});
+  return code += "\n}\n", code;
+} });
 var KindSymbol = Symbol.for("TypeBox.Kind");
 var hasProperty = (expectedProperty, schema3) => {
   if (!schema3)
     return;
   if (schema3.type === "object") {
-    const properties = schema3.properties;
+    let properties = schema3.properties;
     if (!properties)
       return false;
-    for (const key of Object.keys(properties)) {
-      const property = properties[key];
+    for (let key of Object.keys(properties)) {
+      let property = properties[key];
       if (expectedProperty in property)
         return true;
       if (property.type === "object") {
         if (hasProperty(expectedProperty, property))
           return true;
       } else if (property.anyOf) {
-        for (let i = 0;i < property.anyOf.length; i++) {
+        for (let i = 0;i < property.anyOf.length; i++)
           if (hasProperty(expectedProperty, property.anyOf[i]))
             return true;
-        }
       }
     }
     return false;
@@ -68104,9 +67326,9 @@ var hasTransform = (schema3) => {
   if (!schema3)
     return;
   if (schema3.type === "object" && schema3.properties) {
-    const properties = schema3.properties;
-    for (const key of Object.keys(properties)) {
-      const property = properties[key];
+    let properties = schema3.properties;
+    for (let key of Object.keys(properties)) {
+      let property = properties[key];
       if (property.type === "object") {
         if (hasTransform(property))
           return true;
@@ -68115,8 +67337,7 @@ var hasTransform = (schema3) => {
           if (hasTransform(property.anyOf[i]))
             return true;
       }
-      const hasTransformSymbol = TransformSymbol in property;
-      if (hasTransformSymbol)
+      if (TransformSymbol in property)
         return true;
     }
     return false;
@@ -68125,14 +67346,13 @@ var hasTransform = (schema3) => {
 };
 var matchFnReturn = /(?:return|=>) \S+\(/g;
 var isAsyncName = (v) => {
-  const fn2 = v?.fn ?? v;
-  return fn2.constructor.name === "AsyncFunction";
+  return (v?.fn ?? v).constructor.name === "AsyncFunction";
 };
 var isAsync = (v) => {
-  const fn2 = v?.fn ?? v;
+  let fn2 = v?.fn ?? v;
   if (fn2.constructor.name === "AsyncFunction")
     return true;
-  const literal3 = fn2.toString();
+  let literal3 = fn2.toString();
   if (literal3.includes("=> response.clone("))
     return false;
   if (literal3.includes("await"))
@@ -68142,97 +67362,47 @@ var isAsync = (v) => {
   return !!literal3.match(matchFnReturn);
 };
 var isGenerator = (v) => {
-  const fn2 = v?.fn ?? v;
+  let fn2 = v?.fn ?? v;
   return fn2.constructor.name === "AsyncGeneratorFunction" || fn2.constructor.name === "GeneratorFunction";
 };
-var composeHandler = ({
-  app: app3,
-  path,
-  method,
-  localHook,
-  hooks,
-  validator,
-  handler,
-  allowMeta = false,
-  inference
-}) => {
-  const isHandleFn = typeof handler === "function";
+var composeHandler = ({ app: app3, path, method, localHook, hooks, validator, handler, allowMeta = false, inference }) => {
+  let isHandleFn = typeof handler === "function";
   if (!isHandleFn) {
-    handler = mapResponse(handler, {
-      headers: app3.setHeaders ?? {}
-    });
-    if (hooks.parse.length === 0 && hooks.transform.length === 0 && hooks.beforeHandle.length === 0 && hooks.afterHandle.length === 0)
-      return Function("a", `return function () { return a.clone() }`)(handler);
+    if (handler = mapResponse(handler, { headers: app3.setHeaders ?? {} }), hooks.parse.length === 0 && hooks.transform.length === 0 && hooks.beforeHandle.length === 0 && hooks.afterHandle.length === 0)
+      return Function("a", "return function () { return a.clone() }")(handler);
   }
-  const handle = isHandleFn ? `handler(c)` : `handler`;
-  const hasAfterResponse = hooks.afterResponse.length > 0;
-  const hasTrace = hooks.trace.length > 0;
-  let fnLiteral = "";
-  inference = sucrose(Object.assign(localHook, {
-    handler
-  }), inference);
-  if (inference.server)
-    fnLiteral += `
-Object.defineProperty(c, 'server', {
+  let handle = isHandleFn ? "handler(c)" : "handler", hasAfterResponse = hooks.afterResponse.length > 0, hasTrace = hooks.trace.length > 0, fnLiteral = "";
+  if (inference = sucrose(Object.assign(localHook, { handler }), inference), inference.server)
+    fnLiteral += `\nObject.defineProperty(c, 'server', {
 			get: function() { return getServer() }
-		})
-`;
+		})\n`;
   if (inference.body)
-    fnLiteral += `let isParsing = false
-`;
-  validator.createBody?.();
-  validator.createQuery?.();
-  validator.createHeaders?.();
-  validator.createParams?.();
-  validator.createCookie?.();
-  validator.createResponse?.();
-  const hasQuery = inference.query || !!validator.query;
-  const hasBody = method !== "$INTERNALWS" && method !== "GET" && method !== "HEAD" && (inference.body || !!validator.body || hooks.parse.length);
-  const defaultHeaders = app3.setHeaders;
-  const hasDefaultHeaders = defaultHeaders && !!Object.keys(defaultHeaders).length;
-  const hasHeaders = inference.headers || validator.headers;
-  const hasCookie = inference.cookie || !!validator.cookie;
-  const cookieValidator = hasCookie ? getCookieValidator({
-    validator: validator.cookie,
-    defaultConfig: app3.config.cookie,
-    dynamic: !!app3.config.aot,
-    config: validator.cookie?.config ?? {},
-    models: app3.definitions.type
-  }) : undefined;
-  const cookieMeta = cookieValidator?.config;
-  let encodeCookie = "";
+    fnLiteral += "let isParsing = false\n";
+  validator.createBody?.(), validator.createQuery?.(), validator.createHeaders?.(), validator.createParams?.(), validator.createCookie?.(), validator.createResponse?.();
+  let hasQuery = inference.query || !!validator.query, hasBody = method !== "$INTERNALWS" && method !== "GET" && method !== "HEAD" && (inference.body || !!validator.body || hooks.parse.length), defaultHeaders = app3.setHeaders, hasDefaultHeaders = defaultHeaders && !!Object.keys(defaultHeaders).length, hasHeaders = inference.headers || validator.headers, hasCookie = inference.cookie || !!validator.cookie, cookieValidator = hasCookie ? getCookieValidator({ validator: validator.cookie, defaultConfig: app3.config.cookie, dynamic: !!app3.config.aot, config: validator.cookie?.config ?? {}, models: app3.definitions.type }) : undefined, cookieMeta = cookieValidator?.config, encodeCookie = "";
   if (cookieMeta?.sign) {
     if (!cookieMeta.secrets)
       throw new Error(`t.Cookie required secret which is not set in (${method}) ${path}.`);
-    const secret = !cookieMeta.secrets ? undefined : typeof cookieMeta.secrets === "string" ? cookieMeta.secrets : cookieMeta.secrets[0];
-    encodeCookie += `const _setCookie = c.set.cookie
-		if(_setCookie) {`;
-    if (cookieMeta.sign === true) {
+    let secret = !cookieMeta.secrets ? undefined : typeof cookieMeta.secrets === "string" ? cookieMeta.secrets : cookieMeta.secrets[0];
+    if (encodeCookie += `const _setCookie = c.set.cookie
+		if(_setCookie) {`, cookieMeta.sign === true)
       encodeCookie += `for(const [key, cookie] of Object.entries(_setCookie)) {
 				c.set.cookie[key].value = await signCookie(cookie.value, '${secret}')
 			}`;
-    } else
-      for (const name of cookieMeta.sign) {
-        encodeCookie += `if(_setCookie['${name}']?.value) { c.set.cookie['${name}'].value = await signCookie(_setCookie['${name}'].value, '${secret}') }
-`;
-      }
+    else
+      for (let name of cookieMeta.sign)
+        encodeCookie += `if(_setCookie['${name}']?.value) { c.set.cookie['${name}'].value = await signCookie(_setCookie['${name}'].value, '${secret}') }\n`;
     encodeCookie += "}\n";
   }
-  const normalize = app3.config.normalize;
-  const { composeValidation, composeResponseValidation } = composeValidationFactory({
-    normalize,
-    validator
-  });
-  if (hasHeaders) {
-    fnLiteral += headersHasToJSON ? `c.headers = c.request.headers.toJSON()
-` : `c.headers = {}
+  let normalize = app3.config.normalize, { composeValidation, composeResponseValidation } = composeValidationFactory({ normalize, validator });
+  if (hasHeaders)
+    fnLiteral += headersHasToJSON ? "c.headers = c.request.headers.toJSON()\n" : `c.headers = {}
                 for (const [key, value] of c.request.headers.entries())
 					c.headers[key] = value
 				`;
-  }
   if (hasCookie) {
-    const get = (name, defaultValue) => {
-      const value2 = cookieMeta?.[name] ?? defaultValue;
+    let get = (name, defaultValue) => {
+      let value2 = cookieMeta?.[name] ?? defaultValue;
       if (!value2)
         return typeof defaultValue === "string" ? `${name}: "${defaultValue}",` : `${name}: ${defaultValue},`;
       if (typeof value2 === "string")
@@ -68240,8 +67410,7 @@ Object.defineProperty(c, 'server', {
       if (value2 instanceof Date)
         return `${name}: new Date(${value2.getTime()}),`;
       return `${name}: ${value2},`;
-    };
-    const options = cookieMeta ? `{
+    }, options = cookieMeta ? `{
 			secrets: ${cookieMeta.secrets !== undefined ? typeof cookieMeta.secrets === "string" ? `'${cookieMeta.secrets}'` : "[" + cookieMeta.secrets.reduce((a, b) => a + `'${b}',`, "") + "]" : "undefined"},
 			sign: ${cookieMeta.sign === true ? true : cookieMeta.sign !== undefined ? "[" + cookieMeta.sign.reduce((a, b) => a + `'${b}',`, "") + "]" : "undefined"},
 			${get("domain")}
@@ -68254,54 +67423,36 @@ Object.defineProperty(c, 'server', {
 			${get("secure")}
 		}` : "undefined";
     if (hasHeaders)
-      fnLiteral += `
-c.cookie = await parseCookie(c.set, c.headers.cookie, ${options})
-`;
+      fnLiteral += `\nc.cookie = await parseCookie(c.set, c.headers.cookie, ${options})\n`;
     else
-      fnLiteral += `
-c.cookie = await parseCookie(c.set, c.request.headers.get('cookie'), ${options})
-`;
+      fnLiteral += `\nc.cookie = await parseCookie(c.set, c.request.headers.get('cookie'), ${options})\n`;
   }
   if (hasQuery) {
-    const destructured = [];
+    let destructured = [];
     if (validator.query && validator.query.schema.type === "object") {
-      const properties = validator.query.schema.properties;
+      let properties = validator.query.schema.properties;
       if (!hasAdditionalProperties(validator.query))
         for (let [key, _value] of Object.entries(properties)) {
           let value2 = _value;
           if (value2 && TypeBoxSymbol.optional in value2 && value2.type === "array" && value2.items)
             value2 = value2.items;
-          const { type: type3, anyOf } = value2;
-          const isArray = type3 === "array" || anyOf?.some((v) => v.type === "string" && v.format === "ArrayString");
-          destructured.push({
-            key,
-            isArray,
-            isNestedObjectArray: isArray && value2.items?.type === "object" || !!value2.items?.anyOf?.some((x) => x.type === "object" || x.type === "array"),
-            isObject: type3 === "object" || anyOf?.some((v) => v.type === "string" && v.format === "ArrayString"),
-            anyOf: !!anyOf
-          });
+          let { type: type3, anyOf } = value2, isArray = type3 === "array" || anyOf?.some((v) => v.type === "string" && v.format === "ArrayString");
+          destructured.push({ key, isArray, isNestedObjectArray: isArray && value2.items?.type === "object" || !!value2.items?.anyOf?.some((x) => x.type === "object" || x.type === "array"), isObject: type3 === "object" || anyOf?.some((v) => v.type === "string" && v.format === "ArrayString"), anyOf: !!anyOf });
         }
     }
-    if (!destructured.length) {
+    if (!destructured.length)
       fnLiteral += `if(c.qi === -1) {
 				c.query = {}
 			} else {
 				c.query = parseQueryFromURL(c.url.slice(c.qi + 1))
 			}`;
-    } else {
+    else
       fnLiteral += `if(c.qi !== -1) {
 				let url = '&' + c.url.slice(c.qi + 1)
 
-				${destructured.map(({
-        key,
-        isArray,
-        isObject: isObject2,
-        isNestedObjectArray,
-        anyOf
-      }, index) => {
-        const init = `${index === 0 ? "let" : ""} memory = url.indexOf('&${key}=')
-							let a${index}
-`;
+				${destructured.map(({ key, isArray, isObject: isObject2, isNestedObjectArray, anyOf }, index) => {
+        let init = `${index === 0 ? "let" : ""} memory = url.indexOf('&${key}=')
+							let a${index}\n`;
         if (isArray)
           return init + (isNestedObjectArray ? `while (memory !== -1) {
 											const start = memory + ${key.length + 2}
@@ -68334,8 +67485,7 @@ c.cookie = await parseCookie(c.set, c.request.headers.get('cookie'), ${options})
 												a${index} = JSON.parse(a${index})
 											else
 												a${index} = JSON.parse('[' + a${index} + ']')
-										} catch {}
-` : `while (memory !== -1) {
+										} catch {}\n` : `while (memory !== -1) {
 											const start = memory + ${key.length + 2}
 											memory = url.indexOf('&', start)
 
@@ -68350,8 +67500,7 @@ c.cookie = await parseCookie(c.set, c.request.headers.get('cookie'), ${options})
 
 											memory = url.indexOf('&${key}=', memory)
 											if(memory === -1) break
-										}
-`);
+										}\n`);
         if (isObject2)
           return init + `if (memory !== -1) {
 										const start = memory + ${key.length + 2}
@@ -68416,65 +67565,46 @@ c.cookie = await parseCookie(c.set, c.request.headers.get('cookie'), ${options})
 			} else {
 				c.query = {}
 			}`;
-    }
   }
   if (hasTrace)
     fnLiteral += "\nconst id = c[ELYSIA_REQUEST_ID]\n";
-  const report = createReport({
-    trace: hooks.trace,
-    addFn: (word) => {
-      fnLiteral += word;
-    }
-  });
+  let report = createReport({ trace: hooks.trace, addFn: (word) => {
+    fnLiteral += word;
+  } });
   fnLiteral += "\ntry {\n";
-  const isAsyncHandler = typeof handler === "function" && isAsync(handler);
-  const saveResponse = hasTrace || hooks.afterResponse.length > 0 ? "c.response = " : "";
-  const maybeAsync = hasCookie || hasBody || isAsyncHandler || hooks.parse.length > 0 || hooks.afterHandle.some(isAsync) || hooks.beforeHandle.some(isAsync) || hooks.transform.some(isAsync) || hooks.mapResponse.some(isAsync);
-  const maybeStream = (typeof handler === "function" ? isGenerator(handler) : false) || hooks.beforeHandle.some(isGenerator) || hooks.afterHandle.some(isGenerator) || hooks.transform.some(isGenerator);
-  const hasSet = inference.cookie || inference.set || hasHeaders || hasTrace || validator.response || isHandleFn && hasDefaultHeaders || maybeStream;
-  const requestMapper = `, c.request`;
-  fnLiteral += `c.route = \`${path}\`
-`;
-  const parseReporter = report("parse", {
-    total: hooks.parse.length
-  });
+  let isAsyncHandler = typeof handler === "function" && isAsync(handler), saveResponse = hasTrace || hooks.afterResponse.length > 0 ? "c.response = " : "", maybeAsync = hasCookie || hasBody || isAsyncHandler || hooks.parse.length > 0 || hooks.afterHandle.some(isAsync) || hooks.beforeHandle.some(isAsync) || hooks.transform.some(isAsync) || hooks.mapResponse.some(isAsync), maybeStream = (typeof handler === "function" ? isGenerator(handler) : false) || hooks.beforeHandle.some(isGenerator) || hooks.afterHandle.some(isGenerator) || hooks.transform.some(isGenerator), hasSet = inference.cookie || inference.set || hasHeaders || hasTrace || validator.response || isHandleFn && hasDefaultHeaders || maybeStream, requestMapper = ", c.request";
+  fnLiteral += `c.route = \`${path}\`\n`;
+  let parseReporter = report("parse", { total: hooks.parse.length });
   if (hasBody) {
-    const hasBodyInference = hooks.parse.length || inference.body || validator.body;
-    fnLiteral += "isParsing = true\n";
-    if (hooks.type && !hooks.parse.length) {
+    let hasBodyInference = hooks.parse.length || inference.body || validator.body;
+    if (fnLiteral += "isParsing = true\n", hooks.type && !hooks.parse.length)
       switch (hooks.type) {
         case "json":
         case "application/json":
           if (isOptional(validator.body))
-            fnLiteral += `try { c.body = await c.request.json() } catch {}`;
+            fnLiteral += "try { c.body = await c.request.json() } catch {}";
           else
-            fnLiteral += `c.body = await c.request.json()`;
+            fnLiteral += "c.body = await c.request.json()";
           break;
         case "text":
         case "text/plain":
-          fnLiteral += `c.body = await c.request.text()
-`;
+          fnLiteral += "c.body = await c.request.text()\n";
           break;
         case "urlencoded":
         case "application/x-www-form-urlencoded":
-          fnLiteral += `c.body = parseQuery(await c.request.text())
-`;
+          fnLiteral += "c.body = parseQuery(await c.request.text())\n";
           break;
         case "arrayBuffer":
         case "application/octet-stream":
-          fnLiteral += `c.body = await c.request.arrayBuffer()
-`;
+          fnLiteral += "c.body = await c.request.arrayBuffer()\n";
           break;
         case "formdata":
         case "multipart/form-data":
-          fnLiteral += `c.body = {}
-`;
-          if (isOptional(validator.body))
-            fnLiteral += `let form; try { form = await c.request.formData() } catch {}`;
+          if (fnLiteral += "c.body = {}\n", isOptional(validator.body))
+            fnLiteral += "let form; try { form = await c.request.formData() } catch {}";
           else
-            fnLiteral += `const form = await c.request.formData()`;
-          fnLiteral += `
-if(form)
+            fnLiteral += "const form = await c.request.formData()";
+          fnLiteral += `\nif(form)
 						for (const key of form.keys()) {
 							if (c.body[key])
 								continue
@@ -68483,70 +67613,48 @@ if(form)
 							if (value.length === 1)
 								c.body[key] = value[0]
 							else c.body[key] = value
-						} else form = {}
-`;
+						} else form = {}\n`;
           break;
       }
-    } else if (hasBodyInference) {
-      fnLiteral += "\n";
-      fnLiteral += hasHeaders ? `let contentType = c.headers['content-type']` : `let contentType = c.request.headers.get('content-type')`;
-      fnLiteral += `
+    else if (hasBodyInference) {
+      if (fnLiteral += "\n", fnLiteral += hasHeaders ? "let contentType = c.headers['content-type']" : "let contentType = c.request.headers.get('content-type')", fnLiteral += `
 				if (contentType) {
 					const index = contentType.indexOf(';')
-					if (index !== -1) contentType = contentType.substring(0, index)
-
-					c.contentType = contentType
-`;
-      if (hooks.parse.length) {
-        fnLiteral += `let used = false
-`;
-        const reporter = report("parse", {
-          total: hooks.parse.length
-        });
+					if (index !== -1) contentType = contentType.substring(0, index)\n
+					c.contentType = contentType\n`, hooks.parse.length) {
+        fnLiteral += "let used = false\n";
+        let reporter = report("parse", { total: hooks.parse.length });
         for (let i = 0;i < hooks.parse.length; i++) {
-          const endUnit = reporter.resolveChild(hooks.parse[i].fn.name);
-          const name = `bo${i}`;
+          let endUnit = reporter.resolveChild(hooks.parse[i].fn.name), name = `bo${i}`;
           if (i !== 0)
-            fnLiteral += `if(!used) {
-`;
-          fnLiteral += `let ${name} = parse[${i}](c, contentType)
-`;
-          fnLiteral += `if(${name} instanceof Promise) ${name} = await ${name}
-`;
-          fnLiteral += `if(${name} !== undefined) { c.body = ${name}; used = true }
-`;
-          endUnit();
-          if (i !== 0)
-            fnLiteral += `}`;
+            fnLiteral += "if(!used) {\n";
+          if (fnLiteral += `let ${name} = parse[${i}](c, contentType)\n`, fnLiteral += `if(${name} instanceof Promise) ${name} = await ${name}\n`, fnLiteral += `if(${name} !== undefined) { c.body = ${name}; used = true }\n`, endUnit(), i !== 0)
+            fnLiteral += "}";
         }
         reporter.resolve();
       }
-      fnLiteral += "\ndelete c.contentType\n";
-      if (hooks.parse.length)
-        fnLiteral += `if (!used) {`;
-      if (hooks.type && !Array.isArray(hooks.type)) {
+      if (fnLiteral += "\ndelete c.contentType\n", hooks.parse.length)
+        fnLiteral += "if (!used) {";
+      if (hooks.type && !Array.isArray(hooks.type))
         switch (hooks.type) {
           case "json":
           case "application/json":
             if (isOptional(validator.body))
-              fnLiteral += `try { c.body = await c.request.json() } catch {}`;
+              fnLiteral += "try { c.body = await c.request.json() } catch {}";
             else
-              fnLiteral += `c.body = await c.request.json()`;
+              fnLiteral += "c.body = await c.request.json()";
             break;
           case "text":
           case "text/plain":
-            fnLiteral += `c.body = await c.request.text()
-`;
+            fnLiteral += "c.body = await c.request.text()\n";
             break;
           case "urlencoded":
           case "application/x-www-form-urlencoded":
-            fnLiteral += `c.body = parseQuery(await c.request.text())
-`;
+            fnLiteral += "c.body = parseQuery(await c.request.text())\n";
             break;
           case "arrayBuffer":
           case "application/octet-stream":
-            fnLiteral += `c.body = await c.request.arrayBuffer()
-`;
+            fnLiteral += "c.body = await c.request.arrayBuffer()\n";
             break;
           case "formdata":
           case "multipart/form-data":
@@ -68561,11 +67669,10 @@ if(form)
 								if (value.length === 1)
 									c.body[key] = value[0]
 								else c.body[key] = value
-							}
-`;
+							}\n`;
             break;
         }
-      } else {
+      else
         fnLiteral += `
 					switch (contentType) {
 						case 'application/json':
@@ -68600,27 +67707,19 @@ if(form)
 
 							break
 					}`;
-      }
       if (hooks.parse.length)
-        fnLiteral += `}`;
+        fnLiteral += "}";
       fnLiteral += "}\n";
     }
     fnLiteral += "\nisParsing = false\n";
   }
-  parseReporter.resolve();
-  if (hooks?.transform) {
-    const reporter = report("transform", {
-      total: hooks.transform.length
-    });
+  if (parseReporter.resolve(), hooks?.transform) {
+    let reporter = report("transform", { total: hooks.transform.length });
     if (hooks.transform.length)
       fnLiteral += "\nlet transformed\n";
     for (let i = 0;i < hooks.transform.length; i++) {
-      const transform4 = hooks.transform[i];
-      const endUnit = reporter.resolveChild(transform4.fn.name);
-      fnLiteral += isAsync(transform4) ? `transformed = await transform[${i}](c)
-` : `transformed = transform[${i}](c)
-`;
-      if (transform4.subType === "mapDerive")
+      let transform4 = hooks.transform[i], endUnit = reporter.resolveChild(transform4.fn.name);
+      if (fnLiteral += isAsync(transform4) ? `transformed = await transform[${i}](c)\n` : `transformed = transform[${i}](c)\n`, transform4.subType === "mapDerive")
         fnLiteral += `if(transformed instanceof ElysiaCustomStatusResponse)
 					throw transformed
 				else {
@@ -68639,89 +67738,72 @@ if(form)
         fnLiteral += `if(transformed instanceof ElysiaCustomStatusResponse)
 					throw transformed
 				else
-					Object.assign(c, transformed)
-`;
+					Object.assign(c, transformed)\n`;
       endUnit();
     }
     reporter.resolve();
   }
   if (validator) {
-    fnLiteral += "\n";
-    if (validator.headers) {
+    if (fnLiteral += "\n", validator.headers) {
       if (normalize && "Clean" in validator.headers && !hasAdditionalProperties(validator.headers))
         fnLiteral += "c.headers = validator.headers.Clean(c.headers);\n";
       if (hasProperty("default", validator.headers.schema))
-        for (const [key, value2] of Object.entries(exports_value2.Default(validator.headers.schema, {}))) {
-          const parsed = typeof value2 === "object" ? JSON.stringify(value2) : typeof value2 === "string" ? `'${value2}'` : value2;
+        for (let [key, value2] of Object.entries(exports_value2.Default(validator.headers.schema, {}))) {
+          let parsed = typeof value2 === "object" ? JSON.stringify(value2) : typeof value2 === "string" ? `'${value2}'` : value2;
           if (parsed !== undefined)
-            fnLiteral += `c.headers['${key}'] ??= ${parsed}
-`;
+            fnLiteral += `c.headers['${key}'] ??= ${parsed}\n`;
         }
       if (isOptional(validator.headers))
-        fnLiteral += `if(isNotEmpty(c.headers)) {`;
-      fnLiteral += `if(validator.headers.Check(c.headers) === false) {
+        fnLiteral += "if(isNotEmpty(c.headers)) {";
+      if (fnLiteral += `if(validator.headers.Check(c.headers) === false) {
 				${composeValidation("headers")}
-			}`;
-      if (hasTransform(validator.headers.schema))
-        fnLiteral += `c.headers = validator.headers.Decode(c.headers)
-`;
+			}`, hasTransform(validator.headers.schema))
+        fnLiteral += "c.headers = validator.headers.Decode(c.headers)\n";
       if (isOptional(validator.headers))
         fnLiteral += "}";
     }
     if (validator.params) {
       if (hasProperty("default", validator.params.schema))
-        for (const [key, value2] of Object.entries(exports_value2.Default(validator.params.schema, {}))) {
-          const parsed = typeof value2 === "object" ? JSON.stringify(value2) : typeof value2 === "string" ? `'${value2}'` : value2;
+        for (let [key, value2] of Object.entries(exports_value2.Default(validator.params.schema, {}))) {
+          let parsed = typeof value2 === "object" ? JSON.stringify(value2) : typeof value2 === "string" ? `'${value2}'` : value2;
           if (parsed !== undefined)
-            fnLiteral += `c.params['${key}'] ??= ${parsed}
-`;
+            fnLiteral += `c.params['${key}'] ??= ${parsed}\n`;
         }
-      fnLiteral += `if(validator.params.Check(c.params) === false) {
+      if (fnLiteral += `if(validator.params.Check(c.params) === false) {
 				${composeValidation("params")}
-			}`;
-      if (hasTransform(validator.params.schema))
-        fnLiteral += `
-c.params = validator.params.Decode(c.params)
-`;
+			}`, hasTransform(validator.params.schema))
+        fnLiteral += "\nc.params = validator.params.Decode(c.params)\n";
     }
     if (validator.query) {
       if (normalize && "Clean" in validator.query && !hasAdditionalProperties(validator.query))
         fnLiteral += "c.query = validator.query.Clean(c.query);\n";
       if (hasProperty("default", validator.query.schema))
-        for (const [key, value2] of Object.entries(exports_value2.Default(validator.query.schema, {}))) {
-          const parsed = typeof value2 === "object" ? JSON.stringify(value2) : typeof value2 === "string" ? `'${value2}'` : value2;
+        for (let [key, value2] of Object.entries(exports_value2.Default(validator.query.schema, {}))) {
+          let parsed = typeof value2 === "object" ? JSON.stringify(value2) : typeof value2 === "string" ? `'${value2}'` : value2;
           if (parsed !== undefined)
-            fnLiteral += `if(c.query['${key}'] === undefined) c.query['${key}'] = ${parsed}
-`;
+            fnLiteral += `if(c.query['${key}'] === undefined) c.query['${key}'] = ${parsed}\n`;
         }
       if (isOptional(validator.query))
-        fnLiteral += `if(isNotEmpty(c.query)) {`;
-      fnLiteral += `if(validator.query.Check(c.query) === false) {
+        fnLiteral += "if(isNotEmpty(c.query)) {";
+      if (fnLiteral += `if(validator.query.Check(c.query) === false) {
           		${composeValidation("query")}
-			}`;
-      if (hasTransform(validator.query.schema))
-        fnLiteral += `
-c.query = validator.query.Decode(Object.assign({}, c.query))
-`;
+			}`, hasTransform(validator.query.schema))
+        fnLiteral += "\nc.query = validator.query.Decode(Object.assign({}, c.query))\n";
       if (isOptional(validator.query))
-        fnLiteral += `}`;
+        fnLiteral += "}";
     }
     if (validator.body) {
       if (normalize && "Clean" in validator.body && !hasAdditionalProperties(validator.body))
         fnLiteral += "c.body = validator.body.Clean(c.body);\n";
-      const doesHaveTransform = hasTransform(validator.body.schema);
+      let doesHaveTransform = hasTransform(validator.body.schema);
       if (doesHaveTransform || isOptional(validator.body))
-        fnLiteral += `
-const isNotEmptyObject = c.body && (typeof c.body === "object" && isNotEmpty(c.body))
-`;
+        fnLiteral += '\nconst isNotEmptyObject = c.body && (typeof c.body === "object" && isNotEmpty(c.body))\n';
       if (hasProperty("default", validator.body.schema)) {
-        const value2 = exports_value2.Default(validator.body.schema, validator.body.schema.type === "object" ? {} : undefined);
-        const parsed = typeof value2 === "object" ? JSON.stringify(value2) : typeof value2 === "string" ? `'${value2}'` : value2;
-        fnLiteral += `if(validator.body.Check(c.body) === false) {
+        let value2 = exports_value2.Default(validator.body.schema, validator.body.schema.type === "object" ? {} : undefined), parsed = typeof value2 === "object" ? JSON.stringify(value2) : typeof value2 === "string" ? `'${value2}'` : value2;
+        if (fnLiteral += `if(validator.body.Check(c.body) === false) {
 					if (typeof c.body === 'object') {
 						c.body = Object.assign(${parsed}, c.body)
-					} else { c.body = ${parsed} }`;
-        if (isOptional(validator.body))
+					} else { c.body = ${parsed} }`, isOptional(validator.body))
           fnLiteral += `
 					    if(isNotEmptyObject && validator.body.Check(c.body) === false) {
             				${composeValidation("body")}
@@ -68733,64 +67815,42 @@ const isNotEmptyObject = c.body && (typeof c.body === "object" && isNotEmpty(c.b
         				${composeValidation("body")}
          			}
                 }`;
-      } else {
-        if (isOptional(validator.body))
-          fnLiteral += `if(isNotEmptyObject && validator.body.Check(c.body) === false) {
+      } else if (isOptional(validator.body))
+        fnLiteral += `if(isNotEmptyObject && validator.body.Check(c.body) === false) {
          			${composeValidation("body")}
           		}`;
-        else
-          fnLiteral += `if(validator.body.Check(c.body) === false) {
+      else
+        fnLiteral += `if(validator.body.Check(c.body) === false) {
          			${composeValidation("body")}
           		}`;
-      }
       if (doesHaveTransform)
-        fnLiteral += `
-if(isNotEmptyObject) c.body = validator.body.Decode(c.body)
-`;
+        fnLiteral += "\nif(isNotEmptyObject) c.body = validator.body.Decode(c.body)\n";
     }
     if (isNotEmpty(cookieValidator?.schema?.properties ?? cookieValidator?.schema?.schema ?? {})) {
-      fnLiteral += `const cookieValue = {}
+      if (fnLiteral += `const cookieValue = {}
     			for(const [key, value] of Object.entries(c.cookie))
-    				cookieValue[key] = value.value
-`;
-      if (hasProperty("default", cookieValidator.schema))
-        for (const [key, value2] of Object.entries(exports_value2.Default(cookieValidator.schema, {}))) {
-          fnLiteral += `cookieValue['${key}'] = ${typeof value2 === "object" ? JSON.stringify(value2) : value2}
-`;
-        }
+    				cookieValue[key] = value.value\n`, hasProperty("default", cookieValidator.schema))
+        for (let [key, value2] of Object.entries(exports_value2.Default(cookieValidator.schema, {})))
+          fnLiteral += `cookieValue['${key}'] = ${typeof value2 === "object" ? JSON.stringify(value2) : value2}\n`;
       if (isOptional(validator.cookie))
-        fnLiteral += `if(isNotEmpty(c.cookie)) {`;
-      fnLiteral += `if(validator.cookie.Check(cookieValue) === false) {
+        fnLiteral += "if(isNotEmpty(c.cookie)) {";
+      if (fnLiteral += `if(validator.cookie.Check(cookieValue) === false) {
 				${composeValidation("cookie", "cookieValue")}
-			}`;
-      if (hasTransform(validator.cookie.schema))
-        fnLiteral += `
-for(const [key, value] of Object.entries(validator.cookie.Decode(cookieValue)))
-					c.cookie[key].value = value
-`;
+			}`, hasTransform(validator.cookie.schema))
+        fnLiteral += `\nfor(const [key, value] of Object.entries(validator.cookie.Decode(cookieValue)))
+					c.cookie[key].value = value\n`;
       if (isOptional(validator.cookie))
-        fnLiteral += `}`;
+        fnLiteral += "}";
     }
   }
   if (hooks?.beforeHandle) {
-    const reporter = report("beforeHandle", {
-      total: hooks.beforeHandle.length
-    });
-    let hasResolve = false;
+    let reporter = report("beforeHandle", { total: hooks.beforeHandle.length }), hasResolve = false;
     for (let i = 0;i < hooks.beforeHandle.length; i++) {
-      const beforeHandle = hooks.beforeHandle[i];
-      const endUnit = reporter.resolveChild(beforeHandle.fn.name);
-      const returning = hasReturn(beforeHandle);
-      const isResolver = beforeHandle.subType === "resolve" || beforeHandle.subType === "mapResolve";
-      if (isResolver) {
-        if (!hasResolve) {
-          hasResolve = true;
-          fnLiteral += "\nlet resolved\n";
-        }
-        fnLiteral += isAsync(beforeHandle) ? `resolved = await beforeHandle[${i}](c);
-` : `resolved = beforeHandle[${i}](c);
-`;
-        if (beforeHandle.subType === "mapResolve")
+      let beforeHandle = hooks.beforeHandle[i], endUnit = reporter.resolveChild(beforeHandle.fn.name), returning = hasReturn(beforeHandle);
+      if (beforeHandle.subType === "resolve" || beforeHandle.subType === "mapResolve") {
+        if (!hasResolve)
+          hasResolve = true, fnLiteral += "\nlet resolved\n";
+        if (fnLiteral += isAsync(beforeHandle) ? `resolved = await beforeHandle[${i}](c);\n` : `resolved = beforeHandle[${i}](c);\n`, beforeHandle.subType === "mapResolve")
           fnLiteral += `if(resolved instanceof ElysiaCustomStatusResponse)
 						throw resolved
 					else {
@@ -68809,180 +67869,90 @@ for(const [key, value] of Object.entries(validator.cookie.Decode(cookieValue)))
           fnLiteral += `if(resolved instanceof ElysiaCustomStatusResponse)
 						throw resolved
 					else
-						Object.assign(c, resolved)
-`;
-      } else if (!returning) {
-        fnLiteral += isAsync(beforeHandle) ? `await beforeHandle[${i}](c);
-` : `beforeHandle[${i}](c);
-`;
-        endUnit();
-      } else {
-        fnLiteral += isAsync(beforeHandle) ? `be = await beforeHandle[${i}](c);
-` : `be = beforeHandle[${i}](c);
-`;
-        endUnit("be");
-        fnLiteral += `if(be !== undefined) {
-`;
-        reporter.resolve();
-        if (hooks.afterHandle?.length) {
-          report("handle", {
-            name: isHandleFn ? handler.name : undefined
-          }).resolve();
-          const reporter2 = report("afterHandle", {
-            total: hooks.afterHandle.length
-          });
+						Object.assign(c, resolved)\n`;
+      } else if (!returning)
+        fnLiteral += isAsync(beforeHandle) ? `await beforeHandle[${i}](c);\n` : `beforeHandle[${i}](c);\n`, endUnit();
+      else {
+        if (fnLiteral += isAsync(beforeHandle) ? `be = await beforeHandle[${i}](c);\n` : `be = beforeHandle[${i}](c);\n`, endUnit("be"), fnLiteral += "if(be !== undefined) {\n", reporter.resolve(), hooks.afterHandle?.length) {
+          report("handle", { name: isHandleFn ? handler.name : undefined }).resolve();
+          let reporter2 = report("afterHandle", { total: hooks.afterHandle.length });
           for (let i2 = 0;i2 < hooks.afterHandle.length; i2++) {
-            const hook = hooks.afterHandle[i2];
-            const returning2 = hasReturn(hook);
-            const endUnit2 = reporter2.resolveChild(hook.fn.name);
-            fnLiteral += `c.response = be
-`;
-            if (!returning2) {
-              fnLiteral += isAsync(hook.fn) ? `await afterHandle[${i2}](c, be)
-` : `afterHandle[${i2}](c, be)
-`;
-            } else {
-              fnLiteral += isAsync(hook.fn) ? `af = await afterHandle[${i2}](c)
-` : `af = afterHandle[${i2}](c)
-`;
-              fnLiteral += `if(af !== undefined) { c.response = be = af }
-`;
-            }
+            let hook = hooks.afterHandle[i2], returning2 = hasReturn(hook), endUnit2 = reporter2.resolveChild(hook.fn.name);
+            if (fnLiteral += "c.response = be\n", !returning2)
+              fnLiteral += isAsync(hook.fn) ? `await afterHandle[${i2}](c, be)\n` : `afterHandle[${i2}](c, be)\n`;
+            else
+              fnLiteral += isAsync(hook.fn) ? `af = await afterHandle[${i2}](c)\n` : `af = afterHandle[${i2}](c)\n`, fnLiteral += "if(af !== undefined) { c.response = be = af }\n";
             endUnit2("af");
           }
           reporter2.resolve();
         }
         if (validator.response)
           fnLiteral += composeResponseValidation("be");
-        const mapResponseReporter = report("mapResponse", {
-          total: hooks.mapResponse.length
-        });
+        let mapResponseReporter = report("mapResponse", { total: hooks.mapResponse.length });
         if (hooks.mapResponse.length) {
-          fnLiteral += `
-c.response = be
-`;
+          fnLiteral += "\nc.response = be\n";
           for (let i2 = 0;i2 < hooks.mapResponse.length; i2++) {
-            const mapResponse2 = hooks.mapResponse[i2];
-            const endUnit2 = mapResponseReporter.resolveChild(mapResponse2.fn.name);
-            fnLiteral += `
-if(mr === undefined) {
+            let mapResponse2 = hooks.mapResponse[i2], endUnit2 = mapResponseReporter.resolveChild(mapResponse2.fn.name);
+            fnLiteral += `\nif(mr === undefined) {
 							mr = ${isAsyncName(mapResponse2) ? "await" : ""} onMapResponse[${i2}](c)
 							if(mr !== undefined) be = c.response = mr
-						}
-`;
-            endUnit2();
+						}\n`, endUnit2();
           }
         }
-        mapResponseReporter.resolve();
-        fnLiteral += encodeCookie;
-        fnLiteral += `return mapEarlyResponse(${saveResponse} be, c.set ${requestMapper})}
-`;
+        mapResponseReporter.resolve(), fnLiteral += encodeCookie, fnLiteral += `return mapEarlyResponse(${saveResponse} be, c.set ${requestMapper})}\n`;
       }
     }
     reporter.resolve();
   }
   if (hooks?.afterHandle.length) {
-    const handleReporter = report("handle", {
-      name: isHandleFn ? handler.name : undefined
-    });
+    let handleReporter = report("handle", { name: isHandleFn ? handler.name : undefined });
     if (hooks.afterHandle.length)
-      fnLiteral += isAsyncHandler ? `let r = c.response = await ${handle};
-` : `let r = c.response = ${handle};
-`;
+      fnLiteral += isAsyncHandler ? `let r = c.response = await ${handle};\n` : `let r = c.response = ${handle};\n`;
     else
-      fnLiteral += isAsyncHandler ? `let r = await ${handle};
-` : `let r = ${handle};
-`;
+      fnLiteral += isAsyncHandler ? `let r = await ${handle};\n` : `let r = ${handle};\n`;
     handleReporter.resolve();
-    const reporter = report("afterHandle", {
-      total: hooks.afterHandle.length
-    });
+    let reporter = report("afterHandle", { total: hooks.afterHandle.length });
     for (let i = 0;i < hooks.afterHandle.length; i++) {
-      const hook = hooks.afterHandle[i];
-      const returning = hasReturn(hook);
-      const endUnit = reporter.resolveChild(hook.fn.name);
-      if (!returning) {
-        fnLiteral += isAsync(hook.fn) ? `await afterHandle[${i}](c)
-` : `afterHandle[${i}](c)
-`;
-        endUnit();
-      } else {
-        fnLiteral += isAsync(hook.fn) ? `af = await afterHandle[${i}](c)
-` : `af = afterHandle[${i}](c)
-`;
-        endUnit("af");
-        if (validator.response) {
-          fnLiteral += `if(af !== undefined) {`;
-          reporter.resolve();
-          fnLiteral += composeResponseValidation("af");
-          fnLiteral += `c.response = af }`;
-        } else {
-          fnLiteral += `if(af !== undefined) {`;
-          reporter.resolve();
-          fnLiteral += `c.response = af}
-`;
-        }
-      }
+      let hook = hooks.afterHandle[i], returning = hasReturn(hook), endUnit = reporter.resolveChild(hook.fn.name);
+      if (!returning)
+        fnLiteral += isAsync(hook.fn) ? `await afterHandle[${i}](c)\n` : `afterHandle[${i}](c)\n`, endUnit();
+      else if (fnLiteral += isAsync(hook.fn) ? `af = await afterHandle[${i}](c)\n` : `af = afterHandle[${i}](c)\n`, endUnit("af"), validator.response)
+        fnLiteral += "if(af !== undefined) {", reporter.resolve(), fnLiteral += composeResponseValidation("af"), fnLiteral += "c.response = af }";
+      else
+        fnLiteral += "if(af !== undefined) {", reporter.resolve(), fnLiteral += "c.response = af}\n";
     }
-    reporter.resolve();
-    fnLiteral += `r = c.response
-`;
-    if (validator.response)
+    if (reporter.resolve(), fnLiteral += "r = c.response\n", validator.response)
       fnLiteral += composeResponseValidation();
     fnLiteral += encodeCookie;
-    const mapResponseReporter = report("mapResponse", {
-      total: hooks.mapResponse.length
-    });
-    if (hooks.mapResponse.length) {
+    let mapResponseReporter = report("mapResponse", { total: hooks.mapResponse.length });
+    if (hooks.mapResponse.length)
       for (let i = 0;i < hooks.mapResponse.length; i++) {
-        const mapResponse2 = hooks.mapResponse[i];
-        const endUnit = mapResponseReporter.resolveChild(mapResponse2.fn.name);
-        fnLiteral += `
-mr = ${isAsyncName(mapResponse2) ? "await" : ""} onMapResponse[${i}](c)
-				if(mr !== undefined) r = c.response = mr
-`;
-        endUnit();
+        let mapResponse2 = hooks.mapResponse[i], endUnit = mapResponseReporter.resolveChild(mapResponse2.fn.name);
+        fnLiteral += `\nmr = ${isAsyncName(mapResponse2) ? "await" : ""} onMapResponse[${i}](c)
+				if(mr !== undefined) r = c.response = mr\n`, endUnit();
       }
-    }
-    mapResponseReporter.resolve();
-    if (hasSet)
-      fnLiteral += `return mapResponse(${saveResponse} r, c.set ${requestMapper})
-`;
+    if (mapResponseReporter.resolve(), hasSet)
+      fnLiteral += `return mapResponse(${saveResponse} r, c.set ${requestMapper})\n`;
     else
-      fnLiteral += `return mapCompactResponse(${saveResponse} r ${requestMapper})
-`;
+      fnLiteral += `return mapCompactResponse(${saveResponse} r ${requestMapper})\n`;
   } else {
-    const handleReporter = report("handle", {
-      name: isHandleFn ? handler.name : undefined
-    });
+    let handleReporter = report("handle", { name: isHandleFn ? handler.name : undefined });
     if (validator.response || hooks.mapResponse.length) {
-      fnLiteral += isAsyncHandler ? `let r = await ${handle};
-` : `let r = ${handle};
-`;
-      handleReporter.resolve();
-      if (validator.response)
+      if (fnLiteral += isAsyncHandler ? `let r = await ${handle};\n` : `let r = ${handle};\n`, handleReporter.resolve(), validator.response)
         fnLiteral += composeResponseValidation();
       report("afterHandle").resolve();
-      const mapResponseReporter = report("mapResponse", {
-        total: hooks.mapResponse.length
-      });
+      let mapResponseReporter = report("mapResponse", { total: hooks.mapResponse.length });
       if (hooks.mapResponse.length) {
         fnLiteral += "\nc.response = r\n";
         for (let i = 0;i < hooks.mapResponse.length; i++) {
-          const mapResponse2 = hooks.mapResponse[i];
-          const endUnit = mapResponseReporter.resolveChild(mapResponse2.fn.name);
-          fnLiteral += `
-if(mr === undefined) {
+          let mapResponse2 = hooks.mapResponse[i], endUnit = mapResponseReporter.resolveChild(mapResponse2.fn.name);
+          fnLiteral += `\nif(mr === undefined) {
 						mr = ${isAsyncName(mapResponse2) ? "await" : ""} onMapResponse[${i}](c)
     					if(mr !== undefined) r = c.response = mr
-					}
-`;
-          endUnit();
+					}\n`, endUnit();
         }
       }
-      mapResponseReporter.resolve();
-      fnLiteral += encodeCookie;
-      if (handler instanceof Response) {
+      if (mapResponseReporter.resolve(), fnLiteral += encodeCookie, handler instanceof Response)
         fnLiteral += inference.set ? `if(
 					isNotEmpty(c.set.headers) ||
 					c.set.status !== 200 ||
@@ -68991,50 +67961,32 @@ if(mr === undefined) {
 				)
 					return mapResponse(${saveResponse} ${handle}.clone(), c.set ${requestMapper})
 				else
-					return ${handle}.clone()` : `return ${handle}.clone()`;
-        fnLiteral += "\n";
-      } else if (hasSet)
-        fnLiteral += `return mapResponse(${saveResponse} r, c.set ${requestMapper})
-`;
+					return ${handle}.clone()` : `return ${handle}.clone()`, fnLiteral += "\n";
+      else if (hasSet)
+        fnLiteral += `return mapResponse(${saveResponse} r, c.set ${requestMapper})\n`;
       else
-        fnLiteral += `return mapCompactResponse(${saveResponse} r ${requestMapper})
-`;
+        fnLiteral += `return mapCompactResponse(${saveResponse} r ${requestMapper})\n`;
     } else if (hasCookie || hasTrace) {
-      fnLiteral += isAsyncHandler ? `let r = await ${handle};
-` : `let r = ${handle};
-`;
-      handleReporter.resolve();
-      report("afterHandle").resolve();
-      const mapResponseReporter = report("mapResponse", {
-        total: hooks.mapResponse.length
-      });
+      fnLiteral += isAsyncHandler ? `let r = await ${handle};\n` : `let r = ${handle};\n`, handleReporter.resolve(), report("afterHandle").resolve();
+      let mapResponseReporter = report("mapResponse", { total: hooks.mapResponse.length });
       if (hooks.mapResponse.length) {
         fnLiteral += "\nc.response = r\n";
         for (let i = 0;i < hooks.mapResponse.length; i++) {
-          const mapResponse2 = hooks.mapResponse[i];
-          const endUnit = mapResponseReporter.resolveChild(mapResponse2.fn.name);
-          fnLiteral += `
-if(mr === undefined) {
+          let mapResponse2 = hooks.mapResponse[i], endUnit = mapResponseReporter.resolveChild(mapResponse2.fn.name);
+          fnLiteral += `\nif(mr === undefined) {
 							mr = ${isAsyncName(mapResponse2) ? "await" : ""} onMapResponse[${i}](c)
     						if(mr !== undefined) r = c.response = mr
-						}
-`;
-          endUnit();
+						}\n`, endUnit();
         }
       }
-      mapResponseReporter.resolve();
-      fnLiteral += encodeCookie;
-      if (hasSet)
-        fnLiteral += `return mapResponse(${saveResponse} r, c.set ${requestMapper})
-`;
+      if (mapResponseReporter.resolve(), fnLiteral += encodeCookie, hasSet)
+        fnLiteral += `return mapResponse(${saveResponse} r, c.set ${requestMapper})\n`;
       else
-        fnLiteral += `return mapCompactResponse(${saveResponse} r ${requestMapper})
-`;
+        fnLiteral += `return mapCompactResponse(${saveResponse} r ${requestMapper})\n`;
     } else {
       handleReporter.resolve();
-      const handled = isAsyncHandler ? `await ${handle}` : handle;
-      report("afterHandle").resolve();
-      if (handler instanceof Response) {
+      let handled = isAsyncHandler ? `await ${handle}` : handle;
+      if (report("afterHandle").resolve(), handler instanceof Response)
         fnLiteral += inference.set ? `if(
 					isNotEmpty(c.set.headers) ||
 					c.set.status !== 200 ||
@@ -69043,37 +67995,21 @@ if(mr === undefined) {
 				)
 					return mapResponse(${saveResponse} ${handle}.clone(), c.set ${requestMapper})
 				else
-					return ${handle}.clone()` : `return ${handle}.clone()`;
-        fnLiteral += "\n";
-      } else if (hasSet)
-        fnLiteral += `return mapResponse(${saveResponse} ${handled}, c.set ${requestMapper})
-`;
+					return ${handle}.clone()` : `return ${handle}.clone()`, fnLiteral += "\n";
+      else if (hasSet)
+        fnLiteral += `return mapResponse(${saveResponse} ${handled}, c.set ${requestMapper})\n`;
       else
-        fnLiteral += `return mapCompactResponse(${saveResponse} ${handled} ${requestMapper})
-`;
+        fnLiteral += `return mapCompactResponse(${saveResponse} ${handled} ${requestMapper})\n`;
     }
   }
-  fnLiteral += `
-} catch(error) {`;
-  if (hasBody)
-    fnLiteral += `
-if(isParsing) error = new ParseError()
-`;
+  if (fnLiteral += "\n} catch(error) {", hasBody)
+    fnLiteral += "\nif(isParsing) error = new ParseError()\n";
   if (!maybeAsync)
-    fnLiteral += `
-return (async () => {
-`;
-  fnLiteral += `
-const set = c.set
-if (!set.status || set.status < 300) set.status = error?.status || 500
-`;
-  if (hasTrace)
+    fnLiteral += "\nreturn (async () => {\n";
+  if (fnLiteral += "\nconst set = c.set\nif (!set.status || set.status < 300) set.status = error?.status || 500\n", hasTrace)
     for (let i = 0;i < hooks.trace.length; i++)
-      fnLiteral += `report${i}?.resolve(error);reportChild${i}?.(error);
-`;
-  const errorReporter = report("error", {
-    total: hooks.error.length
-  });
+      fnLiteral += `report${i}?.resolve(error);reportChild${i}?.(error);\n`;
+  let errorReporter = report("error", { total: hooks.error.length });
   if (hooks.error.length) {
     fnLiteral += `
 				c.error = error
@@ -69085,75 +68021,42 @@ if (!set.status || set.status < 300) set.status = error?.status || 500
 				let er
 			`;
     for (let i = 0;i < hooks.error.length; i++) {
-      const endUnit = errorReporter.resolveChild(hooks.error[i].fn.name);
+      let endUnit = errorReporter.resolveChild(hooks.error[i].fn.name);
       if (isAsync(hooks.error[i]))
-        fnLiteral += `
-er = await handleErrors[${i}](c)
-`;
+        fnLiteral += `\ner = await handleErrors[${i}](c)\n`;
       else
-        fnLiteral += `
-er = handleErrors[${i}](c)
-if (er instanceof Promise) er = await er
-`;
+        fnLiteral += `\ner = handleErrors[${i}](c)\nif (er instanceof Promise) er = await er\n`;
       endUnit();
-      const mapResponseReporter = report("mapResponse", {
-        total: hooks.mapResponse.length
-      });
-      if (hooks.mapResponse.length) {
+      let mapResponseReporter = report("mapResponse", { total: hooks.mapResponse.length });
+      if (hooks.mapResponse.length)
         for (let i2 = 0;i2 < hooks.mapResponse.length; i2++) {
-          const mapResponse2 = hooks.mapResponse[i2];
-          const endUnit2 = mapResponseReporter.resolveChild(mapResponse2.fn.name);
-          fnLiteral += `
-c.response = er
-
+          let mapResponse2 = hooks.mapResponse[i2], endUnit2 = mapResponseReporter.resolveChild(mapResponse2.fn.name);
+          fnLiteral += `\nc.response = er\n
 							er = ${isAsyncName(mapResponse2) ? "await" : ""} onMapResponse[${i2}](c)
-							if(er instanceof Promise) er = await er
-`;
-          endUnit2();
+							if(er instanceof Promise) er = await er\n`, endUnit2();
         }
-      }
-      mapResponseReporter.resolve();
-      fnLiteral += `er = mapEarlyResponse(er, set ${requestMapper})
-`;
-      fnLiteral += `if (er) {`;
-      if (hasTrace) {
+      if (mapResponseReporter.resolve(), fnLiteral += `er = mapEarlyResponse(er, set ${requestMapper})\n`, fnLiteral += "if (er) {", hasTrace) {
         for (let i2 = 0;i2 < hooks.trace.length; i2++)
-          fnLiteral += `
-report${i2}.resolve()
-`;
+          fnLiteral += `\nreport${i2}.resolve()\n`;
         errorReporter.resolve();
       }
-      fnLiteral += `return er
-}
-`;
+      fnLiteral += "return er\n}\n";
     }
   }
-  errorReporter.resolve();
-  fnLiteral += `return handleError(c, error, true)
-`;
-  if (!maybeAsync)
+  if (errorReporter.resolve(), fnLiteral += "return handleError(c, error, true)\n", !maybeAsync)
     fnLiteral += "})()";
-  fnLiteral += "}";
-  if (hasAfterResponse || hasTrace) {
-    fnLiteral += ` finally { `;
-    if (!maybeAsync)
+  if (fnLiteral += "}", hasAfterResponse || hasTrace) {
+    if (fnLiteral += " finally { ", !maybeAsync)
       fnLiteral += ";(async () => {";
-    const reporter = report("afterResponse", {
-      total: hooks.afterResponse.length
-    });
-    if (hasAfterResponse) {
+    let reporter = report("afterResponse", { total: hooks.afterResponse.length });
+    if (hasAfterResponse)
       for (let i = 0;i < hooks.afterResponse.length; i++) {
-        const endUnit = reporter.resolveChild(hooks.afterResponse[i].fn.name);
-        fnLiteral += `
-await afterResponse[${i}](c);
-`;
-        endUnit();
+        let endUnit = reporter.resolveChild(hooks.afterResponse[i].fn.name);
+        fnLiteral += `\nawait afterResponse[${i}](c);\n`, endUnit();
       }
-    }
-    reporter.resolve();
-    if (!maybeAsync)
+    if (reporter.resolve(), !maybeAsync)
       fnLiteral += "})();";
-    fnLiteral += `}`;
+    fnLiteral += "}";
   }
   fnLiteral = `const {
 		handler,
@@ -69208,104 +68111,36 @@ await afterResponse[${i}](c);
 		${fnLiteral}
 	}`;
   try {
-    return Function("hooks", fnLiteral)({
-      handler,
-      hooks: lifeCycleToFn(hooks),
-      validator,
-      handleError: app3.handleError,
-      utils: {
-        mapResponse,
-        mapCompactResponse,
-        mapEarlyResponse,
-        parseQuery,
-        parseQueryFromURL,
-        isNotEmpty
-      },
-      error: {
-        NotFoundError,
-        ValidationError,
-        InternalServerError,
-        ParseError
-      },
-      schema: app3.router.history,
-      definitions: app3.definitions.type,
-      ERROR_CODE,
-      parseCookie,
-      signCookie,
-      decodeURIComponent: import_fast_decode_uri_component3.default,
-      ElysiaCustomStatusResponse,
-      ELYSIA_TRACE,
-      ELYSIA_REQUEST_ID,
-      getServer: () => app3.getServer(),
-      TypeBoxError
-    });
+    return Function("hooks", fnLiteral)({ handler, hooks: lifeCycleToFn(hooks), validator, handleError: app3.handleError, utils: { mapResponse, mapCompactResponse, mapEarlyResponse, parseQuery, parseQueryFromURL, isNotEmpty }, error: { NotFoundError, ValidationError, InternalServerError, ParseError }, schema: app3.router.history, definitions: app3.definitions.type, ERROR_CODE, parseCookie, signCookie, decodeURIComponent: import_fast_decode_uri_component3.default, ElysiaCustomStatusResponse, ELYSIA_TRACE, ELYSIA_REQUEST_ID, getServer: () => app3.getServer(), TypeBoxError });
   } catch {
-    const debugHooks = lifeCycleToFn(hooks);
-    console.log("[Composer] failed to generate optimized handler");
-    console.log("Please report the following to SaltyAom privately as it may include sensitive information about your codebase:");
-    console.log("---");
-    console.log({
-      handler: typeof handler === "function" ? handler.toString() : handler,
-      hooks: {
-        ...debugHooks,
-        transform: debugHooks?.transform?.map?.((x) => x.toString()),
-        resolve: debugHooks?.resolve?.map?.((x) => x.toString()),
-        beforeHandle: debugHooks?.beforeHandle?.map?.((x) => x.toString()),
-        afterHandle: debugHooks?.afterHandle?.map?.((x) => x.toString()),
-        mapResponse: debugHooks?.mapResponse?.map?.((x) => x.toString()),
-        parse: debugHooks?.parse?.map?.((x) => x.toString()),
-        error: debugHooks?.error?.map?.((x) => x.toString()),
-        afterResponse: debugHooks?.afterResponse?.map?.((x) => x.toString()),
-        stop: debugHooks?.stop?.map?.((x) => x.toString())
-      },
-      validator,
-      definitions: app3.definitions.type
-    });
-    console.log("---");
-    process.exit(1);
+    let debugHooks = lifeCycleToFn(hooks);
+    console.log("[Composer] failed to generate optimized handler"), console.log("Please report the following to SaltyAom privately as it may include sensitive information about your codebase:"), console.log("---"), console.log({ handler: typeof handler === "function" ? handler.toString() : handler, hooks: { ...debugHooks, transform: debugHooks?.transform?.map?.((x) => x.toString()), resolve: debugHooks?.resolve?.map?.((x) => x.toString()), beforeHandle: debugHooks?.beforeHandle?.map?.((x) => x.toString()), afterHandle: debugHooks?.afterHandle?.map?.((x) => x.toString()), mapResponse: debugHooks?.mapResponse?.map?.((x) => x.toString()), parse: debugHooks?.parse?.map?.((x) => x.toString()), error: debugHooks?.error?.map?.((x) => x.toString()), afterResponse: debugHooks?.afterResponse?.map?.((x) => x.toString()), stop: debugHooks?.stop?.map?.((x) => x.toString()) }, validator, definitions: app3.definitions.type }), console.log("---"), process.exit(1);
   }
 };
 var composeGeneralHandler = (app3) => {
-  const standardHostname = app3.config.handler?.standardHostname ?? true;
-  let decoratorsLiteral = "";
-  let fnLiteral = "";
-  const defaultHeaders = app3.setHeaders;
-  for (const key of Object.keys(app3.singleton.decorator))
+  let standardHostname = app3.config.handler?.standardHostname ?? true, decoratorsLiteral = "", fnLiteral = "", defaultHeaders = app3.setHeaders;
+  for (let key of Object.keys(app3.singleton.decorator))
     decoratorsLiteral += `,${key}: app.singleton.decorator.${key}`;
-  const router = app3.router;
-  const hasTrace = app3.event.trace.length > 0;
-  let findDynamicRoute = `
+  let router = app3.router, hasTrace = app3.event.trace.length > 0, findDynamicRoute = `
 	const route = router.find(request.method, path) ${router.http.root.ALL ? '?? router.find("ALL", path)' : ""}
 
 	if (route === null)
-		return ${app3.event.error.length ? `app.handleError(ctx, notFound)` : app3.event.request.length ? `new Response(error404Message, {
+		return ${app3.event.error.length ? "app.handleError(ctx, notFound)" : app3.event.request.length ? `new Response(error404Message, {
 					status: ctx.set.status === 200 ? 404 : ctx.set.status,
 					headers: ctx.set.headers
-				})` : `error404.clone()`}
+				})` : "error404.clone()"}
 
-	ctx.params = route.params
-`;
+	ctx.params = route.params\n`;
   findDynamicRoute += `if(route.store.handler) return route.store.handler(ctx)
-	return (route.store.handler = route.store.compile())(ctx)
-`;
-  let switchMap = ``;
-  for (const [path, { code, all, static: staticFn }] of Object.entries(router.static.http.map)) {
+	return (route.store.handler = route.store.compile())(ctx)\n`;
+  let switchMap = "";
+  for (let [path, { code, all, static: staticFn }] of Object.entries(router.static.http.map)) {
     if (staticFn)
-      switchMap += `case '${path}':
-switch(request.method) {
-${code}
-${all ?? `default: break map`}}
-
-`;
-    switchMap += `case '${path}':
-switch(request.method) {
-${code}
-${all ?? `default: break map`}}
-
-`;
+      switchMap += `case '${path}':\nswitch(request.method) {\n${code}\n${all ?? "default: break map"}}\n\n`;
+    switchMap += `case '${path}':\nswitch(request.method) {\n${code}\n${all ?? "default: break map"}}\n\n`;
   }
-  const maybeAsync = app3.event.request.some(isAsync);
-  fnLiteral += `const {
+  let maybeAsync = app3.event.request.some(isAsync);
+  if (fnLiteral += `const {
 		app,
 		mapEarlyResponse,
 		NotFoundError,
@@ -69328,29 +68163,22 @@ ${all ?? `default: break map`}}
 	const notFound = new NotFoundError()
 	const hoc = app.extender.higherOrderFunctions.map(x => x.fn)
 
-	${app3.event.request.length ? `const onRequest = app.event.request.map(x => x.fn)` : ""}
-	${app3.event.error.length ? "" : `
-const error404Message = notFound.message.toString()
-	const error404 = new Response(error404Message, { status: 404 });
-`}
+	${app3.event.request.length ? "const onRequest = app.event.request.map(x => x.fn)" : ""}
+	${app3.event.error.length ? "" : `\nconst error404Message = notFound.message.toString()
+	const error404 = new Response(error404Message, { status: 404 });\n`}
 
-	${app3.event.trace.length ? `const ${app3.event.trace.map((_, i) => `tr${i} = app.event.trace[${i}].fn`).join(",")}` : ""}
+	${app3.event.trace.length ? `const ${app3.event.trace.map((_2, i) => `tr${i} = app.event.trace[${i}].fn`).join(",")}` : ""}
 
-	${maybeAsync ? "async" : ""} function map(request) {
-`;
-  if (app3.event.request.length)
-    fnLiteral += `let re`;
-  fnLiteral += `
-const url = request.url
+	${maybeAsync ? "async" : ""} function map(request) {\n`, app3.event.request.length)
+    fnLiteral += "let re";
+  if (fnLiteral += `\nconst url = request.url
 		const s = url.indexOf('/', ${standardHostname ? 11 : 7})
 		const qi = url.indexOf('?', s + 1)
 		let path
 		if(qi === -1)
 			path = url.substring(s)
 		else
-			path = url.substring(s, qi)
-`;
-  fnLiteral += `${hasTrace ? "const id = randomId()" : ""}
+			path = url.substring(s, qi)\n`, fnLiteral += `${hasTrace ? "const id = randomId()" : ""}
 		const ctx = {
 			request,
 			store,
@@ -69368,67 +68196,41 @@ const url = request.url
 						}` : ""}
 			${hasTrace ? ",[ELYSIA_REQUEST_ID]: id" : ""}
 			${decoratorsLiteral}
-		}
-`;
-  if (app3.event.trace.length)
-    fnLiteral += `
-ctx[ELYSIA_TRACE] = [${app3.event.trace.map((_, i) => `tr${i}(ctx)`).join(",")}]
-`;
-  const report = createReport({
-    context: "ctx",
-    trace: app3.event.trace,
-    addFn(word) {
-      fnLiteral += word;
-    }
-  });
-  const reporter = report("request", {
-    attribute: "ctx",
-    total: app3.event.request.length
-  });
+		}\n`, app3.event.trace.length)
+    fnLiteral += `\nctx[ELYSIA_TRACE] = [${app3.event.trace.map((_2, i) => `tr${i}(ctx)`).join(",")}]\n`;
+  let reporter = createReport({ context: "ctx", trace: app3.event.trace, addFn(word) {
+    fnLiteral += word;
+  } })("request", { attribute: "ctx", total: app3.event.request.length });
   if (app3.event.request.length) {
-    fnLiteral += `
- try {
-`;
+    fnLiteral += "\n try {\n";
     for (let i = 0;i < app3.event.request.length; i++) {
-      const hook = app3.event.request[i];
-      const withReturn = hasReturn(hook);
-      const maybeAsync2 = isAsync(hook);
-      const endUnit = reporter.resolveChild(app3.event.request[i].fn.name);
-      if (withReturn) {
+      let hook = app3.event.request[i], withReturn = hasReturn(hook), maybeAsync2 = isAsync(hook), endUnit = reporter.resolveChild(app3.event.request[i].fn.name);
+      if (withReturn)
         fnLiteral += `re = mapEarlyResponse(
 					${maybeAsync2 ? "await" : ""} onRequest[${i}](ctx),
 					ctx.set,
 					request
-				)
-`;
-        endUnit("re");
-        fnLiteral += `if(re !== undefined) return re
-`;
-      } else {
-        fnLiteral += `${maybeAsync2 ? "await" : ""} onRequest[${i}](ctx)
-`;
-        endUnit();
-      }
+				)\n`, endUnit("re"), fnLiteral += "if(re !== undefined) return re\n";
+      else
+        fnLiteral += `${maybeAsync2 ? "await" : ""} onRequest[${i}](ctx)\n`, endUnit();
     }
     fnLiteral += `} catch (error) {
 			return app.handleError(ctx, error)
 		}`;
   }
   reporter.resolve();
-  const wsPaths = app3.router.static.ws;
-  const wsRouter = app3.router.ws;
+  let wsPaths = app3.router.static.ws, wsRouter = app3.router.ws;
   if (Object.keys(wsPaths).length || wsRouter.history.length) {
     fnLiteral += `
 			if(request.method === 'GET') {
 				switch(path) {`;
-    for (const [path, index] of Object.entries(wsPaths)) {
+    for (let [path, index] of Object.entries(wsPaths))
       fnLiteral += `
 					case '${path}':
 						if(request.headers.get('upgrade') === 'websocket')
 							return st[${index}](ctx)
 
 						break`;
-    }
     fnLiteral += `
 				default:
 					if(request.headers.get('upgrade') === 'websocket') {
@@ -69446,10 +68248,9 @@ ctx[ELYSIA_TRACE] = [${app3.event.trace.map((_, i) => `tr${i}(ctx)`).join(",")}]
 
 					break
 			}
-		}
-`;
+		}\n`;
   }
-  fnLiteral += `
+  if (fnLiteral += `
 		map: switch(path) {
 			${switchMap}
 
@@ -69458,33 +68259,18 @@ ctx[ELYSIA_TRACE] = [${app3.event.trace.map((_, i) => `tr${i}(ctx)`).join(",")}]
 		}
 
 		${findDynamicRoute}
-	}
-`;
-  if (app3.extender.higherOrderFunctions.length) {
+	}\n`, app3.extender.higherOrderFunctions.length) {
     let handler = "map";
     for (let i = 0;i < app3.extender.higherOrderFunctions.length; i++)
       handler = `hoc[${i}](${handler}, request)`;
     fnLiteral += `return function hocMap(request) { return ${handler}(request) }`;
   } else
-    fnLiteral += `return map`;
-  const handleError = composeErrorHandler(app3);
-  app3.handleError = handleError;
-  return Function("data", fnLiteral)({
-    app: app3,
-    mapEarlyResponse,
-    NotFoundError,
-    randomId,
-    handleError,
-    error: error3,
-    redirect,
-    ELYSIA_TRACE,
-    ELYSIA_REQUEST_ID,
-    getServer: () => app3.getServer()
-  });
+    fnLiteral += "return map";
+  let handleError = composeErrorHandler(app3);
+  return app3.handleError = handleError, Function("data", fnLiteral)({ app: app3, mapEarlyResponse, NotFoundError, randomId, handleError, error: error3, redirect, ELYSIA_TRACE, ELYSIA_REQUEST_ID, getServer: () => app3.getServer() });
 };
 var composeErrorHandler = (app3) => {
-  const hooks = app3.event;
-  let fnLiteral = "";
+  let hooks = app3.event, fnLiteral = "";
   fnLiteral += `const {
 		app: { event: { error: onErrorContainer, afterResponse: resContainer, mapResponse: _onMapResponse, trace: _trace } },
 		mapResponse,
@@ -69506,16 +68292,12 @@ var composeErrorHandler = (app3) => {
 	const res = resContainer.map(x => x.fn)
 
 	return ${app3.event.error.find(isAsync) || app3.event.mapResponse.find(isAsync) ? "async" : ""} function(context, error, skipGlobal) {`;
-  const hasTrace = app3.event.trace.length > 0;
+  let hasTrace = app3.event.trace.length > 0;
   if (hasTrace)
     fnLiteral += "\nconst id = context[ELYSIA_REQUEST_ID]\n";
-  const report = createReport({
-    context: "context",
-    trace: hooks.trace,
-    addFn: (word) => {
-      fnLiteral += word;
-    }
-  });
+  let report = createReport({ context: "context", trace: hooks.trace, addFn: (word) => {
+    fnLiteral += word;
+  } });
   fnLiteral += `
 		const set = context.set
 		let r
@@ -69529,14 +68311,11 @@ var composeErrorHandler = (app3) => {
 		if(error instanceof ElysiaCustomStatusResponse) {
 			error.status = error.code
 			error.message = error.response
-		}
-`;
-  const saveResponse = hasTrace || hooks.afterResponse.length > 0 || hooks.afterResponse.length > 0 ? "context.response = " : "";
+		}\n`;
+  let saveResponse = hasTrace || hooks.afterResponse.length > 0 || hooks.afterResponse.length > 0 ? "context.response = " : "";
   for (let i = 0;i < app3.event.error.length; i++) {
-    const handler = app3.event.error[i];
-    const response = `${isAsync(handler) ? "await " : ""}onError[${i}](context)`;
-    fnLiteral += "\nif(skipGlobal !== true) {\n";
-    if (hasReturn(handler)) {
+    let handler = app3.event.error[i], response = `${isAsync(handler) ? "await " : ""}onError[${i}](context)`;
+    if (fnLiteral += "\nif(skipGlobal !== true) {\n", hasReturn(handler)) {
       fnLiteral += `r = ${response}; if(r !== undefined) {
 				if(r instanceof Response) return r
 
@@ -69545,26 +68324,15 @@ var composeErrorHandler = (app3) => {
 					error.message = error.response
 				}
 
-				if(set.status === 200) set.status = error.status
-`;
-      const mapResponseReporter2 = report("mapResponse", {
-        total: hooks.mapResponse.length,
-        name: "context"
-      });
-      if (hooks.mapResponse.length) {
+				if(set.status === 200) set.status = error.status\n`;
+      let mapResponseReporter2 = report("mapResponse", { total: hooks.mapResponse.length, name: "context" });
+      if (hooks.mapResponse.length)
         for (let i2 = 0;i2 < hooks.mapResponse.length; i2++) {
-          const mapResponse2 = hooks.mapResponse[i2];
-          const endUnit = mapResponseReporter2.resolveChild(mapResponse2.fn.name);
-          fnLiteral += `
-context.response = r
-						r = ${isAsyncName(mapResponse2) ? "await" : ""} onMapResponse[${i2}](context)
-`;
-          endUnit();
+          let mapResponse2 = hooks.mapResponse[i2], endUnit = mapResponseReporter2.resolveChild(mapResponse2.fn.name);
+          fnLiteral += `\ncontext.response = r
+						r = ${isAsyncName(mapResponse2) ? "await" : ""} onMapResponse[${i2}](context)\n`, endUnit();
         }
-      }
-      mapResponseReporter2.resolve();
-      fnLiteral += `return mapResponse(${saveResponse} r, set, context.request)}
-`;
+      mapResponseReporter2.resolve(), fnLiteral += `return mapResponse(${saveResponse} r, set, context.request)}\n`;
     } else
       fnLiteral += response + "\n";
     fnLiteral += "\n}\n";
@@ -69587,69 +68355,32 @@ context.response = r
 			return new Response(
 				error.message,
 				{ headers: set.headers, status: error.status }
-			)
-`;
-  const mapResponseReporter = report("mapResponse", {
-    total: hooks.mapResponse.length,
-    name: "context"
-  });
-  if (hooks.mapResponse.length) {
+			)\n`;
+  let mapResponseReporter = report("mapResponse", { total: hooks.mapResponse.length, name: "context" });
+  if (hooks.mapResponse.length)
     for (let i = 0;i < hooks.mapResponse.length; i++) {
-      const mapResponse2 = hooks.mapResponse[i];
-      const endUnit = mapResponseReporter.resolveChild(mapResponse2.fn.name);
-      fnLiteral += `
-context.response = error
-			error = ${isAsyncName(mapResponse2) ? "await" : ""} onMapResponse[${i}](context)
-`;
-      endUnit();
+      let mapResponse2 = hooks.mapResponse[i], endUnit = mapResponseReporter.resolveChild(mapResponse2.fn.name);
+      fnLiteral += `\ncontext.response = error
+			error = ${isAsyncName(mapResponse2) ? "await" : ""} onMapResponse[${i}](context)\n`, endUnit();
     }
-  }
-  mapResponseReporter.resolve();
-  fnLiteral += `
-return mapResponse(${saveResponse} error, set, context.request)
-}
-}`;
-  return Function("inject", fnLiteral)({
-    app: app3,
-    mapResponse,
-    ERROR_CODE,
-    ElysiaCustomStatusResponse,
-    ELYSIA_TRACE,
-    ELYSIA_REQUEST_ID
-  });
+  return mapResponseReporter.resolve(), fnLiteral += `\nreturn mapResponse(${saveResponse} error, set, context.request)\n}\n}`, Function("inject", fnLiteral)({ app: app3, mapResponse, ERROR_CODE, ElysiaCustomStatusResponse, ELYSIA_TRACE, ELYSIA_REQUEST_ID });
 };
 var createDynamicHandler = (app3) => async (request) => {
-  const url = request.url, s = url.indexOf("/", 11), qi = url.indexOf("?", s + 1), path = qi === -1 ? url.substring(s) : url.substring(s, qi);
-  const set22 = {
-    cookie: {},
-    status: 200,
-    headers: {}
-  };
-  const context = Object.assign({}, app3.singleton.decorator, {
-    set: set22,
-    store: app3.singleton.store,
-    request,
-    path,
-    qi,
-    redirect
-  });
+  let url = request.url, s = url.indexOf("/", 11), qi = url.indexOf("?", s + 1), path = qi === -1 ? url.substring(s) : url.substring(s, qi), set22 = { cookie: {}, status: 200, headers: {} }, context = Object.assign({}, app3.singleton.decorator, { set: set22, store: app3.singleton.store, request, path, qi, redirect });
   try {
     for (let i = 0;i < app3.event.request.length; i++) {
-      const onRequest = app3.event.request[i].fn;
-      let response2 = onRequest(context);
+      let onRequest = app3.event.request[i].fn, response2 = onRequest(context);
       if (response2 instanceof Promise)
         response2 = await response2;
-      response2 = mapEarlyResponse(response2, set22);
-      if (response2)
+      if (response2 = mapEarlyResponse(response2, set22), response2)
         return context.response = response2;
     }
-    const handler = app3.router.dynamic.find(request.method, path) ?? app3.router.dynamic.find("ALL", path);
+    let handler = app3.router.dynamic.find(request.method, path) ?? app3.router.dynamic.find("ALL", path);
     if (!handler)
       throw new NotFoundError;
-    const { handle, hooks, validator, content } = handler.store;
-    let body;
-    if (request.method !== "GET" && request.method !== "HEAD") {
-      if (content) {
+    let { handle, hooks, validator, content } = handler.store, body;
+    if (request.method !== "GET" && request.method !== "HEAD")
+      if (content)
         switch (content) {
           case "application/json":
             body = await request.json();
@@ -69665,11 +68396,11 @@ var createDynamicHandler = (app3) => async (request) => {
             break;
           case "multipart/form-data":
             body = {};
-            const form2 = await request.formData();
-            for (const key of form2.keys()) {
+            let form2 = await request.formData();
+            for (let key of form2.keys()) {
               if (body[key])
                 continue;
-              const value2 = form2.getAll(key);
+              let value2 = form2.getAll(key);
               if (value2.length === 1)
                 body[key] = value2[0];
               else
@@ -69677,16 +68408,15 @@ var createDynamicHandler = (app3) => async (request) => {
             }
             break;
         }
-      } else {
+      else {
         let contentType = request.headers.get("content-type");
         if (contentType) {
-          const index = contentType.indexOf(";");
+          let index = contentType.indexOf(";");
           if (index !== -1)
             contentType = contentType.slice(0, index);
           context.contentType = contentType;
           for (let i = 0;i < hooks.parse.length; i++) {
-            const hook = hooks.parse[i].fn;
-            let temp = hook(context, contentType);
+            let hook = hooks.parse[i].fn, temp = hook(context, contentType);
             if (temp instanceof Promise)
               temp = await temp;
             if (temp) {
@@ -69694,8 +68424,7 @@ var createDynamicHandler = (app3) => async (request) => {
               break;
             }
           }
-          delete context.contentType;
-          if (body === undefined) {
+          if (delete context.contentType, body === undefined)
             switch (contentType) {
               case "application/json":
                 body = await request.json();
@@ -69711,11 +68440,11 @@ var createDynamicHandler = (app3) => async (request) => {
                 break;
               case "multipart/form-data":
                 body = {};
-                const form2 = await request.formData();
-                for (const key of form2.keys()) {
+                let form2 = await request.formData();
+                for (let key of form2.keys()) {
                   if (body[key])
                     continue;
-                  const value2 = form2.getAll(key);
+                  let value2 = form2.getAll(key);
                   if (value2.length === 1)
                     body[key] = value2[0];
                   else
@@ -69723,45 +68452,35 @@ var createDynamicHandler = (app3) => async (request) => {
                 }
                 break;
             }
-          }
         }
       }
-    }
-    context.body = body;
-    context.params = handler?.params || undefined;
-    context.query = qi === -1 ? {} : parseQueryFromURL(url.substring(qi + 1));
-    context.headers = {};
-    for (const [key, value2] of request.headers.entries())
+    context.body = body, context.params = handler?.params || undefined, context.query = qi === -1 ? {} : parseQueryFromURL(url.substring(qi + 1)), context.headers = {};
+    for (let [key, value2] of request.headers.entries())
       context.headers[key] = value2;
-    const cookieMeta = Object.assign({}, app3.config?.cookie, validator?.cookie?.config);
-    const cookieHeaderValue = request.headers.get("cookie");
-    context.cookie = await parseCookie(context.set, cookieHeaderValue, cookieMeta ? {
-      secrets: cookieMeta.secrets !== undefined ? typeof cookieMeta.secrets === "string" ? cookieMeta.secrets : cookieMeta.secrets.join(",") : undefined,
-      sign: cookieMeta.sign === true ? true : cookieMeta.sign !== undefined ? typeof cookieMeta.sign === "string" ? cookieMeta.sign : cookieMeta.sign.join(",") : undefined
-    } : undefined);
+    let cookieMeta = Object.assign({}, app3.config?.cookie, validator?.cookie?.config), cookieHeaderValue = request.headers.get("cookie");
+    context.cookie = await parseCookie(context.set, cookieHeaderValue, cookieMeta ? { secrets: cookieMeta.secrets !== undefined ? typeof cookieMeta.secrets === "string" ? cookieMeta.secrets : cookieMeta.secrets.join(",") : undefined, sign: cookieMeta.sign === true ? true : cookieMeta.sign !== undefined ? typeof cookieMeta.sign === "string" ? cookieMeta.sign : cookieMeta.sign.join(",") : undefined } : undefined);
     for (let i = 0;i < hooks.transform.length; i++) {
-      const hook = hooks.transform[i];
-      const operation = hook.fn(context);
-      if (hook.subType === "derive") {
+      let hook = hooks.transform[i], operation = hook.fn(context);
+      if (hook.subType === "derive")
         if (operation instanceof Promise)
           Object.assign(context, await operation);
         else
           Object.assign(context, operation);
-      } else if (operation instanceof Promise)
+      else if (operation instanceof Promise)
         await operation;
     }
     if (validator) {
       if (validator.createHeaders?.()) {
-        const _header = {};
-        for (const key in request.headers)
+        let _header = {};
+        for (let key in request.headers)
           _header[key] = request.headers.get(key);
         if (validator.headers.Check(_header) === false)
           throw new ValidationError("header", validator.headers, _header);
       } else if (validator.headers?.Decode)
         context.headers = validator.headers.Decode(context.headers);
-      if (validator.createParams?.()?.Check(context.params) === false) {
+      if (validator.createParams?.()?.Check(context.params) === false)
         throw new ValidationError("params", validator.params, context.params);
-      } else if (validator.params?.Decode)
+      else if (validator.params?.Decode)
         context.params = validator.params.Decode(context.params);
       if (validator.createQuery?.()?.Check(context.query) === false)
         throw new ValidationError("query", validator.query, context.query);
@@ -69769,7 +68488,7 @@ var createDynamicHandler = (app3) => async (request) => {
         context.query = validator.query.Decode(context.query);
       if (validator.createCookie?.()) {
         let cookieValue = {};
-        for (const [key, value2] of Object.entries(context.cookie))
+        for (let [key, value2] of Object.entries(context.cookie))
           cookieValue[key] = value2.value;
         if (validator.cookie.Check(cookieValue) === false)
           throw new ValidationError("cookie", validator.cookie, cookieValue);
@@ -69782,11 +68501,10 @@ var createDynamicHandler = (app3) => async (request) => {
         context.body = validator.body.Decode(body);
     }
     for (let i = 0;i < hooks.beforeHandle.length; i++) {
-      const hook = hooks.beforeHandle[i];
-      let response2 = hook.fn(context);
+      let hook = hooks.beforeHandle[i], response2 = hook.fn(context);
       if (hook.subType === "resolve") {
         if (response2 instanceof ElysiaCustomStatusResponse) {
-          const result = mapEarlyResponse(response2, context.set);
+          let result = mapEarlyResponse(response2, context.set);
           if (result)
             return context.response = result;
         }
@@ -69806,7 +68524,7 @@ var createDynamicHandler = (app3) => async (request) => {
           if (newResponse)
             response2 = newResponse;
         }
-        const result = mapEarlyResponse(response2, context.set);
+        let result = mapEarlyResponse(response2, context.set);
         if (result)
           return context.response = result;
       }
@@ -69815,8 +68533,7 @@ var createDynamicHandler = (app3) => async (request) => {
     if (response instanceof Promise)
       response = await response;
     if (!hooks.afterHandle.length) {
-      const status = response instanceof ElysiaCustomStatusResponse ? response.code : set22.status ? typeof set22.status === "string" ? StatusMap[set22.status] : set22.status : 200;
-      const responseValidator = validator?.createResponse?.()?.[status];
+      let status = response instanceof ElysiaCustomStatusResponse ? response.code : set22.status ? typeof set22.status === "string" ? StatusMap[set22.status] : set22.status : 200, responseValidator = validator?.createResponse?.()?.[status];
       if (responseValidator?.Check(response) === false)
         throw new ValidationError("response", responseValidator, response);
       else if (responseValidator?.Decode)
@@ -69827,9 +68544,9 @@ var createDynamicHandler = (app3) => async (request) => {
         let newResponse = hooks.afterHandle[i].fn(context);
         if (newResponse instanceof Promise)
           newResponse = await newResponse;
-        const result = mapEarlyResponse(newResponse, context.set);
+        let result = mapEarlyResponse(newResponse, context.set);
         if (result !== undefined) {
-          const responseValidator = validator?.response?.[result.status];
+          let responseValidator = validator?.response?.[result.status];
           if (responseValidator?.Check(result) === false)
             throw new ValidationError("response", responseValidator, result);
           else if (responseValidator?.Decode)
@@ -69839,215 +68556,55 @@ var createDynamicHandler = (app3) => async (request) => {
       }
     }
     if (context.set.cookie && cookieMeta?.sign) {
-      const secret = !cookieMeta.secrets ? undefined : typeof cookieMeta.secrets === "string" ? cookieMeta.secrets : cookieMeta.secrets[0];
+      let secret = !cookieMeta.secrets ? undefined : typeof cookieMeta.secrets === "string" ? cookieMeta.secrets : cookieMeta.secrets[0];
       if (cookieMeta.sign === true)
-        for (const [key, cookie] of Object.entries(context.set.cookie))
+        for (let [key, cookie] of Object.entries(context.set.cookie))
           context.set.cookie[key].value = await signCookie(cookie.value, "${secret}");
       else {
-        const properties = validator?.cookie?.schema?.properties;
-        for (const name of cookieMeta.sign) {
+        let properties = validator?.cookie?.schema?.properties;
+        for (let name of cookieMeta.sign) {
           if (!(name in properties))
             continue;
-          if (context.set.cookie[name]?.value) {
+          if (context.set.cookie[name]?.value)
             context.set.cookie[name].value = await signCookie(context.set.cookie[name].value, secret);
-          }
         }
       }
     }
     return context.response = mapResponse(response, context.set);
   } catch (error22) {
-    const reportedError = error22 instanceof TransformDecodeError && error22.error ? error22.error : error22;
+    let reportedError = error22 instanceof TransformDecodeError && error22.error ? error22.error : error22;
     if (reportedError.status)
       set22.status = reportedError.status;
     return app3.handleError(context, reportedError);
   } finally {
-    for (const afterResponse of app3.event.afterResponse)
+    for (let afterResponse of app3.event.afterResponse)
       await afterResponse.fn(context);
   }
 };
 var createDynamicErrorHandler = (app3) => async (context, error22) => {
-  const errorContext = Object.assign(context, { error: error22, code: error22.code });
+  let errorContext = Object.assign(context, { error: error22, code: error22.code });
   errorContext.set = context.set;
   for (let i = 0;i < app3.event.error.length; i++) {
-    const hook = app3.event.error[i];
-    let response = hook.fn(errorContext);
+    let response = app3.event.error[i].fn(errorContext);
     if (response instanceof Promise)
       response = await response;
     if (response !== undefined && response !== null)
       return context.response = mapResponse(response, context.set);
   }
-  return new Response(typeof error22.cause === "string" ? error22.cause : error22.message, {
-    headers: context.set.headers,
-    status: error22.status ?? 500
-  });
+  return new Response(typeof error22.cause === "string" ? error22.cause : error22.message, { headers: context.set.headers, status: error22.status ?? 500 });
 };
-var Elysia = class _Elysia {
-  constructor(config = {}) {
-    this.server = null;
-    this.dependencies = {};
-    this._routes = {};
-    this._types = {
-      Prefix: "",
-      Scoped: false,
-      Singleton: {},
-      Definitions: {},
-      Metadata: {}
-    };
-    this._ephemeral = {};
-    this._volatile = {};
-    this.version = version;
-    this.singleton = {
-      decorator: {},
-      store: {},
-      derive: {},
-      resolve: {}
-    };
-    this.definitions = {
-      type: {},
-      error: {}
-    };
-    this.extender = {
-      macros: [],
-      higherOrderFunctions: []
-    };
-    this.validator = {
-      global: null,
-      scoped: null,
-      local: null,
-      getCandidate() {
-        return mergeSchemaValidator(mergeSchemaValidator(this.global, this.scoped), this.local);
-      }
-    };
-    this.event = {
-      start: [],
-      request: [],
-      parse: [],
-      transform: [],
-      beforeHandle: [],
-      afterHandle: [],
-      mapResponse: [],
-      afterResponse: [],
-      trace: [],
-      error: [],
-      stop: []
-    };
-    this.telemetry = {
-      stack: undefined
-    };
-    this.router = {
-      http: new Memoirist,
-      ws: new Memoirist,
-      dynamic: new Memoirist,
-      static: {
-        http: {
-          static: {},
-          handlers: [],
-          map: {},
-          all: ""
-        },
-        ws: {}
-      },
-      history: []
-    };
-    this.routeTree = /* @__PURE__ */ new Map;
-    this.inference = {
-      body: false,
-      cookie: false,
-      headers: false,
-      query: false,
-      set: false,
-      server: false
-    };
-    this.handle = async (request) => this.fetch(request);
-    this.fetch = (request) => {
-      return (this.fetch = this.config.aot ? composeGeneralHandler(this) : createDynamicHandler(this))(request);
-    };
-    this.handleError = async (context, error22) => (this.handleError = this.config.aot ? composeErrorHandler(this) : createDynamicErrorHandler(this))(context, error22);
-    this.outerErrorHandler = (error22) => new Response(error22.message || error22.name || "Error", {
-      status: error22?.status ?? 500
-    });
-    this.listen = (options, callback) => {
-      if (typeof Bun === "undefined")
-        throw new Error(".listen() is designed to run on Bun only. If you are running Elysia in other environment please use a dedicated plugin or export the handler via Elysia.fetch");
-      this.compile();
-      if (typeof options === "string") {
-        if (!isNumericString(options))
-          throw new Error("Port must be a numeric value");
-        options = parseInt(options);
-      }
-      const fetch2 = this.fetch;
-      const serve = typeof options === "object" ? {
-        development: !isProduction,
-        reusePort: true,
-        ...this.config.serve || {},
-        ...options || {},
-        static: this.router.static.http.static,
-        websocket: {
-          ...this.config.websocket || {},
-          ...websocket || {}
-        },
-        fetch: fetch2,
-        error: this.outerErrorHandler
-      } : {
-        development: !isProduction,
-        reusePort: true,
-        ...this.config.serve || {},
-        static: this.router.static.http.static,
-        websocket: {
-          ...this.config.websocket || {},
-          ...websocket || {}
-        },
-        port: options,
-        fetch: fetch2,
-        error: this.outerErrorHandler
-      };
-      this.server = Bun?.serve(serve);
-      for (let i = 0;i < this.event.start.length; i++)
-        this.event.start[i].fn(this);
-      if (callback)
-        callback(this.server);
-      process.on("beforeExit", () => {
-        if (this.server) {
-          this.server.stop();
-          this.server = null;
-          for (let i = 0;i < this.event.stop.length; i++)
-            this.event.stop[i].fn(this);
-        }
-      });
-      this.promisedModules.then(() => {
-        Bun?.gc(false);
-      });
-      return this;
-    };
-    this.stop = async (closeActiveConnections) => {
-      if (!this.server)
-        throw new Error("Elysia isn't running. Call `app.listen` to start the server.");
-      if (this.server) {
-        this.server.stop(closeActiveConnections);
-        this.server = null;
-        if (this.event.stop.length)
-          for (let i = 0;i < this.event.stop.length; i++)
-            this.event.stop[i].fn(this);
-      }
-    };
-    if (config.tags) {
-      if (!config.detail)
-        config.detail = {
-          tags: config.tags
-        };
-      else
-        config.detail.tags = config.tags;
-    }
-    if (config.nativeStaticResponse === undefined)
-      config.nativeStaticResponse = true;
-    this.config = {};
-    this.applyConfig(config ?? {});
-    if (config?.analytic && (config?.name || config?.seed !== undefined))
-      this.telemetry.stack = new Error().stack;
-  }
-  static {
-    this.version = version;
-  }
+
+class Elysia {
+  config;
+  server = null;
+  dependencies = {};
+  _routes = {};
+  _types = { Prefix: "", Scoped: false, Singleton: {}, Definitions: {}, Metadata: {} };
+  _ephemeral = {};
+  _volatile = {};
+  static version = version;
+  version = version;
+  singleton = { decorator: {}, store: {}, derive: {}, resolve: {} };
   get store() {
     return this.singleton.store;
   }
@@ -70057,96 +68614,70 @@ var Elysia = class _Elysia {
   get _scoped() {
     return this.config.scoped;
   }
+  definitions = { type: {}, error: {} };
+  extender = { macros: [], higherOrderFunctions: [] };
+  validator = { global: null, scoped: null, local: null, getCandidate() {
+    return mergeSchemaValidator(mergeSchemaValidator(this.global, this.scoped), this.local);
+  } };
+  event = { start: [], request: [], parse: [], transform: [], beforeHandle: [], afterHandle: [], mapResponse: [], afterResponse: [], trace: [], error: [], stop: [] };
+  telemetry = { stack: undefined };
+  router = { http: new Y, ws: new Y, dynamic: new Y, static: { http: { static: {}, handlers: [], map: {}, all: "" }, ws: {} }, history: [] };
+  routeTree = new Map;
   get routes() {
     return this.router.history;
   }
   getGlobalRoutes() {
     return this.router.history;
   }
+  inference = { body: false, cookie: false, headers: false, query: false, set: false, server: false };
   getServer() {
     return this.server;
   }
+  _promisedModules;
   get promisedModules() {
     if (!this._promisedModules)
       this._promisedModules = new PromiseGroup;
     return this._promisedModules;
   }
+  constructor(config = {}) {
+    if (config.tags)
+      if (!config.detail)
+        config.detail = { tags: config.tags };
+      else
+        config.detail.tags = config.tags;
+    if (config.nativeStaticResponse === undefined)
+      config.nativeStaticResponse = true;
+    if (this.config = {}, this.applyConfig(config ?? {}), config?.analytic && (config?.name || config?.seed !== undefined))
+      this.telemetry.stack = new Error().stack;
+  }
   env(model, env2 = Bun?.env ?? process.env) {
-    const validator = getSchemaValidator(model, {
-      dynamic: true,
-      additionalProperties: true,
-      coerce: true
-    });
-    if (validator.Check(env2) === false) {
-      const error22 = new ValidationError("env", model, env2);
+    if (getSchemaValidator(model, { dynamic: true, additionalProperties: true, coerce: true }).Check(env2) === false) {
+      let error22 = new ValidationError("env", model, env2);
       throw new Error(error22.all.map((x) => x.summary).join("\n"));
     }
     return this;
   }
   wrap(fn2) {
-    this.extender.higherOrderFunctions.push({
-      checksum: checksum(JSON.stringify({
-        name: this.config.name,
-        seed: this.config.seed,
-        content: fn2.toString()
-      })),
-      fn: fn2
-    });
-    return this;
+    return this.extender.higherOrderFunctions.push({ checksum: checksum(JSON.stringify({ name: this.config.name, seed: this.config.seed, content: fn2.toString() })), fn: fn2 }), this;
   }
   applyMacro(localHook) {
     if (this.extender.macros.length) {
-      const manage = createMacroManager({
-        globalHook: this.event,
-        localHook
-      });
-      const manager = {
-        events: {
-          global: this.event,
-          local: localHook
-        },
-        onParse: manage("parse"),
-        onTransform: manage("transform"),
-        onBeforeHandle: manage("beforeHandle"),
-        onAfterHandle: manage("afterHandle"),
-        mapResponse: manage("mapResponse"),
-        onAfterResponse: manage("afterResponse"),
-        onError: manage("error")
-      };
-      for (const macro of this.extender.macros)
+      let manage = createMacroManager({ globalHook: this.event, localHook }), manager = { events: { global: this.event, local: localHook }, onParse: manage("parse"), onTransform: manage("transform"), onBeforeHandle: manage("beforeHandle"), onAfterHandle: manage("afterHandle"), mapResponse: manage("mapResponse"), onAfterResponse: manage("afterResponse"), onError: manage("error") };
+      for (let macro of this.extender.macros)
         traceBackMacro(macro.fn(manager), localHook);
     }
   }
   applyConfig(config) {
-    this.config = {
-      prefix: "",
-      aot: true,
-      strictPath: false,
-      global: false,
-      analytic: false,
-      normalize: true,
-      ...config,
-      cookie: {
-        path: "/",
-        ...config?.cookie
-      },
-      experimental: config?.experimental ?? {},
-      seed: config?.seed === undefined ? "" : config?.seed
-    };
-    return this;
+    return this.config = { prefix: "", aot: true, strictPath: false, global: false, analytic: false, normalize: true, ...config, cookie: { path: "/", ...config?.cookie }, experimental: config?.experimental ?? {}, seed: config?.seed === undefined ? "" : config?.seed }, this;
   }
   get models() {
-    const models = {};
-    for (const [name, schema3] of Object.entries(this.definitions.type))
+    let models = {};
+    for (let [name, schema3] of Object.entries(this.definitions.type))
       models[name] = getSchemaValidator(schema3);
     return models;
   }
-  add(method, path, handle, localHook, { allowMeta = false, skipPrefix = false } = {
-    allowMeta: false,
-    skipPrefix: false
-  }) {
-    localHook = localHookToLifeCycleStore(localHook);
-    if (path !== "" && path.charCodeAt(0) !== 47)
+  add(method, path, handle, localHook, { allowMeta = false, skipPrefix = false } = { allowMeta: false, skipPrefix: false }) {
+    if (localHook = localHookToLifeCycleStore(localHook), path !== "" && path.charCodeAt(0) !== 47)
       path = "/" + path;
     if (this.config.prefix && !skipPrefix && !this.config.scoped)
       path = this.config.prefix + path;
@@ -70170,265 +68701,114 @@ var Elysia = class _Elysia {
         default:
           break;
       }
-    const models = this.definitions.type;
-    const dynamic = !this.config.aot;
-    const instanceValidator = { ...this.validator.getCandidate() };
-    const cloned = {
-      body: localHook?.body ?? instanceValidator?.body,
-      headers: localHook?.headers ?? instanceValidator?.headers,
-      params: localHook?.params ?? instanceValidator?.params,
-      query: localHook?.query ?? instanceValidator?.query,
-      cookie: localHook?.cookie ?? instanceValidator?.cookie,
-      response: localHook?.response ?? instanceValidator?.response
-    };
-    const cookieValidator = () => cloned.cookie ? getCookieValidator({
-      validator: cloned.cookie,
-      defaultConfig: this.config.cookie,
-      config: cloned.cookie?.config ?? {},
-      dynamic,
-      models
-    }) : undefined;
-    const normalize = this.config.normalize;
-    const validator = this.config.precompile === true || typeof this.config.precompile === "object" && this.config.precompile.schema === true ? {
-      body: getSchemaValidator(cloned.body, {
-        dynamic,
-        models,
-        normalize,
-        additionalCoerce: coercePrimitiveRoot()
-      }),
-      headers: getSchemaValidator(cloned.headers, {
-        dynamic,
-        models,
-        additionalProperties: !this.config.normalize,
-        coerce: true,
-        additionalCoerce: stringToStructureCoercions()
-      }),
-      params: getSchemaValidator(cloned.params, {
-        dynamic,
-        models,
-        coerce: true,
-        additionalCoerce: stringToStructureCoercions()
-      }),
-      query: getSchemaValidator(cloned.query, {
-        dynamic,
-        models,
-        normalize,
-        coerce: true,
-        additionalCoerce: stringToStructureCoercions()
-      }),
-      cookie: cookieValidator(),
-      response: getResponseSchemaValidator(cloned.response, {
-        dynamic,
-        models,
-        normalize
-      })
-    } : {
-      createBody() {
-        if (this.body)
-          return this.body;
-        return this.body = getSchemaValidator(cloned.body, {
-          dynamic,
-          models,
-          normalize,
-          additionalCoerce: coercePrimitiveRoot()
-        });
-      },
-      createHeaders() {
-        if (this.headers)
-          return this.headers;
-        return this.headers = getSchemaValidator(cloned.headers, {
-          dynamic,
-          models,
-          additionalProperties: !normalize,
-          coerce: true,
-          additionalCoerce: stringToStructureCoercions()
-        });
-      },
-      createParams() {
-        if (this.params)
-          return this.params;
-        return this.params = getSchemaValidator(cloned.params, {
-          dynamic,
-          models,
-          coerce: true,
-          additionalCoerce: stringToStructureCoercions()
-        });
-      },
-      createQuery() {
-        if (this.query)
-          return this.query;
-        return this.query = getSchemaValidator(cloned.query, {
-          dynamic,
-          models,
-          coerce: true,
-          additionalCoerce: stringToStructureCoercions()
-        });
-      },
-      createCookie() {
-        if (this.cookie)
-          return this.cookie;
-        return this.cookie = cookieValidator();
-      },
-      createResponse() {
-        if (this.response)
-          return this.response;
-        return this.response = getResponseSchemaValidator(cloned.response, {
-          dynamic,
-          models,
-          normalize
-        });
-      }
-    };
-    const loosePath = path.endsWith("/") ? path.slice(0, path.length - 1) : path + "/";
-    localHook = mergeHook(localHook, instanceValidator);
-    if (localHook.tags) {
+    let models = this.definitions.type, dynamic = !this.config.aot, instanceValidator = { ...this.validator.getCandidate() }, cloned = { body: localHook?.body ?? instanceValidator?.body, headers: localHook?.headers ?? instanceValidator?.headers, params: localHook?.params ?? instanceValidator?.params, query: localHook?.query ?? instanceValidator?.query, cookie: localHook?.cookie ?? instanceValidator?.cookie, response: localHook?.response ?? instanceValidator?.response }, cookieValidator = () => cloned.cookie ? getCookieValidator({ validator: cloned.cookie, defaultConfig: this.config.cookie, config: cloned.cookie?.config ?? {}, dynamic, models }) : undefined, normalize = this.config.normalize, validator = this.config.precompile === true || typeof this.config.precompile === "object" && this.config.precompile.schema === true ? { body: getSchemaValidator(cloned.body, { dynamic, models, normalize, additionalCoerce: coercePrimitiveRoot() }), headers: getSchemaValidator(cloned.headers, { dynamic, models, additionalProperties: !this.config.normalize, coerce: true, additionalCoerce: stringToStructureCoercions() }), params: getSchemaValidator(cloned.params, { dynamic, models, coerce: true, additionalCoerce: stringToStructureCoercions() }), query: getSchemaValidator(cloned.query, { dynamic, models, normalize, coerce: true, additionalCoerce: stringToStructureCoercions() }), cookie: cookieValidator(), response: getResponseSchemaValidator(cloned.response, { dynamic, models, normalize }) } : { createBody() {
+      if (this.body)
+        return this.body;
+      return this.body = getSchemaValidator(cloned.body, { dynamic, models, normalize, additionalCoerce: coercePrimitiveRoot() });
+    }, createHeaders() {
+      if (this.headers)
+        return this.headers;
+      return this.headers = getSchemaValidator(cloned.headers, { dynamic, models, additionalProperties: !normalize, coerce: true, additionalCoerce: stringToStructureCoercions() });
+    }, createParams() {
+      if (this.params)
+        return this.params;
+      return this.params = getSchemaValidator(cloned.params, { dynamic, models, coerce: true, additionalCoerce: stringToStructureCoercions() });
+    }, createQuery() {
+      if (this.query)
+        return this.query;
+      return this.query = getSchemaValidator(cloned.query, { dynamic, models, coerce: true, additionalCoerce: stringToStructureCoercions() });
+    }, createCookie() {
+      if (this.cookie)
+        return this.cookie;
+      return this.cookie = cookieValidator();
+    }, createResponse() {
+      if (this.response)
+        return this.response;
+      return this.response = getResponseSchemaValidator(cloned.response, { dynamic, models, normalize });
+    } }, loosePath = path.endsWith("/") ? path.slice(0, path.length - 1) : path + "/";
+    if (localHook = mergeHook(localHook, instanceValidator), localHook.tags)
       if (!localHook.detail)
-        localHook.detail = {
-          tags: localHook.tags
-        };
+        localHook.detail = { tags: localHook.tags };
       else
         localHook.detail.tags = localHook.tags;
-    }
     if (isNotEmpty(this.config.detail))
       localHook.detail = mergeDeep(Object.assign({}, this.config.detail), localHook.detail);
     this.applyMacro(localHook);
-    const hooks = mergeHook(this.event, localHook);
+    let hooks = mergeHook(this.event, localHook);
     if (this.config.aot === false) {
-      this.router.dynamic.add(method, path, {
-        validator,
-        hooks,
-        content: localHook?.type,
-        handle
-      });
-      if (this.config.strictPath === false) {
-        this.router.dynamic.add(method, loosePath, {
-          validator,
-          hooks,
-          content: localHook?.type,
-          handle
-        });
-      }
-      this.router.history.push({
-        method,
-        path,
-        composed: null,
-        handler: handle,
-        hooks
-      });
+      if (this.router.dynamic.add(method, path, { validator, hooks, content: localHook?.type, handle }), this.config.strictPath === false)
+        this.router.dynamic.add(method, loosePath, { validator, hooks, content: localHook?.type, handle });
+      this.router.history.push({ method, path, composed: null, handler: handle, hooks });
       return;
     }
-    const shouldPrecompile = this.config.precompile === true || typeof this.config.precompile === "object" && this.config.precompile.compose === true;
-    const inference = cloneInference(this.inference);
-    const staticHandler = typeof handle !== "function" ? createStaticHandler(handle, hooks, this.setHeaders) : undefined;
-    const nativeStaticHandler = typeof handle !== "function" ? createNativeStaticHandler(handle, hooks, this.setHeaders) : undefined;
+    let shouldPrecompile = this.config.precompile === true || typeof this.config.precompile === "object" && this.config.precompile.compose === true, inference = cloneInference(this.inference), staticHandler = typeof handle !== "function" ? createStaticHandler(handle, hooks, this.setHeaders) : undefined, nativeStaticHandler = typeof handle !== "function" ? createNativeStaticHandler(handle, hooks, this.setHeaders) : undefined;
     if (this.config.nativeStaticResponse === true && nativeStaticHandler && (method === "GET" || method === "ALL"))
       this.router.static.http.static[path] = nativeStaticHandler();
-    const compile = () => composeHandler({
-      app: this,
-      path,
-      method,
-      localHook: mergeHook(localHook),
-      hooks,
-      validator,
-      handler: handle,
-      allowMeta,
-      inference
-    });
-    const mainHandler = shouldPrecompile ? compile() : (context) => {
+    let compile = () => composeHandler({ app: this, path, method, localHook: mergeHook(localHook), hooks, validator, handler: handle, allowMeta, inference }), mainHandler = shouldPrecompile ? compile() : (context) => {
       return compile()(context);
-    };
-    const routeIndex = this.router.history.length;
+    }, routeIndex = this.router.history.length;
     if (this.routeTree.has(method + path))
       for (let i = 0;i < this.router.history.length; i++) {
-        const route = this.router.history[i];
+        let route = this.router.history[i];
         if (route.path === path && route.method === method) {
-          const removed = this.router.history.splice(i, 1)[0];
+          let removed = this.router.history.splice(i, 1)[0];
           if (removed && this.routeTree.has(removed?.method + removed?.path))
             this.routeTree.delete(removed.method + removed.path);
         }
       }
     else
       this.routeTree.set(method + path, routeIndex);
-    this.router.history.push({
-      method,
-      path,
-      composed: mainHandler,
-      handler: handle,
-      hooks
-    });
-    const staticRouter = this.router.static.http;
-    const handler = {
-      handler: shouldPrecompile ? mainHandler : undefined,
-      compile
-    };
+    this.router.history.push({ method, path, composed: mainHandler, handler: handle, hooks });
+    let staticRouter = this.router.static.http, handler = { handler: shouldPrecompile ? mainHandler : undefined, compile };
     if (method === "$INTERNALWS") {
-      const loose = this.config.strictPath ? undefined : path.endsWith("/") ? path.slice(0, path.length - 1) : path + "/";
+      let loose = this.config.strictPath ? undefined : path.endsWith("/") ? path.slice(0, path.length - 1) : path + "/";
       if (path.indexOf(":") === -1 && path.indexOf("*") === -1) {
-        const index = staticRouter.handlers.length;
-        staticRouter.handlers.push((ctx) => (staticRouter.handlers[index] = compile())(ctx));
-        this.router.static.ws[path] = index;
-        if (loose)
+        let index = staticRouter.handlers.length;
+        if (staticRouter.handlers.push((ctx) => (staticRouter.handlers[index] = compile())(ctx)), this.router.static.ws[path] = index, loose)
           this.router.static.ws[loose] = index;
-      } else {
-        this.router.ws.add("ws", path, handler);
-        if (loose)
-          this.router.ws.add("ws", loose, handler);
-      }
+      } else if (this.router.ws.add("ws", path, handler), loose)
+        this.router.ws.add("ws", loose, handler);
       return;
     }
     if (path.indexOf(":") === -1 && path.indexOf("*") === -1) {
-      const index = staticRouter.handlers.length;
-      staticRouter.handlers.push(staticHandler ?? ((ctx2) => (staticRouter.handlers[index] = compile())(ctx2)));
-      if (!staticRouter.map[path])
-        staticRouter.map[path] = {
-          code: ""
-        };
-      const ctx = staticHandler ? "" : "ctx";
+      let index = staticRouter.handlers.length;
+      if (staticRouter.handlers.push(staticHandler ?? ((ctx2) => (staticRouter.handlers[index] = compile())(ctx2))), !staticRouter.map[path])
+        staticRouter.map[path] = { code: "" };
+      let ctx = staticHandler ? "" : "ctx";
       if (method === "ALL")
-        staticRouter.map[path].all = `default: return st[${index}](${ctx})
-`;
+        staticRouter.map[path].all = `default: return st[${index}](${ctx})\n`;
       else
-        staticRouter.map[path].code = `case '${method}': return st[${index}](${ctx})
-${staticRouter.map[path].code}`;
+        staticRouter.map[path].code = `case '${method}': return st[${index}](${ctx})\n${staticRouter.map[path].code}`;
       if (!this.config.strictPath) {
         if (!staticRouter.map[loosePath])
-          staticRouter.map[loosePath] = {
-            code: ""
-          };
+          staticRouter.map[loosePath] = { code: "" };
         if (this.config.nativeStaticResponse === true && nativeStaticHandler && (method === "GET" || method === "ALL"))
           this.router.static.http.static[loosePath] = nativeStaticHandler();
         if (method === "ALL")
-          staticRouter.map[loosePath].all = `default: return st[${index}](${ctx})
-`;
+          staticRouter.map[loosePath].all = `default: return st[${index}](${ctx})\n`;
         else
-          staticRouter.map[loosePath].code = `case '${method}': return st[${index}](${ctx})
-${staticRouter.map[loosePath].code}`;
+          staticRouter.map[loosePath].code = `case '${method}': return st[${index}](${ctx})\n${staticRouter.map[loosePath].code}`;
       }
-    } else {
-      this.router.http.add(method, path, handler);
-      if (!this.config.strictPath) {
-        const loosePath2 = path.endsWith("/") ? path.slice(0, path.length - 1) : path + "/";
-        if (this.config.nativeStaticResponse === true && staticHandler && (method === "GET" || method === "ALL"))
-          this.router.static.http.static[loosePath2] = staticHandler();
-        this.router.http.add(method, loosePath2, handler);
-      }
+    } else if (this.router.http.add(method, path, handler), !this.config.strictPath) {
+      let loosePath2 = path.endsWith("/") ? path.slice(0, path.length - 1) : path + "/";
+      if (this.config.nativeStaticResponse === true && staticHandler && (method === "GET" || method === "ALL"))
+        this.router.static.http.static[loosePath2] = staticHandler();
+      this.router.http.add(method, loosePath2, handler);
     }
   }
+  setHeaders;
   headers(header) {
     if (!header)
       return this;
     if (!this.setHeaders)
       this.setHeaders = {};
-    this.setHeaders = mergeDeep(this.setHeaders, header);
-    return this;
+    return this.setHeaders = mergeDeep(this.setHeaders, header), this;
   }
   onStart(handler) {
-    this.on("start", handler);
-    return this;
+    return this.on("start", handler), this;
   }
   onRequest(handler) {
-    this.on("request", handler);
-    return this;
+    return this.on("request", handler), this;
   }
   onParse(options, handler) {
     if (!handler)
@@ -70441,25 +68821,15 @@ ${staticRouter.map[loosePath].code}`;
     return this.on(options, "transform", handler);
   }
   resolve(optionsOrResolve, resolve) {
-    if (!resolve) {
-      resolve = optionsOrResolve;
-      optionsOrResolve = { as: "local" };
-    }
-    const hook = {
-      subType: "resolve",
-      fn: resolve
-    };
+    if (!resolve)
+      resolve = optionsOrResolve, optionsOrResolve = { as: "local" };
+    let hook = { subType: "resolve", fn: resolve };
     return this.onBeforeHandle(optionsOrResolve, hook);
   }
   mapResolve(optionsOrResolve, mapper) {
-    if (!mapper) {
-      mapper = optionsOrResolve;
-      optionsOrResolve = { as: "local" };
-    }
-    const hook = {
-      subType: "mapResolve",
-      fn: mapper
-    };
+    if (!mapper)
+      mapper = optionsOrResolve, optionsOrResolve = { as: "local" };
+    let hook = { subType: "mapResolve", fn: mapper };
     return this.onBeforeHandle(optionsOrResolve, hook);
   }
   onBeforeHandle(options, handler) {
@@ -70483,30 +68853,23 @@ ${staticRouter.map[loosePath].code}`;
     return this.on(options, "afterResponse", handler);
   }
   trace(options, handler) {
-    if (!handler) {
-      handler = options;
-      options = { as: "local" };
-    }
+    if (!handler)
+      handler = options, options = { as: "local" };
     if (!Array.isArray(handler))
       handler = [handler];
-    for (const fn2 of handler)
+    for (let fn2 of handler)
       this.on(options, "trace", createTracer(fn2));
     return this;
   }
   error(name, error22) {
     switch (typeof name) {
       case "string":
-        error22.prototype[ERROR_CODE] = name;
-        this.definitions.error[name] = error22;
-        return this;
+        return error22.prototype[ERROR_CODE] = name, this.definitions.error[name] = error22, this;
       case "function":
-        this.definitions.error = name(this.definitions.error);
-        return this;
+        return this.definitions.error = name(this.definitions.error), this;
     }
-    for (const [code, error32] of Object.entries(name)) {
-      error32.prototype[ERROR_CODE] = code;
-      this.definitions.error[code] = error32;
-    }
+    for (let [code, error32] of Object.entries(name))
+      error32.prototype[ERROR_CODE] = code, this.definitions.error[code] = error32;
     return this;
   }
   onError(options, handler) {
@@ -70515,43 +68878,32 @@ ${staticRouter.map[loosePath].code}`;
     return this.on(options, "error", handler);
   }
   onStop(handler) {
-    this.on("stop", handler);
-    return this;
+    return this.on("stop", handler), this;
   }
   on(optionsOrType, typeOrHandlers, handlers) {
     let type3;
     switch (typeof optionsOrType) {
       case "string":
-        type3 = optionsOrType;
-        handlers = typeOrHandlers;
+        type3 = optionsOrType, handlers = typeOrHandlers;
         break;
       case "object":
-        type3 = typeOrHandlers;
-        if (!Array.isArray(typeOrHandlers) && typeof typeOrHandlers === "object")
+        if (type3 = typeOrHandlers, !Array.isArray(typeOrHandlers) && typeof typeOrHandlers === "object")
           handlers = typeOrHandlers;
         break;
     }
     if (Array.isArray(handlers))
       handlers = fnToContainer(handlers);
-    else {
-      if (typeof handlers === "function")
-        handlers = [
-          {
-            fn: handlers
-          }
-        ];
-      else
-        handlers = [handlers];
-    }
-    const handles = handlers;
-    for (const handle of handles)
+    else if (typeof handlers === "function")
+      handlers = [{ fn: handlers }];
+    else
+      handlers = [handlers];
+    let handles = handlers;
+    for (let handle of handles)
       handle.scope = typeof optionsOrType === "string" ? "local" : optionsOrType?.as ?? "local";
     if (type3 !== "trace")
-      sucrose({
-        [type3]: handles.map((x) => x.fn)
-      }, this.inference);
-    for (const handle of handles) {
-      const fn2 = asHookType(handle, "global", { skipIfHasType: true });
+      sucrose({ [type3]: handles.map((x) => x.fn) }, this.inference);
+    for (let handle of handles) {
+      let fn2 = asHookType(handle, "global", { skipIfHasType: true });
       switch (type3) {
         case "start":
           this.event.start.push(fn2);
@@ -70591,100 +68943,38 @@ ${staticRouter.map[loosePath].code}`;
     return this;
   }
   propagate() {
-    promoteEvent(this.event.parse);
-    promoteEvent(this.event.transform);
-    promoteEvent(this.event.beforeHandle);
-    promoteEvent(this.event.afterHandle);
-    promoteEvent(this.event.mapResponse);
-    promoteEvent(this.event.afterResponse);
-    promoteEvent(this.event.trace);
-    promoteEvent(this.event.error);
-    return this;
+    return promoteEvent(this.event.parse), promoteEvent(this.event.transform), promoteEvent(this.event.beforeHandle), promoteEvent(this.event.afterHandle), promoteEvent(this.event.mapResponse), promoteEvent(this.event.afterResponse), promoteEvent(this.event.trace), promoteEvent(this.event.error), this;
   }
   as(type3) {
-    const castType = { plugin: "scoped", global: "global" }[type3];
-    promoteEvent(this.event.parse, castType);
-    promoteEvent(this.event.transform, castType);
-    promoteEvent(this.event.beforeHandle, castType);
-    promoteEvent(this.event.afterHandle, castType);
-    promoteEvent(this.event.mapResponse, castType);
-    promoteEvent(this.event.afterResponse, castType);
-    promoteEvent(this.event.trace, castType);
-    promoteEvent(this.event.error, castType);
-    if (type3 === "plugin") {
-      this.validator.scoped = mergeSchemaValidator(this.validator.scoped, this.validator.local);
-      this.validator.local = null;
-    } else if (type3 === "global") {
-      this.validator.global = mergeSchemaValidator(this.validator.global, mergeSchemaValidator(this.validator.scoped, this.validator.local));
-      this.validator.scoped = null;
-      this.validator.local = null;
-    }
+    let castType = { plugin: "scoped", global: "global" }[type3];
+    if (promoteEvent(this.event.parse, castType), promoteEvent(this.event.transform, castType), promoteEvent(this.event.beforeHandle, castType), promoteEvent(this.event.afterHandle, castType), promoteEvent(this.event.mapResponse, castType), promoteEvent(this.event.afterResponse, castType), promoteEvent(this.event.trace, castType), promoteEvent(this.event.error, castType), type3 === "plugin")
+      this.validator.scoped = mergeSchemaValidator(this.validator.scoped, this.validator.local), this.validator.local = null;
+    else if (type3 === "global")
+      this.validator.global = mergeSchemaValidator(this.validator.global, mergeSchemaValidator(this.validator.scoped, this.validator.local)), this.validator.scoped = null, this.validator.local = null;
     return this;
   }
   group(prefix, schemaOrRun, run) {
-    const instance = new _Elysia({
-      ...this.config,
-      prefix: ""
-    });
-    instance.singleton = { ...this.singleton };
-    instance.definitions = { ...this.definitions };
-    instance.getServer = () => this.getServer();
-    instance.inference = cloneInference(this.inference);
-    instance.extender = { ...this.extender };
-    const isSchema = typeof schemaOrRun === "object";
-    const sandbox = (isSchema ? run : schemaOrRun)(instance);
-    this.singleton = mergeDeep(this.singleton, instance.singleton);
-    this.definitions = mergeDeep(this.definitions, instance.definitions);
-    if (sandbox.event.request.length)
-      this.event.request = [
-        ...this.event.request || [],
-        ...sandbox.event.request || []
-      ];
+    let instance = new Elysia({ ...this.config, prefix: "" });
+    instance.singleton = { ...this.singleton }, instance.definitions = { ...this.definitions }, instance.getServer = () => this.getServer(), instance.inference = cloneInference(this.inference), instance.extender = { ...this.extender };
+    let isSchema = typeof schemaOrRun === "object", sandbox = (isSchema ? run : schemaOrRun)(instance);
+    if (this.singleton = mergeDeep(this.singleton, instance.singleton), this.definitions = mergeDeep(this.definitions, instance.definitions), sandbox.event.request.length)
+      this.event.request = [...this.event.request || [], ...sandbox.event.request || []];
     if (sandbox.event.mapResponse.length)
-      this.event.mapResponse = [
-        ...this.event.mapResponse || [],
-        ...sandbox.event.mapResponse || []
-      ];
-    this.model(sandbox.definitions.type);
-    Object.values(instance.router.history).forEach(({ method, path, handler, hooks }) => {
-      path = (isSchema ? "" : this.config.prefix) + prefix + path;
-      if (isSchema) {
-        const hook = schemaOrRun;
-        const localHook = hooks;
-        this.add(method, path, handler, mergeHook(hook, {
-          ...localHook || {},
-          error: !localHook.error ? sandbox.event.error : Array.isArray(localHook.error) ? [
-            ...localHook.error || {},
-            ...sandbox.event.error || {}
-          ] : [
-            localHook.error,
-            ...sandbox.event.error || {}
-          ]
-        }));
-      } else {
-        this.add(method, path, handler, mergeHook(hooks, {
-          error: sandbox.event.error
-        }), {
-          skipPrefix: true
-        });
-      }
-    });
-    return this;
+      this.event.mapResponse = [...this.event.mapResponse || [], ...sandbox.event.mapResponse || []];
+    return this.model(sandbox.definitions.type), Object.values(instance.router.history).forEach(({ method, path, handler, hooks }) => {
+      if (path = (isSchema ? "" : this.config.prefix) + prefix + path, isSchema) {
+        let hook = schemaOrRun, localHook = hooks;
+        this.add(method, path, handler, mergeHook(hook, { ...localHook || {}, error: !localHook.error ? sandbox.event.error : Array.isArray(localHook.error) ? [...localHook.error || {}, ...sandbox.event.error || {}] : [localHook.error, ...sandbox.event.error || {}] }));
+      } else
+        this.add(method, path, handler, mergeHook(hooks, { error: sandbox.event.error }), { skipPrefix: true });
+    }), this;
   }
   guard(hook, run) {
     if (!run) {
       if (typeof hook === "object") {
         this.applyMacro(hook);
-        const type3 = hook.as ?? "local";
-        this.validator[type3] = {
-          body: hook.body ?? this.validator[type3]?.body,
-          headers: hook.headers ?? this.validator[type3]?.headers,
-          params: hook.params ?? this.validator[type3]?.params,
-          query: hook.query ?? this.validator[type3]?.query,
-          response: hook.response ?? this.validator[type3]?.response,
-          cookie: hook.cookie ?? this.validator[type3]?.cookie
-        };
-        if (hook.parse)
+        let type3 = hook.as ?? "local";
+        if (this.validator[type3] = { body: hook.body ?? this.validator[type3]?.body, headers: hook.headers ?? this.validator[type3]?.headers, params: hook.params ?? this.validator[type3]?.params, query: hook.query ?? this.validator[type3]?.query, response: hook.response ?? this.validator[type3]?.response, cookie: hook.cookie ?? this.validator[type3]?.cookie }, hook.parse)
           this.on({ as: type3 }, "parse", hook.parse);
         if (hook.transform)
           this.on({ as: type3 }, "transform", hook.transform);
@@ -70698,173 +68988,96 @@ ${staticRouter.map[loosePath].code}`;
           this.on({ as: type3 }, "afterResponse", hook.afterResponse);
         if (hook.error)
           this.on({ as: type3 }, "error", hook.error);
-        if (hook.detail) {
+        if (hook.detail)
           if (this.config.detail)
             this.config.detail = mergeDeep(Object.assign({}, this.config.detail), hook.detail);
           else
             this.config.detail = hook.detail;
-        }
-        if (hook?.tags) {
+        if (hook?.tags)
           if (!this.config.detail)
-            this.config.detail = {
-              tags: hook.tags
-            };
+            this.config.detail = { tags: hook.tags };
           else
             this.config.detail.tags = hook.tags;
-        }
         return this;
       }
       return this.guard({}, hook);
     }
-    const instance = new _Elysia({
-      ...this.config,
-      prefix: ""
-    });
-    instance.singleton = { ...this.singleton };
-    instance.definitions = { ...this.definitions };
-    instance.inference = cloneInference(this.inference);
-    instance.extender = { ...this.extender };
-    const sandbox = run(instance);
-    this.singleton = mergeDeep(this.singleton, instance.singleton);
-    this.definitions = mergeDeep(this.definitions, instance.definitions);
-    sandbox.getServer = () => this.server;
-    if (sandbox.event.request.length)
-      this.event.request = [
-        ...this.event.request || [],
-        ...sandbox.event.request || []
-      ];
+    let instance = new Elysia({ ...this.config, prefix: "" });
+    instance.singleton = { ...this.singleton }, instance.definitions = { ...this.definitions }, instance.inference = cloneInference(this.inference), instance.extender = { ...this.extender };
+    let sandbox = run(instance);
+    if (this.singleton = mergeDeep(this.singleton, instance.singleton), this.definitions = mergeDeep(this.definitions, instance.definitions), sandbox.getServer = () => this.server, sandbox.event.request.length)
+      this.event.request = [...this.event.request || [], ...sandbox.event.request || []];
     if (sandbox.event.mapResponse.length)
-      this.event.mapResponse = [
-        ...this.event.mapResponse || [],
-        ...sandbox.event.mapResponse || []
-      ];
-    this.model(sandbox.definitions.type);
-    Object.values(instance.router.history).forEach(({ method, path, handler, hooks: localHook }) => {
-      this.add(method, path, handler, mergeHook(hook, {
-        ...localHook || {},
-        error: !localHook.error ? sandbox.event.error : Array.isArray(localHook.error) ? [
-          ...localHook.error || {},
-          ...sandbox.event.error || []
-        ] : [
-          localHook.error,
-          ...sandbox.event.error || []
-        ]
-      }));
-    });
-    return this;
+      this.event.mapResponse = [...this.event.mapResponse || [], ...sandbox.event.mapResponse || []];
+    return this.model(sandbox.definitions.type), Object.values(instance.router.history).forEach(({ method, path, handler, hooks: localHook }) => {
+      this.add(method, path, handler, mergeHook(hook, { ...localHook || {}, error: !localHook.error ? sandbox.event.error : Array.isArray(localHook.error) ? [...localHook.error || {}, ...sandbox.event.error || []] : [localHook.error, ...sandbox.event.error || []] }));
+    }), this;
   }
   use(plugin, options) {
     if (options?.scoped)
       return this.guard({}, (app3) => app3.use(plugin));
     if (Array.isArray(plugin)) {
       let current = this;
-      for (const p of plugin)
+      for (let p of plugin)
         current = this.use(p);
       return current;
     }
-    if (plugin instanceof Promise) {
-      this.promisedModules.add(plugin.then((plugin2) => {
+    if (plugin instanceof Promise)
+      return this.promisedModules.add(plugin.then((plugin2) => {
         if (typeof plugin2 === "function")
           return plugin2(this);
-        if (plugin2 instanceof _Elysia)
+        if (plugin2 instanceof Elysia)
           return this._use(plugin2).compile();
         if (typeof plugin2.default === "function")
           return plugin2.default(this);
-        if (plugin2.default instanceof _Elysia)
+        if (plugin2.default instanceof Elysia)
           return this._use(plugin2.default);
         throw new Error('Invalid plugin type. Expected Elysia instance, function, or module with "default" as Elysia instance or function that returns Elysia instance.');
-      }).then((x) => x.compile()));
-      return this;
-    }
+      }).then((x) => x.compile())), this;
     return this._use(plugin);
   }
   _use(plugin) {
     if (typeof plugin === "function") {
-      const instance = plugin(this);
-      if (instance instanceof Promise) {
-        this.promisedModules.add(instance.then((plugin2) => {
-          if (plugin2 instanceof _Elysia) {
-            plugin2.getServer = () => this.getServer();
-            plugin2.getGlobalRoutes = () => this.getGlobalRoutes();
-            plugin2.model(this.definitions.type);
-            plugin2.error(this.definitions.error);
-            for (const {
-              method,
-              path,
-              handler,
-              hooks
-            } of Object.values(plugin2.router.history)) {
-              this.add(method, path, handler, mergeHook(hooks, {
-                error: plugin2.event.error
-              }));
-            }
-            plugin2.compile();
-            return plugin2;
+      let instance = plugin(this);
+      if (instance instanceof Promise)
+        return this.promisedModules.add(instance.then((plugin2) => {
+          if (plugin2 instanceof Elysia) {
+            plugin2.getServer = () => this.getServer(), plugin2.getGlobalRoutes = () => this.getGlobalRoutes(), plugin2.model(this.definitions.type), plugin2.error(this.definitions.error);
+            for (let { method, path, handler, hooks } of Object.values(plugin2.router.history))
+              this.add(method, path, handler, mergeHook(hooks, { error: plugin2.event.error }));
+            return plugin2.compile(), plugin2;
           }
           if (typeof plugin2 === "function")
             return plugin2(this);
           if (typeof plugin2.default === "function")
             return plugin2.default(this);
           return this._use(plugin2);
-        }).then((x) => x.compile()));
-        return this;
-      }
+        }).then((x) => x.compile())), this;
       return instance;
     }
-    const { name, seed } = plugin.config;
-    plugin.getServer = () => this.getServer();
-    plugin.getGlobalRoutes = () => this.getGlobalRoutes();
-    plugin.model(this.definitions.type);
-    plugin.error(this.definitions.error);
-    const isScoped = plugin.config.scoped;
+    let { name, seed } = plugin.config;
+    plugin.getServer = () => this.getServer(), plugin.getGlobalRoutes = () => this.getGlobalRoutes(), plugin.model(this.definitions.type), plugin.error(this.definitions.error);
+    let isScoped = plugin.config.scoped;
     if (isScoped) {
       if (name) {
         if (!(name in this.dependencies))
           this.dependencies[name] = [];
-        const current = seed !== undefined ? checksum(name + JSON.stringify(seed)) : 0;
+        let current = seed !== undefined ? checksum(name + JSON.stringify(seed)) : 0;
         if (this.dependencies[name].some(({ checksum: checksum2 }) => current === checksum2))
           return this;
-        this.dependencies[name].push(!this.config?.analytic ? {
-          name: plugin.config.name,
-          seed: plugin.config.seed,
-          checksum: current,
-          dependencies: plugin.dependencies
-        } : {
-          name: plugin.config.name,
-          seed: plugin.config.seed,
-          checksum: current,
-          dependencies: plugin.dependencies,
-          stack: plugin.telemetry.stack,
-          routes: plugin.router.history,
-          decorators: plugin.singleton.decorator,
-          store: plugin.singleton.store,
-          type: plugin.definitions.type,
-          error: plugin.definitions.error,
-          derive: plugin.event.transform.filter((x) => x.subType === "derive").map((x) => ({
-            fn: x.fn.toString(),
-            stack: new Error().stack ?? ""
-          })),
-          resolve: plugin.event.transform.filter((x) => x.subType === "derive").map((x) => ({
-            fn: x.fn.toString(),
-            stack: new Error().stack ?? ""
-          }))
-        });
+        this.dependencies[name].push(!this.config?.analytic ? { name: plugin.config.name, seed: plugin.config.seed, checksum: current, dependencies: plugin.dependencies } : { name: plugin.config.name, seed: plugin.config.seed, checksum: current, dependencies: plugin.dependencies, stack: plugin.telemetry.stack, routes: plugin.router.history, decorators: plugin.singleton.decorator, store: plugin.singleton.store, type: plugin.definitions.type, error: plugin.definitions.error, derive: plugin.event.transform.filter((x) => x.subType === "derive").map((x) => ({ fn: x.fn.toString(), stack: new Error().stack ?? "" })), resolve: plugin.event.transform.filter((x) => x.subType === "derive").map((x) => ({ fn: x.fn.toString(), stack: new Error().stack ?? "" })) });
       }
       plugin.extender.macros = this.extender.macros.concat(plugin.extender.macros);
-      const macroHashes = [];
+      let macroHashes = [];
       for (let i = 0;i < plugin.extender.macros.length; i++) {
-        const macro = this.extender.macros[i];
-        if (macroHashes.includes(macro.checksum)) {
-          plugin.extender.macros.splice(i, 1);
-          i--;
-        }
+        let macro = this.extender.macros[i];
+        if (macroHashes.includes(macro.checksum))
+          plugin.extender.macros.splice(i, 1), i--;
         macroHashes.push(macro.checksum);
       }
-      plugin.onRequest((context) => {
-        Object.assign(context, this.singleton.decorator);
-        Object.assign(context.store, this.singleton.store);
-      });
-      if (plugin.event.trace.length)
+      if (plugin.onRequest((context) => {
+        Object.assign(context, this.singleton.decorator), Object.assign(context.store, this.singleton.store);
+      }), plugin.event.trace.length)
         plugin.event.trace.push(...plugin.event.trace);
       if (!plugin.config.prefix)
         console.warn("It's recommended to use scoped instance with a prefix to prevent collision routing with other instance.");
@@ -70874,221 +69087,107 @@ ${staticRouter.map[loosePath].code}`;
         plugin.compile();
       if (isScoped === true && plugin.config.prefix) {
         this.mount(plugin.config.prefix + "/", plugin.fetch);
-        for (const route of plugin.router.history) {
-          this.routeTree.set(route.method + `${plugin.config.prefix}${route.path}`, this.router.history.length);
-          this.router.history.push({
-            ...route,
-            path: `${plugin.config.prefix}${route.path}`,
-            hooks: mergeHook(route.hooks, {
-              error: this.event.error
-            })
-          });
-        }
+        for (let route of plugin.router.history)
+          this.routeTree.set(route.method + `${plugin.config.prefix}${route.path}`, this.router.history.length), this.router.history.push({ ...route, path: `${plugin.config.prefix}${route.path}`, hooks: mergeHook(route.hooks, { error: this.event.error }) });
       } else {
         this.mount(plugin.fetch);
-        for (const route of plugin.router.history) {
-          this.routeTree.set(route.method + `${plugin.config.prefix}${route.path}`, this.router.history.length);
-          this.router.history.push({
-            ...route,
-            path: `${plugin.config.prefix}${route.path}`,
-            hooks: mergeHook(route.hooks, {
-              error: this.event.error
-            })
-          });
-        }
+        for (let route of plugin.router.history)
+          this.routeTree.set(route.method + `${plugin.config.prefix}${route.path}`, this.router.history.length), this.router.history.push({ ...route, path: `${plugin.config.prefix}${route.path}`, hooks: mergeHook(route.hooks, { error: this.event.error }) });
       }
       return this;
     } else {
-      this.headers(plugin.setHeaders);
-      if (name) {
+      if (this.headers(plugin.setHeaders), name) {
         if (!(name in this.dependencies))
           this.dependencies[name] = [];
-        const current = seed !== undefined ? checksum(name + JSON.stringify(seed)) : 0;
-        if (!this.dependencies[name].some(({ checksum: checksum2 }) => current === checksum2)) {
-          this.extender.macros = this.extender.macros.concat(plugin.extender.macros);
-          this.extender.higherOrderFunctions = this.extender.higherOrderFunctions.concat(plugin.extender.higherOrderFunctions);
-        }
-      } else {
-        this.extender.macros = this.extender.macros.concat(plugin.extender.macros);
-        this.extender.higherOrderFunctions = this.extender.higherOrderFunctions.concat(plugin.extender.higherOrderFunctions);
-      }
-      deduplicateChecksum(this.extender.macros);
-      deduplicateChecksum(this.extender.higherOrderFunctions);
-      const hofHashes = [];
+        let current = seed !== undefined ? checksum(name + JSON.stringify(seed)) : 0;
+        if (!this.dependencies[name].some(({ checksum: checksum2 }) => current === checksum2))
+          this.extender.macros = this.extender.macros.concat(plugin.extender.macros), this.extender.higherOrderFunctions = this.extender.higherOrderFunctions.concat(plugin.extender.higherOrderFunctions);
+      } else
+        this.extender.macros = this.extender.macros.concat(plugin.extender.macros), this.extender.higherOrderFunctions = this.extender.higherOrderFunctions.concat(plugin.extender.higherOrderFunctions);
+      deduplicateChecksum(this.extender.macros), deduplicateChecksum(this.extender.higherOrderFunctions);
+      let hofHashes = [];
       for (let i = 0;i < this.extender.higherOrderFunctions.length; i++) {
-        const hof = this.extender.higherOrderFunctions[i];
+        let hof = this.extender.higherOrderFunctions[i];
         if (hof.checksum) {
-          if (hofHashes.includes(hof.checksum)) {
-            this.extender.higherOrderFunctions.splice(i, 1);
-            i--;
-          }
+          if (hofHashes.includes(hof.checksum))
+            this.extender.higherOrderFunctions.splice(i, 1), i--;
           hofHashes.push(hof.checksum);
         }
       }
-      this.inference = {
-        body: this.inference.body || plugin.inference.body,
-        cookie: this.inference.cookie || plugin.inference.cookie,
-        headers: this.inference.headers || plugin.inference.headers,
-        query: this.inference.query || plugin.inference.query,
-        set: this.inference.set || plugin.inference.set,
-        server: this.inference.server || plugin.inference.server
-      };
+      this.inference = { body: this.inference.body || plugin.inference.body, cookie: this.inference.cookie || plugin.inference.cookie, headers: this.inference.headers || plugin.inference.headers, query: this.inference.query || plugin.inference.query, set: this.inference.set || plugin.inference.set, server: this.inference.server || plugin.inference.server };
     }
-    this.decorate(plugin.singleton.decorator);
-    this.state(plugin.singleton.store);
-    this.model(plugin.definitions.type);
-    this.error(plugin.definitions.error);
-    plugin.extender.macros = this.extender.macros.concat(plugin.extender.macros);
-    for (const { method, path, handler, hooks } of Object.values(plugin.router.history)) {
-      this.add(method, path, handler, mergeHook(hooks, {
-        error: plugin.event.error
-      }));
-    }
+    this.decorate(plugin.singleton.decorator), this.state(plugin.singleton.store), this.model(plugin.definitions.type), this.error(plugin.definitions.error), plugin.extender.macros = this.extender.macros.concat(plugin.extender.macros);
+    for (let { method, path, handler, hooks } of Object.values(plugin.router.history))
+      this.add(method, path, handler, mergeHook(hooks, { error: plugin.event.error }));
     if (!isScoped)
       if (name) {
         if (!(name in this.dependencies))
           this.dependencies[name] = [];
-        const current = seed !== undefined ? checksum(name + JSON.stringify(seed)) : 0;
+        let current = seed !== undefined ? checksum(name + JSON.stringify(seed)) : 0;
         if (this.dependencies[name].some(({ checksum: checksum2 }) => current === checksum2))
           return this;
-        this.dependencies[name].push(!this.config?.analytic ? {
-          name: plugin.config.name,
-          seed: plugin.config.seed,
-          checksum: current,
-          dependencies: plugin.dependencies
-        } : {
-          name: plugin.config.name,
-          seed: plugin.config.seed,
-          checksum: current,
-          dependencies: plugin.dependencies,
-          stack: plugin.telemetry.stack,
-          routes: plugin.router.history,
-          decorators: plugin.singleton,
-          store: plugin.singleton.store,
-          type: plugin.definitions.type,
-          error: plugin.definitions.error,
-          derive: plugin.event.transform.filter((x) => x?.subType === "derive").map((x) => ({
-            fn: x.toString(),
-            stack: new Error().stack ?? ""
-          })),
-          resolve: plugin.event.transform.filter((x) => x?.subType === "resolve").map((x) => ({
-            fn: x.toString(),
-            stack: new Error().stack ?? ""
-          }))
-        });
-        this.event = mergeLifeCycle(this.event, filterGlobalHook(plugin.event), current);
-      } else {
+        this.dependencies[name].push(!this.config?.analytic ? { name: plugin.config.name, seed: plugin.config.seed, checksum: current, dependencies: plugin.dependencies } : { name: plugin.config.name, seed: plugin.config.seed, checksum: current, dependencies: plugin.dependencies, stack: plugin.telemetry.stack, routes: plugin.router.history, decorators: plugin.singleton, store: plugin.singleton.store, type: plugin.definitions.type, error: plugin.definitions.error, derive: plugin.event.transform.filter((x) => x?.subType === "derive").map((x) => ({ fn: x.toString(), stack: new Error().stack ?? "" })), resolve: plugin.event.transform.filter((x) => x?.subType === "resolve").map((x) => ({ fn: x.toString(), stack: new Error().stack ?? "" })) }), this.event = mergeLifeCycle(this.event, filterGlobalHook(plugin.event), current);
+      } else
         this.event = mergeLifeCycle(this.event, filterGlobalHook(plugin.event));
-      }
-    this.validator.global = mergeHook(this.validator.global, {
-      ...plugin.validator.global
-    });
-    this.validator.local = mergeHook(this.validator.local, {
-      ...plugin.validator.scoped
-    });
-    return this;
+    return this.validator.global = mergeHook(this.validator.global, { ...plugin.validator.global }), this.validator.local = mergeHook(this.validator.local, { ...plugin.validator.scoped }), this;
   }
   macro(macro) {
-    const hook = {
-      checksum: checksum(JSON.stringify({
-        name: this.config.name,
-        seed: this.config.seed,
-        content: macro.toString()
-      })),
-      fn: macro
-    };
-    this.extender.macros.push(hook);
-    return this;
+    let hook = { checksum: checksum(JSON.stringify({ name: this.config.name, seed: this.config.seed, content: macro.toString() })), fn: macro };
+    return this.extender.macros.push(hook), this;
   }
   mount(path, handle) {
-    if (path instanceof _Elysia || typeof path === "function" || path.length === 0 || path === "/") {
-      const run = typeof path === "function" ? path : path instanceof _Elysia ? path.compile().fetch : handle instanceof _Elysia ? handle.compile().fetch : handle;
-      const handler2 = async ({ request, path: path2 }) => {
+    if (path instanceof Elysia || typeof path === "function" || path.length === 0 || path === "/") {
+      let run = typeof path === "function" ? path : path instanceof Elysia ? path.compile().fetch : handle instanceof Elysia ? handle.compile().fetch : handle, handler2 = async ({ request, path: path2 }) => {
         if (request.method === "GET" || request.method === "HEAD" || !request.headers.get("content-type"))
           return run(new Request(replaceUrlPath(request.url, path2 || "/"), request));
-        return run(new Request(replaceUrlPath(request.url, path2 || "/"), {
-          ...request,
-          body: await request.arrayBuffer()
-        }));
+        return run(new Request(replaceUrlPath(request.url, path2 || "/"), { ...request, body: await request.arrayBuffer() }));
       };
-      this.all("/*", handler2, {
-        type: "none"
-      });
-      return this;
+      return this.all("/*", handler2, { type: "none" }), this;
     }
-    const length = path.length;
-    if (handle instanceof _Elysia)
+    let length = path.length;
+    if (handle instanceof Elysia)
       handle = handle.compile().fetch;
-    const handler = async ({ request, path: path2 }) => {
+    let handler = async ({ request, path: path2 }) => {
       if (request.method === "GET" || request.method === "HEAD" || !request.headers.get("content-type"))
         return handle(new Request(replaceUrlPath(request.url, path2.slice(length) || "/"), request));
-      return handle(new Request(replaceUrlPath(request.url, path2.slice(length) || "/"), {
-        ...request,
-        body: await request.arrayBuffer()
-      }));
+      return handle(new Request(replaceUrlPath(request.url, path2.slice(length) || "/"), { ...request, body: await request.arrayBuffer() }));
     };
-    this.all(path, handler, {
-      type: "none"
-    });
-    this.all(path + (path.endsWith("/") ? "*" : "/*"), handler, {
-      type: "none"
-    });
-    return this;
+    return this.all(path, handler, { type: "none" }), this.all(path + (path.endsWith("/") ? "*" : "/*"), handler, { type: "none" }), this;
   }
   get(path, handler, hook) {
-    this.add("GET", path, handler, hook);
-    return this;
+    return this.add("GET", path, handler, hook), this;
   }
   post(path, handler, hook) {
-    this.add("POST", path, handler, hook);
-    return this;
+    return this.add("POST", path, handler, hook), this;
   }
   put(path, handler, hook) {
-    this.add("PUT", path, handler, hook);
-    return this;
+    return this.add("PUT", path, handler, hook), this;
   }
   patch(path, handler, hook) {
-    this.add("PATCH", path, handler, hook);
-    return this;
+    return this.add("PATCH", path, handler, hook), this;
   }
   delete(path, handler, hook) {
-    this.add("DELETE", path, handler, hook);
-    return this;
+    return this.add("DELETE", path, handler, hook), this;
   }
   options(path, handler, hook) {
-    this.add("OPTIONS", path, handler, hook);
-    return this;
+    return this.add("OPTIONS", path, handler, hook), this;
   }
   all(path, handler, hook) {
-    this.add("ALL", path, handler, hook);
-    return this;
+    return this.add("ALL", path, handler, hook), this;
   }
   head(path, handler, hook) {
-    this.add("HEAD", path, handler, hook);
-    return this;
+    return this.add("HEAD", path, handler, hook), this;
   }
   connect(path, handler, hook) {
-    this.add("CONNECT", path, handler, hook);
-    return this;
+    return this.add("CONNECT", path, handler, hook), this;
   }
   route(method, path, handler, hook) {
-    this.add(method.toUpperCase(), path, handler, hook, hook?.config);
-    return this;
+    return this.add(method.toUpperCase(), path, handler, hook, hook?.config), this;
   }
   ws(path, options) {
-    const transform4 = options.transformMessage ? Array.isArray(options.transformMessage) ? options.transformMessage : [options.transformMessage] : undefined;
-    let server2 = null;
-    const validateMessage = getSchemaValidator(options?.body, {
-      models: this.definitions.type,
-      normalize: this.config.normalize
-    });
-    const validateResponse = getSchemaValidator(options?.response, {
-      models: this.definitions.type,
-      normalize: this.config.normalize
-    });
-    const parseMessage = (message2) => {
+    let transform4 = options.transformMessage ? Array.isArray(options.transformMessage) ? options.transformMessage : [options.transformMessage] : undefined, server2 = null, validateMessage = getSchemaValidator(options?.body, { models: this.definitions.type, normalize: this.config.normalize }), validateResponse = getSchemaValidator(options?.response, { models: this.definitions.type, normalize: this.config.normalize }), parseMessage = (message2) => {
       if (typeof message2 === "string") {
-        const start = message2?.charCodeAt(0);
+        let start = message2?.charCodeAt(0);
         if (start === 47 || start === 123)
           try {
             message2 = JSON.parse(message2);
@@ -71099,84 +69198,56 @@ ${staticRouter.map[loosePath].code}`;
       }
       if (transform4?.length)
         for (let i = 0;i < transform4.length; i++) {
-          const temp = transform4[i](message2);
+          let temp = transform4[i](message2);
           if (temp !== undefined)
             message2 = temp;
         }
       return message2;
     };
-    this.route("$INTERNALWS", path, (context) => {
-      const { set: set22, path: path2, qi, headers, query, params } = context;
+    return this.route("$INTERNALWS", path, (context) => {
+      let { set: set22, path: path2, qi, headers, query, params } = context;
       if (server2 === null)
         server2 = this.getServer();
-      if (server2?.upgrade(context.request, {
-        headers: typeof options.upgrade === "function" ? options.upgrade(context) : options.upgrade,
-        data: {
-          validator: validateResponse,
-          open(ws) {
-            options.open?.(new ElysiaWS(ws, context));
-          },
-          message: (ws, msg) => {
-            const message2 = parseMessage(msg);
-            if (validateMessage?.Check(message2) === false)
-              return void ws.send(new ValidationError("message", validateMessage, message2).message);
-            options.message?.(new ElysiaWS(ws, context), message2);
-          },
-          drain(ws) {
-            options.drain?.(new ElysiaWS(ws, context));
-          },
-          close(ws, code, reason) {
-            options.close?.(new ElysiaWS(ws, context), code, reason);
-          }
-        }
-      }))
+      if (server2?.upgrade(context.request, { headers: typeof options.upgrade === "function" ? options.upgrade(context) : options.upgrade, data: { validator: validateResponse, open(ws) {
+        options.open?.(new ElysiaWS(ws, context));
+      }, message: (ws, msg) => {
+        let message2 = parseMessage(msg);
+        if (validateMessage?.Check(message2) === false)
+          return void ws.send(new ValidationError("message", validateMessage, message2).message);
+        options.message?.(new ElysiaWS(ws, context), message2);
+      }, drain(ws) {
+        options.drain?.(new ElysiaWS(ws, context));
+      }, close(ws, code, reason) {
+        options.close?.(new ElysiaWS(ws, context), code, reason);
+      } } }))
         return;
-      set22.status = 400;
-      return "Expected a websocket connection";
-    }, {
-      beforeHandle: options.beforeHandle,
-      transform: options.transform,
-      headers: options.headers,
-      params: options.params,
-      query: options.query
-    });
-    return this;
+      return set22.status = 400, "Expected a websocket connection";
+    }, { beforeHandle: options.beforeHandle, transform: options.transform, headers: options.headers, params: options.params, query: options.query }), this;
   }
   state(options, name, value2) {
-    if (name === undefined) {
-      value2 = options;
-      options = { as: "append" };
-      name = "";
-    } else if (value2 === undefined) {
-      if (typeof options === "string") {
-        value2 = name;
-        name = options;
-        options = { as: "append" };
-      } else if (typeof options === "object") {
-        value2 = name;
-        name = "";
-      }
+    if (name === undefined)
+      value2 = options, options = { as: "append" }, name = "";
+    else if (value2 === undefined) {
+      if (typeof options === "string")
+        value2 = name, name = options, options = { as: "append" };
+      else if (typeof options === "object")
+        value2 = name, name = "";
     }
-    const { as } = options;
+    let { as } = options;
     if (typeof name !== "string")
       return this;
     switch (typeof value2) {
       case "object":
         if (name) {
           if (name in this.singleton.store)
-            this.singleton.store[name] = mergeDeep(this.singleton.store[name], value2, {
-              override: as === "override"
-            });
+            this.singleton.store[name] = mergeDeep(this.singleton.store[name], value2, { override: as === "override" });
           else
             this.singleton.store[name] = value2;
           return this;
         }
         if (value2 === null)
           return this;
-        this.singleton.store = mergeDeep(this.singleton.store, value2, {
-          override: as === "override"
-        });
-        return this;
+        return this.singleton.store = mergeDeep(this.singleton.store, value2, { override: as === "override" }), this;
       case "function":
         if (name) {
           if (as === "override" || !(name in this.singleton.store))
@@ -71191,40 +69262,29 @@ ${staticRouter.map[loosePath].code}`;
     }
   }
   decorate(options, name, value2) {
-    if (name === undefined) {
-      value2 = options;
-      options = { as: "append" };
-      name = "";
-    } else if (value2 === undefined) {
-      if (typeof options === "string") {
-        value2 = name;
-        name = options;
-        options = { as: "append" };
-      } else if (typeof options === "object") {
-        value2 = name;
-        name = "";
-      }
+    if (name === undefined)
+      value2 = options, options = { as: "append" }, name = "";
+    else if (value2 === undefined) {
+      if (typeof options === "string")
+        value2 = name, name = options, options = { as: "append" };
+      else if (typeof options === "object")
+        value2 = name, name = "";
     }
-    const { as } = options;
+    let { as } = options;
     if (typeof name !== "string")
       return this;
     switch (typeof value2) {
       case "object":
         if (name) {
           if (name in this.singleton.decorator)
-            this.singleton.decorator[name] = mergeDeep(this.singleton.decorator[name], value2, {
-              override: as === "override"
-            });
+            this.singleton.decorator[name] = mergeDeep(this.singleton.decorator[name], value2, { override: as === "override" });
           else
             this.singleton.decorator[name] = value2;
           return this;
         }
         if (value2 === null)
           return this;
-        this.singleton.decorator = mergeDeep(this.singleton.decorator, value2, {
-          override: as === "override"
-        });
-        return this;
+        return this.singleton.decorator = mergeDeep(this.singleton.decorator, value2, { override: as === "override" }), this;
       case "function":
         if (name) {
           if (as === "override" || !(name in this.singleton.decorator))
@@ -71239,76 +69299,58 @@ ${staticRouter.map[loosePath].code}`;
     }
   }
   derive(optionsOrTransform, transform4) {
-    if (!transform4) {
-      transform4 = optionsOrTransform;
-      optionsOrTransform = { as: "local" };
-    }
-    const hook = {
-      subType: "derive",
-      fn: transform4
-    };
+    if (!transform4)
+      transform4 = optionsOrTransform, optionsOrTransform = { as: "local" };
+    let hook = { subType: "derive", fn: transform4 };
     return this.onTransform(optionsOrTransform, hook);
   }
   model(name, model) {
     switch (typeof name) {
       case "object":
-        Object.entries(name).forEach(([key, value2]) => {
+        return Object.entries(name).forEach(([key, value2]) => {
           if (!(key in this.definitions.type))
             this.definitions.type[key] = value2;
-        });
-        return this;
+        }), this;
       case "function":
-        this.definitions.type = name(this.definitions.type);
-        return this;
+        return this.definitions.type = name(this.definitions.type), this;
     }
-    this.definitions.type[name] = model;
-    return this;
+    return this.definitions.type[name] = model, this;
   }
   mapDerive(optionsOrDerive, mapper) {
-    if (!mapper) {
-      mapper = optionsOrDerive;
-      optionsOrDerive = { as: "local" };
-    }
-    const hook = {
-      subType: "mapDerive",
-      fn: mapper
-    };
+    if (!mapper)
+      mapper = optionsOrDerive, optionsOrDerive = { as: "local" };
+    let hook = { subType: "mapDerive", fn: mapper };
     return this.onTransform(optionsOrDerive, hook);
   }
   affix(base, type3, word) {
     if (word === "")
       return this;
-    const delimieter = ["_", "-", " "];
-    const capitalize2 = (word2) => word2[0].toUpperCase() + word2.slice(1);
-    const joinKey = base === "prefix" ? (prefix, word2) => delimieter.includes(prefix.at(-1) ?? "") ? prefix + word2 : prefix + capitalize2(word2) : delimieter.includes(word.at(-1) ?? "") ? (suffix, word2) => word2 + suffix : (suffix, word2) => word2 + capitalize2(suffix);
-    const remap = (type22) => {
-      const store = {};
+    let delimieter = ["_", "-", " "], capitalize2 = (word2) => word2[0].toUpperCase() + word2.slice(1), joinKey = base === "prefix" ? (prefix, word2) => delimieter.includes(prefix.at(-1) ?? "") ? prefix + word2 : prefix + capitalize2(word2) : delimieter.includes(word.at(-1) ?? "") ? (suffix, word2) => word2 + suffix : (suffix, word2) => word2 + capitalize2(suffix), remap = (type22) => {
+      let store = {};
       switch (type22) {
         case "decorator":
-          for (const key in this.singleton.decorator) {
+          for (let key in this.singleton.decorator)
             store[joinKey(word, key)] = this.singleton.decorator[key];
-          }
           this.singleton.decorator = store;
           break;
         case "state":
-          for (const key in this.singleton.store)
+          for (let key in this.singleton.store)
             store[joinKey(word, key)] = this.singleton.store[key];
           this.singleton.store = store;
           break;
         case "model":
-          for (const key in this.definitions.type)
+          for (let key in this.definitions.type)
             store[joinKey(word, key)] = this.definitions.type[key];
           this.definitions.type = store;
           break;
         case "error":
-          for (const key in this.definitions.error)
+          for (let key in this.definitions.error)
             store[joinKey(word, key)] = this.definitions.error[key];
           this.definitions.error = store;
           break;
       }
-    };
-    const types = Array.isArray(type3) ? type3 : [type3];
-    for (const type22 of types.some((x) => x === "all") ? ["decorator", "state", "model", "error"] : types)
+    }, types = Array.isArray(type3) ? type3 : [type3];
+    for (let type22 of types.some((x) => x === "all") ? ["decorator", "state", "model", "error"] : types)
       remap(type22);
     return this;
   }
@@ -71319,18 +69361,53 @@ ${staticRouter.map[loosePath].code}`;
     return this.affix("suffix", type3, word);
   }
   compile() {
-    this.fetch = this.config.aot ? composeGeneralHandler(this) : createDynamicHandler(this);
-    if (typeof this.server?.reload === "function")
-      this.server.reload({
-        ...this.server || {},
-        fetch: this.fetch
-      });
+    if (this.fetch = this.config.aot ? composeGeneralHandler(this) : createDynamicHandler(this), typeof this.server?.reload === "function")
+      this.server.reload({ ...this.server || {}, fetch: this.fetch });
     return this;
   }
+  handle = async (request) => this.fetch(request);
+  fetch = (request) => {
+    return (this.fetch = this.config.aot ? composeGeneralHandler(this) : createDynamicHandler(this))(request);
+  };
+  handleError = async (context, error22) => (this.handleError = this.config.aot ? composeErrorHandler(this) : createDynamicErrorHandler(this))(context, error22);
+  outerErrorHandler = (error22) => new Response(error22.message || error22.name || "Error", { status: error22?.status ?? 500 });
+  listen = (options, callback) => {
+    if (typeof Bun === "undefined")
+      throw new Error(".listen() is designed to run on Bun only. If you are running Elysia in other environment please use a dedicated plugin or export the handler via Elysia.fetch");
+    if (this.compile(), typeof options === "string") {
+      if (!isNumericString(options))
+        throw new Error("Port must be a numeric value");
+      options = parseInt(options);
+    }
+    let fetch2 = this.fetch, serve = typeof options === "object" ? { development: !isProduction, reusePort: true, ...this.config.serve || {}, ...options || {}, static: this.router.static.http.static, websocket: { ...this.config.websocket || {}, ...websocket || {} }, fetch: fetch2, error: this.outerErrorHandler } : { development: !isProduction, reusePort: true, ...this.config.serve || {}, static: this.router.static.http.static, websocket: { ...this.config.websocket || {}, ...websocket || {} }, port: options, fetch: fetch2, error: this.outerErrorHandler };
+    this.server = Bun?.serve(serve);
+    for (let i = 0;i < this.event.start.length; i++)
+      this.event.start[i].fn(this);
+    if (callback)
+      callback(this.server);
+    return process.on("beforeExit", () => {
+      if (this.server) {
+        this.server.stop(), this.server = null;
+        for (let i = 0;i < this.event.stop.length; i++)
+          this.event.stop[i].fn(this);
+      }
+    }), this.promisedModules.then(() => {
+      Bun?.gc(false);
+    }), this;
+  };
+  stop = async (closeActiveConnections) => {
+    if (!this.server)
+      throw new Error("Elysia isn't running. Call `app.listen` to start the server.");
+    if (this.server) {
+      if (this.server.stop(closeActiveConnections), this.server = null, this.event.stop.length)
+        for (let i = 0;i < this.event.stop.length; i++)
+          this.event.stop[i].fn(this);
+    }
+  };
   get modules() {
     return Promise.all(this.promisedModules.promises);
   }
-};
+}
 
 // framework/elysia.ts
 var app3 = new Elysia;
@@ -71406,3 +69483,42 @@ app4.listen(port5, async () => {
 
 // src/index.ts
 console.log("All servers are running...");
+var targetPorts = {
+  "/express": "http://localhost:8001",
+  "/hono": "http://localhost:8002",
+  "/elysia": "http://localhost:8003",
+  "/fastify": "http://localhost:8004",
+  "/koa": "http://localhost:8005"
+};
+var proxyServer = createServer2(async (req, res) => {
+  const target = Object.keys(targetPorts).find((path) => req.url?.startsWith(path));
+  if (target) {
+    const targetUrl = targetPorts[target];
+    const newPath = req.url?.replace(target, "") || "/";
+    const options = {
+      method: req.method,
+      headers: req.headers
+    };
+    if (["POST", "PUT", "PATCH"].includes(req.method)) {
+      options.body = req;
+    }
+    try {
+      const proxyResponse = await request(`${targetUrl}${newPath}`, options);
+      res.writeHead(proxyResponse.statusCode, proxyResponse.headers);
+      for await (const chunk of proxyResponse.body) {
+        res.write(chunk);
+      }
+      res.end();
+    } catch (err) {
+      console.error("Proxy error:", err.message);
+      res.writeHead(500, { "Content-Type": "text/plain" });
+      res.end("Something went wrong.");
+    }
+  } else {
+    res.writeHead(404, { "Content-Type": "text/plain" });
+    res.end("Route not found.");
+  }
+});
+proxyServer.listen(8000, () => {
+  console.log("Proxy server is running on port 8000");
+});
