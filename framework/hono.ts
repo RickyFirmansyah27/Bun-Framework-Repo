@@ -6,7 +6,7 @@ import { serverless } from '../src/helper';
 const app = new Hono();
 const port = 8002;
 // Definisikan rute
-app.get('/', (c) => c.text('Selamat datang di Hono API'));
+app.get('/hello', (c) => c.text('Selamat datang di Hono API'));
 
 const server = serverless(app);
 

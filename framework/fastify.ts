@@ -4,7 +4,7 @@ const fastify = Fastify();
 const port = 8004;
 
 // Register all routes
-fastify.get('/', (request, reply) => {
+fastify.get('/hello', (request, reply) => {
   reply.send({ 
     message: 'Selamat datang di Fastify API', 
     status: 'online' 

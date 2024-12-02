@@ -4,7 +4,7 @@ const app = new Koa();
 const port = 8005;
 
 app.use(async (ctx: Context) => {
-  if (ctx.method === 'GET' && ctx.path === '/') {
+  if (ctx.method === 'GET' && ctx.path === '/hello') {
     ctx.body = {
       message: 'Selamat datang di Koa API',
       status: 'online'
