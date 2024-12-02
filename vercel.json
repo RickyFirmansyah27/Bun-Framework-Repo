@@ -12,20 +12,20 @@
       "dest": "src/framework/express.ts"
     },
     {
-      "src": "/koa/(.*)",
-      "dest": "src/framework/koa.ts"
-    },
-    {
-      "src": "/fastify/(.*)",
-      "dest": "src/framework/fastify.ts"
-    },
-    {
       "src": "/hono/(.*)",
       "dest": "src/framework/hono.ts"
     },
     {
       "src": "/elysia/(.*)",
       "dest": "src/framework/elysia.ts"
+    },
+    {
+      "src": "/fastify/(.*)",
+      "dest": "src/framework/fastify.ts"
+    },
+    {
+      "src": "/koa/(.*)",
+      "dest": "src/framework/koa.ts"
     },
     {
       "src": "/(.*)",
