@@ -1,66 +1,77 @@
-import { createServer } from 'http';
-import { request } from 'undici';
+import { Hono } from 'hono';
+import { cors } from 'hono/cors';
 
-// Import framework servers (sudah berjalan pada port masing-masing)
-import '../framework/express'; // Port 8001
-import '../framework/hono';    // Port 8002
-import '../framework/elysia';  // Port 8003
-import '../framework/fastify'; // Port 8004
-import '../framework/koa';     // Port 8005
+const app = new Hono();
 
-console.log('All servers are running...');
+// Middleware CORS
+app.use('*', cors({ origin: '*', methods: ['GET', 'POST', 'OPTIONS'] }));
 
-// Map dari server lain ke port-nya
-const targetPorts: Record<string, string> = {
-  '/express': 'http://localhost:8001',
-  '/hono': 'http://localhost:8002',
-  '/elysia': 'http://localhost:8003',
-  '/fastify': 'http://localhost:8004',
-  '/koa': 'http://localhost:8005',
+// Daftar base URL dari layanan
+const serviceMap = {
+  express: 'https://bun-express-typescripts.vercel.app/api/express/',
+  hono: 'https://bun-hono-typescripts.vercel.app/api/hono/',
+  elysia: 'https://bun-elysia-typescripts.vercel.app/api/elysia/',
+  fastify: 'https://bun-fastify-typescripts.vercel.app/api/fastify/',
+  koa: 'https://bun-koa-typescripts.vercel.app/api/koa/',
 };
 
-// Membuat proxy server menggunakan undici
-const proxyServer = createServer(async (req, res) => {
-  // Menyaring path yang cocok dengan target
-  const target = Object.keys(targetPorts).find(path => req.url?.startsWith(path)) as keyof typeof targetPorts | undefined;
+// Fetch dengan timeout
+const fetchWithTimeout = async (url, options, timeout = 5000) => {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
 
-  if (target) {
-    const targetUrl = targetPorts[target];
-    const newPath = req.url?.replace(target, '') || '/';
+  try {
+    const response = await fetch(url, { ...options, signal: controller.signal });
+    clearTimeout(timeoutId);
+    return response;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    throw error;
+  }
+};
+
+// Handler proxy dinamis
+const proxyHandler = async (c, method) => {
+  try {
+    const [_, service, ...dynamicPathParts] = c.req.path.split('/');
+    const targetBaseUrl = serviceMap[service];
+
+    if (!targetBaseUrl) {
+      return c.json({ error: `Service "${service}" not found` }, 404);
+    }
+
+    const dynamicPath = dynamicPathParts.join('/');
+    const targetUrl = `${targetBaseUrl}${dynamicPath}`;
 
     const options = {
-      method: req.method,
-      headers: req.headers,
+      method,
+      headers: { 'Content-Type': 'application/json' },
     };
 
-    // Hanya mengirim body jika metode adalah POST, PUT, PATCH, dll.
-    if (['POST', 'PUT', 'PATCH'].includes(req.method)) {
-      options.body = req;
+    if (method === 'POST') {
+      options.body = JSON.stringify(await c.req.json());
     }
 
-    try {
-      // Membuat permintaan ke server target
-      const proxyResponse = await request(`${targetUrl}${newPath}`, options);
-
-      // Menyalin status kode dan header dari respons target ke respons proxy
-      res.writeHead(proxyResponse.statusCode, proxyResponse.headers);
-      // Menyalin body dari respons target ke respons proxy
-      for await (const chunk of proxyResponse.body) {
-        res.write(chunk);
-      }
-      res.end();
-    } catch (err) {
-      console.error('Proxy error:', err.message);
-      res.writeHead(500, { 'Content-Type': 'text/plain' });
-      res.end('Something went wrong.');
+    const response = await fetchWithTimeout(targetUrl, options);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-  } else {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Route not found.');
+
+    const data = await response.json();
+    return c.json(data);
+  } catch (error) {
+    console.error('Proxy error:', error);
+    return c.json(
+      { error: 'Failed to fetch from service', details: error.message },
+      500
+    );
   }
-});
+};
 
-// Menjalankan proxy server
-proxyServer.listen(8000, () => {
-  console.log('Proxy server is running on port 8000');
-});
+// Rute GET dinamis
+app.get('/*', (c) => proxyHandler(c, 'GET'));
+
+// Rute POST dinamis
+app.post('/*', (c) => proxyHandler(c, 'POST'));
+
+export default app;

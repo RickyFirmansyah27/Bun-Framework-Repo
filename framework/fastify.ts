@@ -11,7 +11,7 @@ fastify.get('/', (request, reply) => {
   });
 });
 
-fastify.get('/hono/data', async (c) => {
+fastify.get('/express', async (c) => {
   const response = await fetch('https://bun-express-typescript.vercel.app/express/user');
   const data = await response.json();
   return data;
