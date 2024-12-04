@@ -1,3 +1,5 @@
+import { Logger } from "./helper";
+
 const serviceMap: Record<string, string> = {
   auth: 'https://auth-service-production-shared.up.railway.app/api/auth/',
   express: 'https://bun-express-typescripts.vercel.app/api/express/',
@@ -5,6 +7,17 @@ const serviceMap: Record<string, string> = {
   elysia: 'https://bun-elysia-typescripts.vercel.app/api/elysia/',
   fastify: 'https://bun-fastify-typescripts.vercel.app/api/fastify/',
   koa: 'https://bun-koa-typescripts.vercel.app/api/koa/',
+};
+
+const getBearerToken = async (req: Request): Promise<string | null> => {
+  // Cek apakah ada header Authorization pada request
+  const authHeader = req.headers.get('Authorization');
+  if (!authHeader) {
+    return null;
+  }
+  // Mengambil token dari header Authorization
+  const token = authHeader.replace('Bearer ', '');
+  return token || null;
 };
 
 // Fetch dengan timeout
@@ -22,21 +35,17 @@ const fetchWithTimeout = async (url: string, options: RequestInit, timeout = 500
   }
 };
 
-// Logger function to log request and response
 const logRequestAndResponse = (req: Request, res: Response, start: [number, number]): void => {
   const duration = process.hrtime(start);
   const durationInMs = duration[0] * 1000 + duration[1] / 1e6;
 
-  // Log request
-  console.log(`Request | Method: ${req.method} | Headers: ${JSON.stringify(req.headers)} | URL: ${req.url}`);
+  Logger.info(`Request | Method: ${req.method} | Headers: ${JSON.stringify(req.headers)} | URL: ${req.url}`);
 
-  // Log response (status and duration)
-  console.log(`Response | Method: ${req.method} | URL: ${req.url} | Status: ${res.status} | Duration: ${durationInMs.toFixed(2)} ms`);
+  Logger.info(`Response | Method: ${req.method} | URL: ${req.url} | Status: ${res.status} | Duration: ${durationInMs.toFixed(2)} ms`);
 };
 
-// Fungsi handler untuk proxy dinamis
 const proxyHandler = async (req: Request, method: string): Promise<Response> => {
-  const start = process.hrtime(); // Start timer for logging
+  const start = process.hrtime();
   let res: Response;
 
   try {
@@ -53,12 +62,28 @@ const proxyHandler = async (req: Request, method: string): Promise<Response> => 
       return res;
     }
 
+    let token: string | null = null;
+    if (service !== 'auth') {
+      token = await getBearerToken(req);
+      if (!token) {
+        res = new Response(
+          JSON.stringify({ error: 'Unauthorized Access' }),
+          { status: 401, headers: { 'Content-Type': 'application/json' } }
+        );
+        logRequestAndResponse(req, res, start);
+        return res;
+      }
+    }
+
     const dynamicPath = dynamicPathParts.join('/');
     const targetUrl = `${targetBaseUrl}${dynamicPath}`;
 
     const options: RequestInit = {
       method,
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+      },
     };
 
     if (method === 'POST' || method === 'PUT' || method === 'PATCH') {
@@ -95,10 +120,11 @@ export default {
   fetch: async (req: Request): Promise<Response> => {
     const method = req.method;
 
-    if (method === 'GET' || method === 'POST') {
+    // Mengatur handler untuk metode GET, POST, PUT, dan PATCH
+    if (method === 'GET' || method === 'POST' || method === 'PUT' || method === 'PATCH') {
       return proxyHandler(req, method);
     }
 
-    return new Response('Method not allowed', { status: 405 });
+    return new Response('Method Not Allowed', { status: 405 });
   },
 };
