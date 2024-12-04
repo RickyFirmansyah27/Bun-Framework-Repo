@@ -1,11 +1,3 @@
-import { Hono } from 'hono';
-import { cors } from 'hono/cors';
-
-const app = new Hono();
-
-// Middleware CORS
-app.use('*', cors({ origin: '*', methods: ['GET', 'POST', 'OPTIONS'] }));
-
 // Daftar base URL dari layanan
 const serviceMap = {
   express: 'https://bun-express-typescripts.vercel.app/api/express/',
@@ -30,14 +22,18 @@ const fetchWithTimeout = async (url, options, timeout = 5000) => {
   }
 };
 
-// Handler proxy dinamis
-const proxyHandler = async (c, method) => {
+// Fungsi handler untuk proxy dinamis
+const proxyHandler = async (req, method) => {
   try {
-    const [_, service, ...dynamicPathParts] = c.req.path.split('/');
+    const url = new URL(req.url);
+    const [, service, ...dynamicPathParts] = url.pathname.split('/');
     const targetBaseUrl = serviceMap[service];
 
     if (!targetBaseUrl) {
-      return c.json({ error: `Service "${service}" not found` }, 404);
+      return new Response(JSON.stringify({ error: `Service "${service}" not found` }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const dynamicPath = dynamicPathParts.join('/');
@@ -49,7 +45,8 @@ const proxyHandler = async (c, method) => {
     };
 
     if (method === 'POST') {
-      options.body = JSON.stringify(await c.req.json());
+      const body = await req.json();
+      options.body = JSON.stringify(body);
     }
 
     const response = await fetchWithTimeout(targetUrl, options);
@@ -58,20 +55,28 @@ const proxyHandler = async (c, method) => {
     }
 
     const data = await response.json();
-    return c.json(data);
+    return new Response(JSON.stringify(data), {
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (error) {
     console.error('Proxy error:', error);
-    return c.json(
-      { error: 'Failed to fetch from service', details: error.message },
-      500
+    return new Response(
+      JSON.stringify({ error: 'Failed to fetch from service', details: error.message }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
 };
 
-// Rute GET dinamis
-app.get('/*', (c) => proxyHandler(c, 'GET'));
+// Jalankan server menggunakan Bun
+export default {
+  port: 8000, // Ganti dengan port yang diinginkan
+  fetch: async (req) => {
+    const method = req.method;
 
-// Rute POST dinamis
-app.post('/*', (c) => proxyHandler(c, 'POST'));
+    if (method === 'GET' || method === 'POST') {
+      return proxyHandler(req, method);
+    }
 
-export default app;
+    return new Response('Method not allowed', { status: 405 });
+  },
+};
