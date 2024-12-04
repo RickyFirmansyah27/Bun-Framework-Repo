@@ -1,6 +1,7 @@
 // @bun
 // src/index.ts
 var serviceMap = {
+  auth: "https://auth-service-production-shared.up.railway.app/api/auth/",
   express: "https://bun-express-typescripts.vercel.app/api/express/",
   hono: "https://bun-hono-typescripts.vercel.app/api/hono/",
   elysia: "https://bun-elysia-typescripts.vercel.app/api/elysia/",
@@ -46,7 +47,7 @@ var proxyHandler = async (req, method) => {
       method,
       headers: { "Content-Type": "application/json" }
     };
-    if (method === "POST") {
+    if (method === "POST" || method === "PUT" || method === "PATCH") {
       const body = await req.json();
       options.body = JSON.stringify(body);
     }
@@ -62,7 +63,7 @@ var proxyHandler = async (req, method) => {
     return res;
   } catch (error) {
     console.error("Proxy error:", error);
-    res = new Response(JSON.stringify({ error: "Failed to fetch from service", details: error.message }), { status: 500, headers: { "Content-Type": "application/json" } });
+    res = new Response(JSON.stringify({ error: "Service Unreachable", details: error.message }), { status: 500, headers: { "Content-Type": "application/json" } });
     logRequestAndResponse(req, res, start);
     return res;
   }

@@ -1,4 +1,5 @@
-const serviceMap = {
+const serviceMap: Record<string, string> = {
+  auth: 'https://auth-service-production-shared.up.railway.app/api/auth/',
   express: 'https://bun-express-typescripts.vercel.app/api/express/',
   hono: 'https://bun-hono-typescripts.vercel.app/api/hono/',
   elysia: 'https://bun-elysia-typescripts.vercel.app/api/elysia/',
@@ -7,7 +8,7 @@ const serviceMap = {
 };
 
 // Fetch dengan timeout
-const fetchWithTimeout = async (url, options, timeout = 5000) => {
+const fetchWithTimeout = async (url: string, options: RequestInit, timeout = 5000): Promise<Response> => {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeout);
 
@@ -22,7 +23,7 @@ const fetchWithTimeout = async (url, options, timeout = 5000) => {
 };
 
 // Logger function to log request and response
-const logRequestAndResponse = (req, res, start) => {
+const logRequestAndResponse = (req: Request, res: Response, start: [number, number]): void => {
   const duration = process.hrtime(start);
   const durationInMs = duration[0] * 1000 + duration[1] / 1e6;
 
@@ -34,9 +35,10 @@ const logRequestAndResponse = (req, res, start) => {
 };
 
 // Fungsi handler untuk proxy dinamis
-const proxyHandler = async (req, method) => {
+const proxyHandler = async (req: Request, method: string): Promise<Response> => {
   const start = process.hrtime(); // Start timer for logging
-  let res;
+  let res: Response;
+
   try {
     const url = new URL(req.url);
     const [, service, ...dynamicPathParts] = url.pathname.split('/');
@@ -54,12 +56,12 @@ const proxyHandler = async (req, method) => {
     const dynamicPath = dynamicPathParts.join('/');
     const targetUrl = `${targetBaseUrl}${dynamicPath}`;
 
-    const options = {
+    const options: RequestInit = {
       method,
       headers: { 'Content-Type': 'application/json' },
     };
 
-    if (method === 'POST') {
+    if (method === 'POST' || method === 'PUT' || method === 'PATCH') {
       const body = await req.json();
       options.body = JSON.stringify(body);
     }
@@ -79,7 +81,7 @@ const proxyHandler = async (req, method) => {
   } catch (error) {
     console.error('Proxy error:', error);
     res = new Response(
-      JSON.stringify({ error: 'Failed to fetch from service', details: error.message }),
+      JSON.stringify({ error: 'Service Unreachable', details: error.message }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
     logRequestAndResponse(req, res, start);
@@ -87,10 +89,10 @@ const proxyHandler = async (req, method) => {
   }
 };
 
-// Jalankan server menggunakan Bun
+// Bun server setup
 export default {
   port: 8000, // Ganti dengan port yang diinginkan
-  fetch: async (req) => {
+  fetch: async (req: Request): Promise<Response> => {
     const method = req.method;
 
     if (method === 'GET' || method === 'POST') {
