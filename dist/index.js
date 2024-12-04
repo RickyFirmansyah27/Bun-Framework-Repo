@@ -19,16 +19,26 @@ var fetchWithTimeout = async (url, options, timeout = 5000) => {
     throw error;
   }
 };
+var logRequestAndResponse = (req, res, start) => {
+  const duration = process.hrtime(start);
+  const durationInMs = duration[0] * 1000 + duration[1] / 1e6;
+  console.log(`Request | Method: ${req.method} | Headers: ${JSON.stringify(req.headers)} | URL: ${req.url}`);
+  console.log(`Response | Method: ${req.method} | URL: ${req.url} | Status: ${res.status} | Duration: ${durationInMs.toFixed(2)} ms`);
+};
 var proxyHandler = async (req, method) => {
+  const start = process.hrtime();
+  let res;
   try {
     const url = new URL(req.url);
     const [, service, ...dynamicPathParts] = url.pathname.split("/");
     const targetBaseUrl = serviceMap[service];
     if (!targetBaseUrl) {
-      return new Response(JSON.stringify({ error: `Service "${service}" not found` }), {
+      res = new Response(JSON.stringify({ error: `Service "${service}" not found` }), {
         status: 404,
         headers: { "Content-Type": "application/json" }
       });
+      logRequestAndResponse(req, res, start);
+      return res;
     }
     const dynamicPath = dynamicPathParts.join("/");
     const targetUrl = `${targetBaseUrl}${dynamicPath}`;
@@ -45,12 +55,16 @@ var proxyHandler = async (req, method) => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    return new Response(JSON.stringify(data), {
+    res = new Response(JSON.stringify(data), {
       headers: { "Content-Type": "application/json" }
     });
+    logRequestAndResponse(req, res, start);
+    return res;
   } catch (error) {
     console.error("Proxy error:", error);
-    return new Response(JSON.stringify({ error: "Failed to fetch from service", details: error.message }), { status: 500, headers: { "Content-Type": "application/json" } });
+    res = new Response(JSON.stringify({ error: "Failed to fetch from service", details: error.message }), { status: 500, headers: { "Content-Type": "application/json" } });
+    logRequestAndResponse(req, res, start);
+    return res;
   }
 };
 var src_default = {
