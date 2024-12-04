@@ -1,4 +1,6 @@
 import { Logger } from "./helper";
+import { createServer, IncomingMessage, ServerResponse } from "http";
+import { parse } from "url";
 
 const serviceMap: Record<string, string> = {
   auth: 'https://auth-service-production-shared.up.railway.app/api/auth/',
@@ -9,18 +11,15 @@ const serviceMap: Record<string, string> = {
   koa: 'https://bun-koa-typescripts.vercel.app/api/koa/',
 };
 
-const getBearerToken = async (req: Request): Promise<string | null> => {
-  // Cek apakah ada header Authorization pada request
-  const authHeader = req.headers.get('Authorization');
+const getBearerToken = async (req: IncomingMessage): Promise<string | null> => {
+  const authHeader = req.headers['authorization'];
   if (!authHeader) {
     return null;
   }
-  // Mengambil token dari header Authorization
   const token = authHeader.replace('Bearer ', '');
   return token || null;
 };
 
-// Fetch dengan timeout
 const fetchWithTimeout = async (url: string, options: RequestInit, timeout = 5000): Promise<Response> => {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeout);
@@ -35,43 +34,38 @@ const fetchWithTimeout = async (url: string, options: RequestInit, timeout = 500
   }
 };
 
-const logRequestAndResponse = (req: Request, res: Response, start: [number, number]): void => {
+const logRequestAndResponse = (req: IncomingMessage, res: ServerResponse, start: [number, number]): void => {
   const duration = process.hrtime(start);
   const durationInMs = duration[0] * 1000 + duration[1] / 1e6;
-
   Logger.info(`Request | Method: ${req.method} | Headers: ${JSON.stringify(req.headers)} | URL: ${req.url}`);
-
-  Logger.info(`Response | Method: ${req.method} | URL: ${req.url} | Status: ${res.status} | Duration: ${durationInMs.toFixed(2)} ms`);
+  Logger.info(`Response | Method: ${req.method} | URL: ${req.url} | Status: ${res.statusCode} | Duration: ${durationInMs.toFixed(2)} ms`);
 };
 
-const proxyHandler = async (req: Request, method: string): Promise<Response> => {
+const proxyHandler = async (req: IncomingMessage, res: ServerResponse, method: string): Promise<void> => {
   const start = process.hrtime();
-  let res: Response;
 
   try {
-    const url = new URL(req.url);
-    const [, service, ...dynamicPathParts] = url.pathname.split('/');
+    const url = parse(req.url!, true);
+    const [, service, ...dynamicPathParts] = url.pathname!.split('/');
     const targetBaseUrl = serviceMap[service];
 
     if (!targetBaseUrl) {
-      res = new Response(JSON.stringify({ error: `Service "${service}" not found` }), {
-        status: 404,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      res.statusCode = 403;
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify({ error: `Unauthorized Access` }));
       logRequestAndResponse(req, res, start);
-      return res;
+      return;
     }
 
     let token: string | null = null;
     if (service !== 'auth') {
       token = await getBearerToken(req);
       if (!token) {
-        res = new Response(
-          JSON.stringify({ error: 'Unauthorized Access' }),
-          { status: 401, headers: { 'Content-Type': 'application/json' } }
-        );
+        res.statusCode = 401;
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ error: 'Unauthorized Access' }));
         logRequestAndResponse(req, res, start);
-        return res;
+        return;
       }
     }
 
@@ -87,44 +81,60 @@ const proxyHandler = async (req: Request, method: string): Promise<Response> => 
     };
 
     if (method === 'POST' || method === 'PUT' || method === 'PATCH') {
-      const body = await req.json();
-      options.body = JSON.stringify(body);
+      let body = '';
+      req.on('data', chunk => {
+        body += chunk;
+      });
+
+      req.on('end', async () => {
+        options.body = body;
+        const response = await fetchWithTimeout(targetUrl, options);
+        if (!response.ok) {
+          throw new Error(`Serice unreachable`);
+        }
+
+        const data = await response.json();
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(data));
+
+        logRequestAndResponse(req, res, start);
+      });
+      return;
     }
 
     const response = await fetchWithTimeout(targetUrl, options);
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`Serice unreachable`);
     }
 
     const data = await response.json();
-    res = new Response(JSON.stringify(data), {
-      headers: { 'Content-Type': 'application/json' },
-    });
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(data));
 
     logRequestAndResponse(req, res, start);
-    return res;
+
   } catch (error) {
     console.error('Proxy error:', error);
-    res = new Response(
-      JSON.stringify({ error: 'Service Unreachable', details: error.message }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    res.statusCode = 500;
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({ error: 'Service Unreachable', details: error.message }));
     logRequestAndResponse(req, res, start);
-    return res;
   }
 };
 
-// Bun server setup
-export default {
-  port: 8000, // Ganti dengan port yang diinginkan
-  fetch: async (req: Request): Promise<Response> => {
-    const method = req.method;
+// Create an HTTP server to listen on port 8000
+const server = createServer((req, res) => {
+  const method = req.method!;
+  if (method === 'GET' || method === 'POST' || method === 'PUT' || method === 'PATCH') {
+    proxyHandler(req, res, method);
+  } else {
+    res.statusCode = 405;
+    res.end('Method Not Allowed');
+  }
+});
 
-    // Mengatur handler untuk metode GET, POST, PUT, dan PATCH
-    if (method === 'GET' || method === 'POST' || method === 'PUT' || method === 'PATCH') {
-      return proxyHandler(req, method);
-    }
+// Set server to listen on port 8000
+server.listen(8000, () => {
+  console.log('Server running at http://localhost:8000');
+});
 
-    return new Response('Method Not Allowed', { status: 405 });
-  },
-};

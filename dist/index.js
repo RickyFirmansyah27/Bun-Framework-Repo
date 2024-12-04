@@ -15317,6 +15317,8 @@ var Logger = import_winston2.createLogger({
   ]
 });
 // src/index.ts
+import { createServer } from "http";
+import { parse } from "url";
 var serviceMap = {
   auth: "https://auth-service-production-shared.up.railway.app/api/auth/",
   express: "https://bun-express-typescripts.vercel.app/api/express/",
@@ -15326,7 +15328,7 @@ var serviceMap = {
   koa: "https://bun-koa-typescripts.vercel.app/api/koa/"
 };
 var getBearerToken = async (req) => {
-  const authHeader = req.headers.get("Authorization");
+  const authHeader = req.headers["authorization"];
   if (!authHeader) {
     return null;
   }
@@ -15349,30 +15351,30 @@ var logRequestAndResponse = (req, res, start) => {
   const duration = process.hrtime(start);
   const durationInMs = duration[0] * 1000 + duration[1] / 1e6;
   Logger.info(`Request | Method: ${req.method} | Headers: ${JSON.stringify(req.headers)} | URL: ${req.url}`);
-  Logger.info(`Response | Method: ${req.method} | URL: ${req.url} | Status: ${res.status} | Duration: ${durationInMs.toFixed(2)} ms`);
+  Logger.info(`Response | Method: ${req.method} | URL: ${req.url} | Status: ${res.statusCode} | Duration: ${durationInMs.toFixed(2)} ms`);
 };
-var proxyHandler = async (req, method) => {
+var proxyHandler = async (req, res, method) => {
   const start = process.hrtime();
-  let res;
   try {
-    const url = new URL(req.url);
+    const url = parse(req.url, true);
     const [, service, ...dynamicPathParts] = url.pathname.split("/");
     const targetBaseUrl = serviceMap[service];
     if (!targetBaseUrl) {
-      res = new Response(JSON.stringify({ error: `Service "${service}" not found` }), {
-        status: 404,
-        headers: { "Content-Type": "application/json" }
-      });
+      res.statusCode = 404;
+      res.setHeader("Content-Type", "application/json");
+      res.end(JSON.stringify({ error: `Service "${service}" not found` }));
       logRequestAndResponse(req, res, start);
-      return res;
+      return;
     }
     let token = null;
     if (service !== "auth") {
       token = await getBearerToken(req);
       if (!token) {
-        res = new Response(JSON.stringify({ error: "Unauthorized Access" }), { status: 401, headers: { "Content-Type": "application/json" } });
+        res.statusCode = 401;
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ error: "Unauthorized Access" }));
         logRequestAndResponse(req, res, start);
-        return res;
+        return;
       }
     }
     const dynamicPath = dynamicPathParts.join("/");
@@ -15385,36 +15387,48 @@ var proxyHandler = async (req, method) => {
       }
     };
     if (method === "POST" || method === "PUT" || method === "PATCH") {
-      const body = await req.json();
-      options.body = JSON.stringify(body);
+      let body = "";
+      req.on("data", (chunk) => {
+        body += chunk;
+      });
+      req.on("end", async () => {
+        options.body = body;
+        const response2 = await fetchWithTimeout(targetUrl, options);
+        if (!response2.ok) {
+          throw new Error(`HTTP error! status: ${response2.status}`);
+        }
+        const data2 = await response2.json();
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify(data2));
+        logRequestAndResponse(req, res, start);
+      });
+      return;
     }
     const response = await fetchWithTimeout(targetUrl, options);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    res = new Response(JSON.stringify(data), {
-      headers: { "Content-Type": "application/json" }
-    });
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify(data));
     logRequestAndResponse(req, res, start);
-    return res;
   } catch (error) {
     console.error("Proxy error:", error);
-    res = new Response(JSON.stringify({ error: "Service Unreachable", details: error.message }), { status: 500, headers: { "Content-Type": "application/json" } });
+    res.statusCode = 500;
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify({ error: "Service Unreachable", details: error.message }));
     logRequestAndResponse(req, res, start);
-    return res;
   }
 };
-var src_default = {
-  port: 8000,
-  fetch: async (req) => {
-    const method = req.method;
-    if (method === "GET" || method === "POST" || method === "PUT" || method === "PATCH") {
-      return proxyHandler(req, method);
-    }
-    return new Response("Method Not Allowed", { status: 405 });
+var server = createServer((req, res) => {
+  const method = req.method;
+  if (method === "GET" || method === "POST" || method === "PUT" || method === "PATCH") {
+    proxyHandler(req, res, method);
+  } else {
+    res.statusCode = 405;
+    res.end("Method Not Allowed");
   }
-};
-export {
-  src_default as default
-};
+});
+server.listen(8000, () => {
+  console.log("Server running at http://localhost:8000");
+});
