@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "bun run nodemon src/index",
+    "dev": "bun run --watch ./src/index",
     "build": "bun build ./src/index.ts --outdir ./dist --target bun",
     "start": "bun run ./dist/index.js"
   },
