@@ -15360,9 +15360,9 @@ var proxyHandler = async (req, res, method) => {
     const [, service, ...dynamicPathParts] = url.pathname.split("/");
     const targetBaseUrl = serviceMap[service];
     if (!targetBaseUrl) {
-      res.statusCode = 404;
+      res.statusCode = 403;
       res.setHeader("Content-Type", "application/json");
-      res.end(JSON.stringify({ error: `Service "${service}" not found` }));
+      res.end(JSON.stringify({ error: `Unauthorized Access` }));
       logRequestAndResponse(req, res, start);
       return;
     }
@@ -15395,7 +15395,7 @@ var proxyHandler = async (req, res, method) => {
         options.body = body;
         const response2 = await fetchWithTimeout(targetUrl, options);
         if (!response2.ok) {
-          throw new Error(`HTTP error! status: ${response2.status}`);
+          throw new Error(`Serice unreachable`);
         }
         const data2 = await response2.json();
         res.setHeader("Content-Type", "application/json");
@@ -15406,7 +15406,7 @@ var proxyHandler = async (req, res, method) => {
     }
     const response = await fetchWithTimeout(targetUrl, options);
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`Serice unreachable`);
     }
     const data = await response.json();
     res.setHeader("Content-Type", "application/json");

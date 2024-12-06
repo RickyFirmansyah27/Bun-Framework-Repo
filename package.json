@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "bun run nodemon src/index.ts",
+    "dev": "bun run nodemon src/index",
     "build": "bun build ./src/index.ts --outdir ./dist --target bun",
-    "start": "nodemon src/index.ts"
+    "start": "bun run ./dist/index.js"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.7",
