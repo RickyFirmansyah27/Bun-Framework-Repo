@@ -10,16 +10,15 @@ const logtail = new Logtail(
   process.env.LOGTAIL_API_KEY || 'qLeeazh2QzV47U2f7EnoMhT8'
 );
 
-const { combine, timestamp, printf, colorize } = format;
+const { combine, timestamp, printf } = format;
 
 const loggerFormat = printf(({ level, message, timestamp }) => {
-  return `${timestamp} [${level}]: ${message}`;
+  return `${timestamp} [${level.toUpperCase()}]: ${message}`;
 });
 
 export const Logger = createLogger({
   level: 'debug',
   format: combine(
-    colorize(),
     timestamp({ format: () => moment().format('ddd, DD MMM YYYY HH:mm:ss') }),
     loggerFormat
   ),
