@@ -3,7 +3,7 @@ import { parse } from 'url';
 import { Logger } from './helper';
 
 const SERVICE_MAP: Record<string, string> = {
-  auth: 'https://auth-service-production-shared.up.railway.app/api/auth/',
+  auth: 'https://bun-native-typescripts.vercel.app/api/auth/',
   express: 'https://bun-express-typescripts.vercel.app/api/express/',
   hono: 'https://bun-hono-typescripts.vercel.app/api/hono/',
   elysia: 'https://bun-elysia-typescripts.vercel.app/api/elysia/',
